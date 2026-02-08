@@ -1,2 +1,2 @@
 # Rent-a-local
-Web application that lets you rent locals for your private meetings.
+Web application that lets you rent premises for your private meetings.

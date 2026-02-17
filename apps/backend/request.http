@@ -1,0 +1,8 @@
+### Create user test
+POST http://localhost:3000/users/signup/
+Content-Type: application/json 
+
+{
+    "email":"hanszimm@egmail.com",
+    "password":"ddddddddDDDDddd1444141////"
+}

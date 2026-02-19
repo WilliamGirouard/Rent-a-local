@@ -3,4 +3,6 @@ import { Repository } from 'typeorm';
 export declare class UsersService {
     private usersRepository;
     constructor(usersRepository: Repository<User>);
+    create(email: string, password: string): Promise<User>;
+    updateUser(id: number, attrs: Partial<User>): Promise<import("typeorm").UpdateResult> | null;
 }

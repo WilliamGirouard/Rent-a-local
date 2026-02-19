@@ -4,6 +4,14 @@ Content-Type: application/json
 
 {
     "email" : "ATNekoo@gmail.com",
-    "password": "aaa",
-    "name": "Jeff"
+    "password": "BIGGERHATERCLICKTHETRIGGER"
+}
+
+### update user test
+PATCH http://localhost:3000/users/1
+Content-Type: application/json
+
+{
+    "email" : "IMRUNNINGTOMYDEATHRN@outlook.fr",
+    "password" : 
 }

@@ -22,6 +22,18 @@ let UsersService = class UsersService {
     constructor(usersRepository) {
         this.usersRepository = usersRepository;
     }
+    create(email, password) {
+        const user = this.usersRepository.create({ email, password });
+        return this.usersRepository.save(user);
+    }
+    updateUser(id, attrs) {
+        const user = this.usersRepository.findOneBy({ id });
+        if (!user) {
+            return null;
+        }
+        Object.assign(user, attrs);
+        return this.usersRepository.update(id, attrs);
+    }
 };
 exports.UsersService = UsersService;
 exports.UsersService = UsersService = __decorate([

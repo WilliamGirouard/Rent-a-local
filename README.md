@@ -11,7 +11,8 @@ Web application that lets you rent premises for your private meetings.
     5- npm install -g npm@11.10.0
     6- npx @nestjs/cli g controller users
     7- npm i @nestjs/typeorm typeorm sqlite3
-    8- Installer : SQLite | Sur VSCode (extension)
+    8- npm i class-validator class-transformer
+    9- Installer : SQLite | Sur VSCode (extension)
 
 ### Etapes TODO Backend
     

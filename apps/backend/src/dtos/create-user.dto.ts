@@ -13,9 +13,16 @@ export class CreateUserDto {
     }, {
         message: "Your Password is cooked...Needs to be at least 14 carac. long, 2 uppercase, 2 numbers and 1 symbols.."
     })
-    
     @IsString()
     @IsNotEmpty()
     password: string
 
+    @IsString()
+    @IsNotEmpty()
+    firstName: string;
+    
+    @IsString()
+    @IsNotEmpty()
+    lastName: string;
+    
 }

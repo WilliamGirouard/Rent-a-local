@@ -3,6 +3,22 @@ POST http://localhost:3000/users/signup/
 Content-Type: application/json 
 
 {
-    "email":"hanszimm@egmail.com",
-    "password":"ddddddddDDDDddd1444141////"
+    "email":"TheBigStein@MyNameIsJeff.il",
+    "password":"IAmASpy(Hehe)$6$7$",
+    "firstName":"Jeff",
+    "lastName":"SteinButNotEinstein"
+}
+
+### List all users
+GET http://localhost:3000/users/users/
+
+### Find 1 user
+GET http://localhost:3000/users/5
+
+### Delete a user
+POST http://localhost:3000/users/deleteUser/
+Content-Type: application/json
+
+{
+    "id":1
 }

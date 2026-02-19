@@ -22,13 +22,54 @@ let UsersService = class UsersService {
     constructor(usersRepository) {
         this.usersRepository = usersRepository;
     }
-    transformUserFormToUserEntity() {
-    }
-    addDataToUser(user) {
-        if (user != null) {
-            throw new Error("User is non-existent");
+    async verifyAlreadyExistingEmail(email) {
+        const alreadyExistingBool = await this.usersRepository.existsBy({ email: email });
+        if (alreadyExistingBool) {
+            throw new Error("Un compte utilise deja cet email.");
         }
-        this.usersRepository.create(user);
+    }
+    async addUser(email, password, firstName, lastName) {
+        this.verifyAlreadyExistingEmail(email);
+        const user = new user_entity_1.User();
+        user.email = email;
+        user.password = password;
+        user.firstName = firstName;
+        user.lastName = lastName;
+        return await this.usersRepository.save(user);
+    }
+    async findAllUsers() {
+        return await this.usersRepository.find({
+            select: {
+                id: true,
+                email: true,
+                firstName: true,
+                lastName: true,
+            }
+        });
+    }
+    async findOneUser(id) {
+        const foundUser = await this.usersRepository.find({
+            select: {
+                id: true,
+                email: true,
+                firstName: true,
+                lastName: true,
+            },
+            where: {
+                id: id
+            }
+        });
+        if (foundUser == null) {
+            throw new Error("L'utilisateur n'existe pas..");
+        }
+        return foundUser;
+    }
+    async removeUser(id) {
+        const userExistBool = await this.usersRepository.existsBy({ id: id });
+        if (!userExistBool) {
+            throw new Error("User is non-existent you bad admin..");
+        }
+        await this.usersRepository.delete(id);
     }
 };
 exports.UsersService = UsersService;

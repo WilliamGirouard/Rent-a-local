@@ -10,6 +10,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.User = void 0;
+const class_transformer_1 = require("class-transformer");
 const typeorm_1 = require("typeorm");
 let User = class User {
     id;
@@ -17,6 +18,15 @@ let User = class User {
     password;
     firstName;
     lastName;
+    get fullName() {
+        return `${this.firstName} ${this.lastName}`;
+    }
+    logInsert() {
+        console.log(`User inserted with ID : ${this.id}`);
+    }
+    logRemove() {
+        console.log(`User deleted with ID : ${this.id} `);
+    }
 };
 exports.User = User;
 __decorate([
@@ -29,16 +39,36 @@ __decorate([
 ], User.prototype, "email", void 0);
 __decorate([
     (0, typeorm_1.Column)(),
+    (0, class_transformer_1.Exclude)(),
     __metadata("design:type", String)
 ], User.prototype, "password", void 0);
 __decorate([
     (0, typeorm_1.Column)(),
+    (0, class_transformer_1.Exclude)(),
     __metadata("design:type", String)
 ], User.prototype, "firstName", void 0);
 __decorate([
     (0, typeorm_1.Column)(),
+    (0, class_transformer_1.Exclude)(),
     __metadata("design:type", String)
 ], User.prototype, "lastName", void 0);
+__decorate([
+    (0, class_transformer_1.Expose)(),
+    __metadata("design:type", String),
+    __metadata("design:paramtypes", [])
+], User.prototype, "fullName", null);
+__decorate([
+    (0, typeorm_1.AfterInsert)(),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", void 0)
+], User.prototype, "logInsert", null);
+__decorate([
+    (0, typeorm_1.BeforeRemove)(),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", void 0)
+], User.prototype, "logRemove", null);
 exports.User = User = __decorate([
     (0, typeorm_1.Entity)()
 ], User);

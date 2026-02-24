@@ -1,13 +1,15 @@
 import { Injectable } from '@nestjs/common';
 import { User } from './user.entity';
-import { DataSource, IsNull, Repository } from 'typeorm';
+import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
+import { HashingService } from 'src/hashing/hashing.service';
 
 @Injectable()
 export class UsersService {
     constructor(
         @InjectRepository(User)
         private usersRepository : Repository<User>,
+        private hashingService : HashingService,
        // private dataSource : DataSource, Plus pour database et se connecter genre Postegresql etc..
     ) {}
 
@@ -20,30 +22,38 @@ export class UsersService {
     
     async addUser(email : string, password : string, firstName:string, lastName:string) : Promise<User> {
         this.verifyAlreadyExistingEmail(email);
-        const user = new User();
-        user.email = email; user.password = password; user.firstName = firstName; user.lastName = lastName;
+        const hashedPassword = await this.hashingService.passwordHasher(password);
+        const user = this.usersRepository.create({email,password:hashedPassword,firstName,lastName});
         return await this.usersRepository.save(user);
     }
 
     async findAllUsers() : Promise<User[]> {
-        return await this.usersRepository.find({
-            select: {
-                id:true,
-                email:true,
-                firstName:true,
-                lastName:true,
-            }
-        });
+        return await this.usersRepository.find();
     }
+
+    async FakeLoginTest(email:string, password:string) : Promise<boolean> {
+        let getEmailAccountHash = (await this.usersRepository.findBy({email:email})).at(0)?.password
+        if (getEmailAccountHash == undefined) {
+            getEmailAccountHash = "undefined";
+        }
+        console.log(getEmailAccountHash);
+        return await this.hashingService.compareHashToPassword(password, getEmailAccountHash);
+    }
+    //Manual serialization (Double security ?)
+//     async findAllUsers() : Promise<User[]> {
+//     return await this.usersRepository.find({
+//         select: {
+//             id:true,
+//             email:true,
+//             firstName:true,
+//             lastName:true,
+//         },
+//     }
+//     );
+// }
 
     async findOneUser(id : number) : Promise<User[] | null> {
         const foundUser = await this.usersRepository.find({
-            select: {
-                id:true,
-                email:true,
-                firstName:true,
-                lastName:true,
-            },
             where: {
                 id:id
             }
@@ -53,12 +63,38 @@ export class UsersService {
         }
         return foundUser;
     }
-
-    async removeUser(id:number) : Promise<void> {
-        const userExistBool = await this.usersRepository.existsBy({id:id});
-        if (!userExistBool) {
-            throw new Error("User is non-existent you bad admin..")
+    // async findOneUser(id : number) : Promise<User[] | null> {
+    //    const foundUser = await this.usersRepository.find({
+    //      select: {
+    //         id:true,
+    //         email:true,
+    //         firstName:true,
+    //         lastName:true,
+    //     },
+    //      where: {
+    //             id:id
+    //         }
+    //     });
+    //     if (foundUser == null) {
+    //         throw new Error("L'utilisateur n'existe pas..")
+    //     }
+    //     return foundUser;
+    // }
+    async removeUser(id:number) : Promise<User> {
+        const user = await this.usersRepository.findOneBy({id});
+        if (!user) {
+            throw new Error("User is non-existent")
         }
-        await this.usersRepository.delete(id);
+        return await this.usersRepository.remove(user);
+    }
+
+    async updateUser(id:number, attrs : Partial<User>)  {
+        const user = await this.usersRepository.findOneBy({id});
+        if (!user) {
+            throw new Error("User is non-existent")
+        }
+        if (attrs == id)
+        Object.assign(user,attrs);
+        return this.usersRepository.save(user)
     }
 }

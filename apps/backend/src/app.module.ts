@@ -5,6 +5,7 @@ import { ReportsModule } from './reports/reports.module';
 import { UsersModule } from './users/users.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from './users/user.entity';
+import { HashingModule } from './hashing/hashing.module';
 
 @Module({
   imports: [TypeOrmModule.forRoot(
@@ -14,7 +15,7 @@ import { User } from './users/user.entity';
       entities: [User],
       synchronize: true,
     }
-), UsersModule, ReportsModule],
+), UsersModule, ReportsModule, HashingModule],
   controllers: [AppController],
   providers: [AppService],
 })

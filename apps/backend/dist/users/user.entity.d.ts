@@ -4,4 +4,7 @@ export declare class User {
     password: string;
     firstName: string;
     lastName: string;
+    get fullName(): string;
+    logInsert(): void;
+    logRemove(): void;
 }

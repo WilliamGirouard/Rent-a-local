@@ -6,21 +6,16 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.UsersModule = void 0;
+exports.HashingModule = void 0;
 const common_1 = require("@nestjs/common");
-const users_service_1 = require("./users.service");
-const users_controller_1 = require("./users.controller");
-const typeorm_1 = require("@nestjs/typeorm");
-const user_entity_1 = require("./user.entity");
-const hashing_module_1 = require("../hashing/hashing.module");
-let UsersModule = class UsersModule {
+const hashing_service_1 = require("./hashing.service");
+let HashingModule = class HashingModule {
 };
-exports.UsersModule = UsersModule;
-exports.UsersModule = UsersModule = __decorate([
+exports.HashingModule = HashingModule;
+exports.HashingModule = HashingModule = __decorate([
     (0, common_1.Module)({
-        imports: [typeorm_1.TypeOrmModule.forFeature([user_entity_1.User]), hashing_module_1.HashingModule],
-        providers: [users_service_1.UsersService],
-        controllers: [users_controller_1.UsersController]
+        providers: [hashing_service_1.HashingService],
+        exports: [hashing_service_1.HashingService]
     })
-], UsersModule);
-//# sourceMappingURL=users.module.js.map
+], HashingModule);
+//# sourceMappingURL=hashing.module.js.map

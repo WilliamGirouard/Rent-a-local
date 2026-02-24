@@ -3,10 +3,10 @@ POST http://localhost:3000/users/signup/
 Content-Type: application/json 
 
 {
-    "email":"TheBigStein@MyNameIsJeff.il",
-    "password":"IAmASpy(Hehe)$6$7$",
-    "firstName":"Jeff",
-    "lastName":"SteinButNotEinstein"
+    "email":"prout@yes.com",
+    "password":"DonaldTrumpISN0TAG00DGUY$!$",
+    "firstName":"Donald",
+    "lastName":"Trump"
 }
 
 ### List all users
@@ -15,10 +15,22 @@ GET http://localhost:3000/users/users/
 ### Find 1 user
 GET http://localhost:3000/users/5
 
+### Update user
+PATCH http://localhost:3000/users/update/2
+
 ### Delete a user
-POST http://localhost:3000/users/deleteUser/
+DELETE http://localhost:3000/users/deleteUser/
 Content-Type: application/json
 
 {
-    "id":1
+    "id":11
+}
+
+### Test fake user login
+POST http://localhost:3000/users/login/
+Content-Type: application/json 
+
+{
+    "email":"prout@yes.comm",
+    "password":"DonaldTrumpISN0TAG00DGUY$!$"
 }

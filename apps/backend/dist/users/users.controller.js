@@ -17,6 +17,9 @@ const common_1 = require("@nestjs/common");
 const users_service_1 = require("./users.service");
 const create_user_dto_1 = require("../dtos/create-user.dto");
 const delete_user_dto_1 = require("../dtos/delete-user.dto");
+const update_user_dto_1 = require("../dtos/update-user.dto");
+const login_user_dto_1 = require("../dtos/login-user.dto");
+const user_entity_1 = require("./user.entity");
 let UsersController = class UsersController {
     usersService;
     constructor(usersService) {
@@ -35,6 +38,12 @@ let UsersController = class UsersController {
     async deleteUser(body) {
         return await this.usersService.removeUser(body.id);
     }
+    async updateUser(id, body) {
+        return await this.usersService.updateUser(id, body);
+    }
+    async FakeLoginTest(body) {
+        return await this.usersService.FakeLoginTest(body.email, body.password);
+    }
 };
 exports.UsersController = UsersController;
 __decorate([
@@ -45,12 +54,16 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], UsersController.prototype, "createUser", null);
 __decorate([
+    (0, common_1.UseInterceptors)(common_1.ClassSerializerInterceptor),
+    (0, common_1.SerializeOptions)({ type: user_entity_1.User }),
     (0, common_1.Get)("/users"),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)
 ], UsersController.prototype, "getUsers", null);
 __decorate([
+    (0, common_1.UseInterceptors)(common_1.ClassSerializerInterceptor),
+    (0, common_1.SerializeOptions)({ type: user_entity_1.User }),
     (0, common_1.Get)("/:id"),
     __param(0, (0, common_1.Param)("id")),
     __metadata("design:type", Function),
@@ -58,12 +71,27 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], UsersController.prototype, "getUserById", null);
 __decorate([
-    (0, common_1.Post)("/deleteUser"),
+    (0, common_1.Delete)("/deleteUser"),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [delete_user_dto_1.DeleteUserDto]),
     __metadata("design:returntype", Promise)
 ], UsersController.prototype, "deleteUser", null);
+__decorate([
+    (0, common_1.Patch)("/update/:id"),
+    __param(0, (0, common_1.Param)("id")),
+    __param(1, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Number, update_user_dto_1.UpdateUserDto]),
+    __metadata("design:returntype", Promise)
+], UsersController.prototype, "updateUser", null);
+__decorate([
+    (0, common_1.Post)("/login"),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [login_user_dto_1.LoginUserDto]),
+    __metadata("design:returntype", Promise)
+], UsersController.prototype, "FakeLoginTest", null);
 exports.UsersController = UsersController = __decorate([
     (0, common_1.Controller)('users'),
     __metadata("design:paramtypes", [users_service_1.UsersService])

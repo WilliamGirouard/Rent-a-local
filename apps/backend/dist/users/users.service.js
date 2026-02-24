@@ -17,10 +17,13 @@ const common_1 = require("@nestjs/common");
 const user_entity_1 = require("./user.entity");
 const typeorm_1 = require("typeorm");
 const typeorm_2 = require("@nestjs/typeorm");
+const hashing_service_1 = require("../hashing/hashing.service");
 let UsersService = class UsersService {
     usersRepository;
-    constructor(usersRepository) {
+    hashingService;
+    constructor(usersRepository, hashingService) {
         this.usersRepository = usersRepository;
+        this.hashingService = hashingService;
     }
     async verifyAlreadyExistingEmail(email) {
         const alreadyExistingBool = await this.usersRepository.existsBy({ email: email });
@@ -30,31 +33,23 @@ let UsersService = class UsersService {
     }
     async addUser(email, password, firstName, lastName) {
         this.verifyAlreadyExistingEmail(email);
-        const user = new user_entity_1.User();
-        user.email = email;
-        user.password = password;
-        user.firstName = firstName;
-        user.lastName = lastName;
+        const hashedPassword = await this.hashingService.passwordHasher(password);
+        const user = this.usersRepository.create({ email, password: hashedPassword, firstName, lastName });
         return await this.usersRepository.save(user);
     }
     async findAllUsers() {
-        return await this.usersRepository.find({
-            select: {
-                id: true,
-                email: true,
-                firstName: true,
-                lastName: true,
-            }
-        });
+        return await this.usersRepository.find();
+    }
+    async FakeLoginTest(email, password) {
+        let getEmailAccountHash = (await this.usersRepository.findBy({ email: email })).at(0)?.password;
+        if (getEmailAccountHash == undefined) {
+            getEmailAccountHash = "undefined";
+        }
+        console.log(getEmailAccountHash);
+        return await this.hashingService.compareHashToPassword(password, getEmailAccountHash);
     }
     async findOneUser(id) {
         const foundUser = await this.usersRepository.find({
-            select: {
-                id: true,
-                email: true,
-                firstName: true,
-                lastName: true,
-            },
             where: {
                 id: id
             }
@@ -65,17 +60,27 @@ let UsersService = class UsersService {
         return foundUser;
     }
     async removeUser(id) {
-        const userExistBool = await this.usersRepository.existsBy({ id: id });
-        if (!userExistBool) {
-            throw new Error("User is non-existent you bad admin..");
+        const user = await this.usersRepository.findOneBy({ id });
+        if (!user) {
+            throw new Error("User is non-existent");
         }
-        await this.usersRepository.delete(id);
+        return await this.usersRepository.remove(user);
+    }
+    async updateUser(id, attrs) {
+        const user = await this.usersRepository.findOneBy({ id });
+        if (!user) {
+            throw new Error("User is non-existent");
+        }
+        if (attrs == id)
+            Object.assign(user, attrs);
+        return this.usersRepository.save(user);
     }
 };
 exports.UsersService = UsersService;
 exports.UsersService = UsersService = __decorate([
     (0, common_1.Injectable)(),
     __param(0, (0, typeorm_2.InjectRepository)(user_entity_1.User)),
-    __metadata("design:paramtypes", [typeorm_1.Repository])
+    __metadata("design:paramtypes", [typeorm_1.Repository,
+        hashing_service_1.HashingService])
 ], UsersService);
 //# sourceMappingURL=users.service.js.map

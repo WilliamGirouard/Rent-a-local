@@ -14,6 +14,7 @@ const reports_module_1 = require("./reports/reports.module");
 const users_module_1 = require("./users/users.module");
 const typeorm_1 = require("@nestjs/typeorm");
 const user_entity_1 = require("./users/user.entity");
+const hashing_module_1 = require("./hashing/hashing.module");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
@@ -24,7 +25,7 @@ exports.AppModule = AppModule = __decorate([
                 database: "db.sqlite",
                 entities: [user_entity_1.User],
                 synchronize: true,
-            }), users_module_1.UsersModule, reports_module_1.ReportsModule],
+            }), users_module_1.UsersModule, reports_module_1.ReportsModule, hashing_module_1.HashingModule],
         controllers: [app_controller_1.AppController],
         providers: [app_service_1.AppService],
     })

@@ -17,6 +17,8 @@ const common_1 = require("@nestjs/common");
 const users_service_1 = require("./users.service");
 const create_user_dto_1 = require("./dtos/create-user.dto");
 const update_user_dto_1 = require("./dtos/update-user.dto");
+const serialize_interceptor_1 = require("../interceptors/serialize.interceptor");
+const user_dto_1 = require("./dtos/user.dto");
 let UsersController = class UsersController {
     service;
     constructor(service) {
@@ -25,7 +27,12 @@ let UsersController = class UsersController {
     createUser(body) {
         return this.service.create(body.email, body.password);
     }
-    findAllUsers() { }
+    findUser(id) {
+        return this.service.findOne(parseInt(id));
+    }
+    findAllUsers() {
+        return this.service.findAll();
+    }
     deleteUser() { }
     updateUser(id, body) {
         return this.service.updateUser(parseInt(id), body);
@@ -39,6 +46,20 @@ __decorate([
     __metadata("design:paramtypes", [create_user_dto_1.CreateUserDto]),
     __metadata("design:returntype", void 0)
 ], UsersController.prototype, "createUser", null);
+__decorate([
+    (0, serialize_interceptor_1.Serialize)(user_dto_1.UserDto),
+    (0, common_1.Get)('/:id'),
+    __param(0, (0, common_1.Param)('id')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", void 0)
+], UsersController.prototype, "findUser", null);
+__decorate([
+    (0, common_1.Get)(),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", void 0)
+], UsersController.prototype, "findAllUsers", null);
 __decorate([
     (0, common_1.Patch)('/:id'),
     __param(0, (0, common_1.Param)('id')),

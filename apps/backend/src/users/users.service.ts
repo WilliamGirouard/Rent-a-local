@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Param } from '@nestjs/common';
 import { User } from './users.entity';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -16,13 +16,26 @@ export class UsersService {
         return this.usersRepository.save(user);
     }
 
-    updateUser(id:number, attrs: Partial<User>){
-        const user = this.usersRepository.findOneBy({id});
+    async updateUser(id:number, attrs: Partial<User>){
+        const user = await this.usersRepository.findOneBy({id});
 
         if (!user){return null}
 
         Object.assign(user, attrs);
         return this.usersRepository.update(id, attrs);
+    }
+
+
+    async findOne(@Param('id') id:number){
+        const user = await this.usersRepository.findOneBy({id})
+        
+        if (!user){return null}
+        return user
+    }
+
+    async findAll(){
+        const users = await this.usersRepository.find()
+        return users
     }
 
     

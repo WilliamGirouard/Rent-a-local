@@ -8,10 +8,15 @@ Content-Type: application/json
 }
 
 ### update user test
-PATCH http://localhost:3000/users/1
+PATCH http://localhost:3000/users/3
 Content-Type: application/json
 
 {
-    "email" : "IMRUNNINGTOMYDEATHRN@outlook.fr",
-    "password" : 
+    "email" : "prezdelarepubliquefr@gouv.fr",
+    "password" : "BRIGITTE"
 }
+
+### find user test
+GET http://localhost:3000/users/4
+### find users test
+GET http://localhost:3000/users/

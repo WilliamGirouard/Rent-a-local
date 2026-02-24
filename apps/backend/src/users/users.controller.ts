@@ -1,7 +1,11 @@
-import { Body, Controller, Get, Post, Param, Patch } from '@nestjs/common';
+import { Body, Controller, Get, Post, Param, Patch,/*, UseInterceptors, ClassSerializerInterceptor*/ 
+UseInterceptors} from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dtos/create-user.dto';
 import { updateUserDto } from './dtos/update-user.dto';
+import { Serialize, SerializeInterceptor } from 'src/interceptors/serialize.interceptor';
+import { UserDto } from './dtos/user.dto';
+
 @Controller('users')
 export class UsersController {
 
@@ -14,7 +18,18 @@ export class UsersController {
         return this.service.create(body.email, body.password)
     }
 
-    findAllUsers(){}
+    //@UseInterceptors(ClassSerializerInterceptor)
+    //@UseInterceptors(new SerializeInterceptor(UserDto))
+    @Serialize(UserDto)
+    @Get('/:id')
+    findUser(@Param('id') id:string){
+        return this.service.findOne(parseInt(id))
+    }
+
+    @Get()
+    findAllUsers(){
+        return this.service.findAll()
+    }
 
     deleteUser(){}
 

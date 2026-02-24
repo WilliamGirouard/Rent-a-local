@@ -26,16 +26,33 @@ let UsersService = class UsersService {
         const user = this.usersRepository.create({ email, password });
         return this.usersRepository.save(user);
     }
-    updateUser(id, attrs) {
-        const user = this.usersRepository.findOneBy({ id });
+    async updateUser(id, attrs) {
+        const user = await this.usersRepository.findOneBy({ id });
         if (!user) {
             return null;
         }
         Object.assign(user, attrs);
         return this.usersRepository.update(id, attrs);
     }
+    async findOne(id) {
+        const user = await this.usersRepository.findOneBy({ id });
+        if (!user) {
+            return null;
+        }
+        return user;
+    }
+    async findAll() {
+        const users = await this.usersRepository.find();
+        return users;
+    }
 };
 exports.UsersService = UsersService;
+__decorate([
+    __param(0, (0, common_1.Param)('id')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Number]),
+    __metadata("design:returntype", Promise)
+], UsersService.prototype, "findOne", null);
 exports.UsersService = UsersService = __decorate([
     (0, common_1.Injectable)(),
     __param(0, (0, typeorm_2.InjectRepository)(users_entity_1.User)),

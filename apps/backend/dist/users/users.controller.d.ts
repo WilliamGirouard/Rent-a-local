@@ -5,7 +5,8 @@ export declare class UsersController {
     private service;
     constructor(service: UsersService);
     createUser(body: CreateUserDto): Promise<import("./users.entity").User>;
-    findAllUsers(): void;
+    findUser(id: string): Promise<import("./users.entity").User | null>;
+    findAllUsers(): Promise<import("./users.entity").User[]>;
     deleteUser(): void;
-    updateUser(id: string, body: updateUserDto): Promise<import("typeorm").UpdateResult> | null;
+    updateUser(id: string, body: updateUserDto): Promise<import("typeorm").UpdateResult | null>;
 }

@@ -44,7 +44,7 @@ const common_1 = require("@nestjs/common");
 const bcrypt = __importStar(require("bcrypt"));
 let HashingService = class HashingService {
     async passwordHasher(password) {
-        const saltRounds = 10;
+        const saltRounds = 12;
         return await bcrypt.hash(password, saltRounds);
     }
     async compareHashToPassword(password, hash) {

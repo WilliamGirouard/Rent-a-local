@@ -9,7 +9,7 @@ export declare class UsersService {
     addUser(email: string, password: string, firstName: string, lastName: string): Promise<User>;
     findAllUsers(): Promise<User[]>;
     FakeLoginTest(email: string, password: string): Promise<boolean>;
-    findOneUser(id: number): Promise<User[] | null>;
+    findOneUser(id: number): Promise<User | null>;
     removeUser(id: number): Promise<User>;
     updateUser(id: number, attrs: Partial<User>): Promise<User>;
 }

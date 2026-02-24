@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { User } from './user.entity';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -36,9 +36,9 @@ export class UsersService {
         if (getEmailAccountHash == undefined) {
             getEmailAccountHash = "undefined";
         }
-        console.log(getEmailAccountHash);
         return await this.hashingService.compareHashToPassword(password, getEmailAccountHash);
     }
+
     //Manual serialization (Double security ?)
 //     async findAllUsers() : Promise<User[]> {
 //     return await this.usersRepository.find({
@@ -52,14 +52,10 @@ export class UsersService {
 //     );
 // }
 
-    async findOneUser(id : number) : Promise<User[] | null> {
-        const foundUser = await this.usersRepository.find({
-            where: {
-                id:id
-            }
-        });
+    async findOneUser(id : number) : Promise<User | null> {
+        const foundUser = await this.usersRepository.findOneBy({id})
         if (foundUser == null) {
-            throw new Error("L'utilisateur n'existe pas..")
+            throw new NotFoundException("L'utilisateur n'existe pas..")
         }
         return foundUser;
     }
@@ -83,7 +79,7 @@ export class UsersService {
     async removeUser(id:number) : Promise<User> {
         const user = await this.usersRepository.findOneBy({id});
         if (!user) {
-            throw new Error("User is non-existent")
+            throw new NotFoundException("User is non-existent")
         }
         return await this.usersRepository.remove(user);
     }
@@ -91,7 +87,7 @@ export class UsersService {
     async updateUser(id:number, attrs : Partial<User>)  {
         const user = await this.usersRepository.findOneBy({id});
         if (!user) {
-            throw new Error("User is non-existent")
+            throw new NotFoundException("User is non-existent")
         }
         if (attrs == id)
         Object.assign(user,attrs);

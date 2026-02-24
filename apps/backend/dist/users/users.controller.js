@@ -19,7 +19,8 @@ const create_user_dto_1 = require("../dtos/create-user.dto");
 const delete_user_dto_1 = require("../dtos/delete-user.dto");
 const update_user_dto_1 = require("../dtos/update-user.dto");
 const login_user_dto_1 = require("../dtos/login-user.dto");
-const user_entity_1 = require("./user.entity");
+const serialize_interceptor_1 = require("../interceptors/serialize.interceptor");
+const user_dto_1 = require("../dtos/user.dto");
 let UsersController = class UsersController {
     usersService;
     constructor(usersService) {
@@ -30,6 +31,7 @@ let UsersController = class UsersController {
         return await this.usersService.addUser(body.email, body.password, body.firstName, body.lastName);
     }
     async getUsers() {
+        console.log("Handler is running");
         return await this.usersService.findAllUsers();
     }
     async getUserById(id) {
@@ -54,16 +56,14 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], UsersController.prototype, "createUser", null);
 __decorate([
-    (0, common_1.UseInterceptors)(common_1.ClassSerializerInterceptor),
-    (0, common_1.SerializeOptions)({ type: user_entity_1.User }),
+    (0, serialize_interceptor_1.Serialize)(user_dto_1.UserDto),
     (0, common_1.Get)("/users"),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)
 ], UsersController.prototype, "getUsers", null);
 __decorate([
-    (0, common_1.UseInterceptors)(common_1.ClassSerializerInterceptor),
-    (0, common_1.SerializeOptions)({ type: user_entity_1.User }),
+    (0, serialize_interceptor_1.Serialize)(user_dto_1.UserDto),
     (0, common_1.Get)("/:id"),
     __param(0, (0, common_1.Param)("id")),
     __metadata("design:type", Function),

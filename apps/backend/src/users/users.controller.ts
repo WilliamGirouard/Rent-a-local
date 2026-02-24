@@ -4,7 +4,8 @@ import { CreateUserDto } from 'src/dtos/create-user.dto';
 import { DeleteUserDto } from 'src/dtos/delete-user.dto';
 import { UpdateUserDto } from 'src/dtos/update-user.dto';
 import { LoginUserDto } from 'src/dtos/login-user.dto';
-import { User } from './user.entity';
+import { Serialize, SerializeInterceptor } from 'src/interceptors/serialize.interceptor';
+import { UserDto } from 'src/dtos/user.dto';
 
 @Controller('users')
 export class UsersController {
@@ -16,15 +17,20 @@ export class UsersController {
         return await this.usersService.addUser(body.email, body.password, body.firstName, body.lastName);
     }
 
-    @UseInterceptors(ClassSerializerInterceptor)
-    @SerializeOptions({type: User})
+    // @UseInterceptors(ClassSerializerInterceptor)
+    // @UseInterceptors(new SerializeInterceptor(UserDto))
+    // @SerializeOptions({type: User})
+    @Serialize(UserDto)
     @Get("/users")
     async getUsers() {
+        console.log("Handler is running")
         return await this.usersService.findAllUsers();
     }
 
-    @UseInterceptors(ClassSerializerInterceptor)
-    @SerializeOptions({type: User})
+    // @UseInterceptors(ClassSerializerInterceptor)
+    // @UseInterceptors(new SerializeInterceptor(UserDto))
+    // @SerializeOptions({type: User})
+    @Serialize(UserDto)
     @Get("/:id")
     async getUserById(@Param("id") id : number) {
         return await this.usersService.findOneUser(id)

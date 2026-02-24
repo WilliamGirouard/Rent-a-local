@@ -9,64 +9,40 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.User = void 0;
+exports.UserDto = void 0;
 const class_transformer_1 = require("class-transformer");
-const typeorm_1 = require("typeorm");
-let User = class User {
+let UserDto = class UserDto {
     id;
     email;
-    password;
     firstName;
     lastName;
     get fullName() {
         return `${this.firstName} ${this.lastName}`;
     }
-    logInsert() {
-        console.log(`User inserted with ID : ${this.id}`);
-    }
-    logRemove() {
-        console.log(`User deleted with ID : ${this.id} `);
-    }
 };
-exports.User = User;
+exports.UserDto = UserDto;
 __decorate([
-    (0, typeorm_1.PrimaryGeneratedColumn)(),
+    (0, class_transformer_1.Expose)(),
     __metadata("design:type", Number)
-], User.prototype, "id", void 0);
+], UserDto.prototype, "id", void 0);
 __decorate([
-    (0, typeorm_1.Column)(),
+    (0, class_transformer_1.Expose)(),
     __metadata("design:type", String)
-], User.prototype, "email", void 0);
+], UserDto.prototype, "email", void 0);
 __decorate([
-    (0, typeorm_1.Column)(),
+    (0, class_transformer_1.Expose)(),
     __metadata("design:type", String)
-], User.prototype, "password", void 0);
+], UserDto.prototype, "firstName", void 0);
 __decorate([
-    (0, typeorm_1.Column)(),
+    (0, class_transformer_1.Expose)(),
     __metadata("design:type", String)
-], User.prototype, "firstName", void 0);
-__decorate([
-    (0, typeorm_1.Column)(),
-    __metadata("design:type", String)
-], User.prototype, "lastName", void 0);
+], UserDto.prototype, "lastName", void 0);
 __decorate([
     (0, class_transformer_1.Expose)(),
     __metadata("design:type", String),
     __metadata("design:paramtypes", [])
-], User.prototype, "fullName", null);
-__decorate([
-    (0, typeorm_1.AfterInsert)(),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
-    __metadata("design:returntype", void 0)
-], User.prototype, "logInsert", null);
-__decorate([
-    (0, typeorm_1.BeforeRemove)(),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
-    __metadata("design:returntype", void 0)
-], User.prototype, "logRemove", null);
-exports.User = User = __decorate([
-    (0, typeorm_1.Entity)()
-], User);
-//# sourceMappingURL=user.entity.js.map
+], UserDto.prototype, "fullName", null);
+exports.UserDto = UserDto = __decorate([
+    (0, class_transformer_1.Exclude)()
+], UserDto);
+//# sourceMappingURL=user.dto.js.map

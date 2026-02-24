@@ -11,21 +11,21 @@ export class User {
     email: string;
     
     @Column()
-    @Exclude()
+    // @Exclude()
     password: string;
 
     @Column()
-    @Exclude()
+    // @Exclude()
     firstName: string;
 
     @Column()
-    @Exclude()
+    // @Exclude()
     lastName: string;
 
-    @Expose()
-    get fullName() : string {
-        return `${this.firstName} ${this.lastName}`;
-    }
+    // @Expose()
+    // get fullName() : string {
+    //     return `${this.firstName} ${this.lastName}`;
+    // }
 
     @AfterInsert()
     logInsert() {

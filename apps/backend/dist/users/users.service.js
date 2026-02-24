@@ -45,31 +45,26 @@ let UsersService = class UsersService {
         if (getEmailAccountHash == undefined) {
             getEmailAccountHash = "undefined";
         }
-        console.log(getEmailAccountHash);
         return await this.hashingService.compareHashToPassword(password, getEmailAccountHash);
     }
     async findOneUser(id) {
-        const foundUser = await this.usersRepository.find({
-            where: {
-                id: id
-            }
-        });
+        const foundUser = await this.usersRepository.findOneBy({ id });
         if (foundUser == null) {
-            throw new Error("L'utilisateur n'existe pas..");
+            throw new common_1.NotFoundException("L'utilisateur n'existe pas..");
         }
         return foundUser;
     }
     async removeUser(id) {
         const user = await this.usersRepository.findOneBy({ id });
         if (!user) {
-            throw new Error("User is non-existent");
+            throw new common_1.NotFoundException("User is non-existent");
         }
         return await this.usersRepository.remove(user);
     }
     async updateUser(id, attrs) {
         const user = await this.usersRepository.findOneBy({ id });
         if (!user) {
-            throw new Error("User is non-existent");
+            throw new common_1.NotFoundException("User is non-existent");
         }
         if (attrs == id)
             Object.assign(user, attrs);

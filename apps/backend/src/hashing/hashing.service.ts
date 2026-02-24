@@ -5,7 +5,7 @@ import * as bcrypt from 'bcrypt';
 export class HashingService {
 
     async passwordHasher(password: string) : Promise<string> {
-        const saltRounds = 10;
+        const saltRounds = 12;
         return await bcrypt.hash(password, saltRounds);
     }
     

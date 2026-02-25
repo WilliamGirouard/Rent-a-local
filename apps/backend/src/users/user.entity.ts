@@ -1,5 +1,5 @@
-import { Exclude, Expose } from "class-transformer";
 import {Entity, Column, PrimaryGeneratedColumn, AfterInsert, BeforeRemove} from "typeorm";
+import { Role } from "./roles/roles.enum";
 
 @Entity()
 export class User {
@@ -7,25 +7,20 @@ export class User {
     @PrimaryGeneratedColumn()
     id: number;
     
-    @Column()
+    @Column({unique: true})
     email: string;
     
     @Column()
-    // @Exclude()
     password: string;
 
     @Column()
-    // @Exclude()
     firstName: string;
 
     @Column()
-    // @Exclude()
     lastName: string;
 
-    // @Expose()
-    // get fullName() : string {
-    //     return `${this.firstName} ${this.lastName}`;
-    // }
+    @Column()
+    role: Role;
 
     @AfterInsert()
     logInsert() {

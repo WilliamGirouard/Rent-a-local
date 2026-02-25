@@ -33,7 +33,7 @@ export class UsersController {
     @Serialize(UserDto)
     @Get("/:id")
     async getUserById(@Param("id") id : number) {
-        return await this.usersService.findOneUser(id)
+        return await this.usersService.findOneUserById(id)
     }
 
     @Delete("/deleteUser")

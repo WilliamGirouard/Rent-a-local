@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { ConflictException, Injectable, NotFoundException } from '@nestjs/common';
 import { User } from './user.entity';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -14,14 +14,13 @@ export class UsersService {
     ) {}
 
     async verifyAlreadyExistingEmail(email:string) {
-        const alreadyExistingBool = await this.usersRepository.existsBy({email:email});
-        if (alreadyExistingBool) {
-            throw new Error("Un compte utilise deja cet email.")
+        if (await this.usersRepository.existsBy({email:email})) {
+            throw new ConflictException("Un compte utilise deja cet email.")
         }
     }
     
     async addUser(email : string, password : string, firstName:string, lastName:string) : Promise<User> {
-        this.verifyAlreadyExistingEmail(email);
+        await this.verifyAlreadyExistingEmail(email);
         const hashedPassword = await this.hashingService.passwordHasher(password);
         const user = this.usersRepository.create({email,password:hashedPassword,firstName,lastName});
         return await this.usersRepository.save(user);
@@ -32,65 +31,35 @@ export class UsersService {
     }
 
     async FakeLoginTest(email:string, password:string) : Promise<boolean> {
-        let getEmailAccountHash = (await this.usersRepository.findBy({email:email})).at(0)?.password
-        if (getEmailAccountHash == undefined) {
-            getEmailAccountHash = "undefined";
-        }
-        return await this.hashingService.compareHashToPassword(password, getEmailAccountHash);
+        const foundUser = await this.findOneUserByEmail(email);
+        return await this.hashingService.compareHashToPassword(password, foundUser.password);
     }
 
-    //Manual serialization (Double security ?)
-//     async findAllUsers() : Promise<User[]> {
-//     return await this.usersRepository.find({
-//         select: {
-//             id:true,
-//             email:true,
-//             firstName:true,
-//             lastName:true,
-//         },
-//     }
-//     );
-// }
-
-    async findOneUser(id : number) : Promise<User | null> {
-        const foundUser = await this.usersRepository.findOneBy({id})
+    async findOneUserById(id : number) : Promise<User> {
+        const foundUser = await this.usersRepository.findOneBy({id:id})
         if (foundUser == null) {
-            throw new NotFoundException("L'utilisateur n'existe pas..")
+            throw new NotFoundException("Invalid Id")
         }
         return foundUser;
     }
-    // async findOneUser(id : number) : Promise<User[] | null> {
-    //    const foundUser = await this.usersRepository.find({
-    //      select: {
-    //         id:true,
-    //         email:true,
-    //         firstName:true,
-    //         lastName:true,
-    //     },
-    //      where: {
-    //             id:id
-    //         }
-    //     });
-    //     if (foundUser == null) {
-    //         throw new Error("L'utilisateur n'existe pas..")
-    //     }
-    //     return foundUser;
-    // }
+
+    async findOneUserByEmail(email : string) : Promise<User> {
+    const foundUser = await this.usersRepository.findOneBy({email:email})
+    if (foundUser == null) {
+        throw new NotFoundException("Invalid email")
+    }
+    return foundUser;
+    }
+
     async removeUser(id:number) : Promise<User> {
-        const user = await this.usersRepository.findOneBy({id});
-        if (!user) {
-            throw new NotFoundException("User is non-existent")
-        }
-        return await this.usersRepository.remove(user);
+        const foundUser = await this.findOneUserById(id);
+        return await this.usersRepository.remove(foundUser);
     }
 
     async updateUser(id:number, attrs : Partial<User>)  {
-        const user = await this.usersRepository.findOneBy({id});
-        if (!user) {
-            throw new NotFoundException("User is non-existent")
-        }
+        const foundUser = await this.findOneUserById(id);
         if (attrs == id)
-        Object.assign(user,attrs);
-        return this.usersRepository.save(user)
+        Object.assign(foundUser,attrs);
+        return this.usersRepository.save(foundUser)
     }
 }

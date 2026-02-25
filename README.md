@@ -20,7 +20,12 @@ Web application that lets you rent premises for your private meetings.
 
     11- npx @nestjs/cli g module hashing
     12- npx @nestjs/cli g service hashing
-
+    13- npm i --save @nestjs/config
+    14- npx @nestjs/cli g module auth
+    15- npx @nestjs/cli g service auth
+    16- npx @nestjs/cli g controller auth
+    17- npm i --save @nestjs/jwt
+    18- npm i @nestjs/passport passport passport-local passport-jwt
 ### Ajout hashing et serialization
 
     L'installation et l'utilisation du package bcrypt est primordial pour securiser les données des utilisateurs. 
@@ -50,4 +55,15 @@ Web application that lets you rent premises for your private meetings.
 
     @SerializeOptions({type: User}) permet de s'assurer que l'objet renvoyé est tel qu'on le veut. Plusieurs options disponibles, dans le cas de type: User, transforme l'objet renvoyé en objet User.
 
+### Module Config de NestJS + JWT + Passport
+    
+    Ce module est déjà auto-implémentable, il faut seulement installer le package. Par la suite, il faut l'insérer dans le root et bien l'importer. Le config module permet de gérer l'environnement de configuration de manière plus simple. Donc si nous avons plusieurs .env, dépendamment de l'environnement, on peut tout changer en quelques commandes. 
+    
+    ---
+
+    Le package JWT permet de créer des tokens de connexion vérifiant les droits de connexions des users/des accès.
+
+    La librairie Passport est comme un Framework qui te permet de manipuler l'authentification selon comment tu souhaites la gérer.
+    https://docs.nestjs.com/recipes/passport#implementing-passport-strategies
+    https://docs.nestjs.com/security/authentication  
 

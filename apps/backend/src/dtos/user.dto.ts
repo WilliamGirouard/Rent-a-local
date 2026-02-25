@@ -1,6 +1,6 @@
-import { Expose, Exclude } from "class-transformer";
+import {Expose} from "class-transformer";
 
-@Exclude()
+
 export class UserDto {
 
     @Expose()
@@ -15,8 +15,4 @@ export class UserDto {
     @Expose()
     lastName: string;
 
-    @Expose()
-    get fullName() : string {
-        return `${this.firstName} ${this.lastName}`;
-    }
 }

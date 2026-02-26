@@ -1,5 +1,5 @@
 import { Injectable, Param } from '@nestjs/common';
-import { User } from './users.entity';
+import { User } from './../users.entity';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 
@@ -36,6 +36,10 @@ export class UsersService {
     async findAll(){
         const users = await this.usersRepository.find()
         return users
+    }
+
+    async findAllUsersByEmail(email:string){
+        return await this.usersRepository.findBy({email})
     }
 
     

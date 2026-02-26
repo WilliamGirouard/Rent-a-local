@@ -1,14 +1,14 @@
 ### create user test
-POST http://localhost:3000/users/signup/
+POST http://localhost:3000/auth/signup/
 Content-Type: application/json
 
 {
-    "email" : "ATNekoo@gmail.com",
-    "password": "BIGGERHATERCLICKTHETRIGGER"
+    "email" : "Fifou@youtube.com",
+    "password": "DETYPEACIER"
 }
 
 ### update user test
-PATCH http://localhost:3000/users/3
+PATCH http://localhost:3000/auth/3
 Content-Type: application/json
 
 {
@@ -17,6 +17,6 @@ Content-Type: application/json
 }
 
 ### find user test
-GET http://localhost:3000/users/4
+GET http://localhost:3000/auth/4
 ### find users test
-GET http://localhost:3000/users/
+GET http://localhost:3000/auth/

@@ -1,21 +1,21 @@
 import { Body, Controller, Get, Post, Param, Patch,/*, UseInterceptors, ClassSerializerInterceptor*/ 
 UseInterceptors} from '@nestjs/common';
-import { UsersService } from './users.service';
+import { UsersService } from './service/users.service';
 import { CreateUserDto } from './dtos/create-user.dto';
 import { updateUserDto } from './dtos/update-user.dto';
 import { Serialize, SerializeInterceptor } from 'src/interceptors/serialize.interceptor';
 import { UserDto } from './dtos/user.dto';
+import { AuthService } from './service/auth.service';
 
-@Controller('users')
+@Controller('auth')
 export class UsersController {
 
-
-    constructor(private service: UsersService){}
+    constructor(private service: UsersService, private auth: AuthService){}
 
     @Post("/signup")
     createUser(@Body() body:CreateUserDto){
         //console.log(body)
-        return this.service.create(body.email, body.password)
+        return this.auth.signup(body.email, body.password)
     }
 
     //@UseInterceptors(ClassSerializerInterceptor)

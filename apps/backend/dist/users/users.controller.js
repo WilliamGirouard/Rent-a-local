@@ -14,18 +14,21 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.UsersController = void 0;
 const common_1 = require("@nestjs/common");
-const users_service_1 = require("./users.service");
+const users_service_1 = require("./service/users.service");
 const create_user_dto_1 = require("./dtos/create-user.dto");
 const update_user_dto_1 = require("./dtos/update-user.dto");
 const serialize_interceptor_1 = require("../interceptors/serialize.interceptor");
 const user_dto_1 = require("./dtos/user.dto");
+const auth_service_1 = require("./service/auth.service");
 let UsersController = class UsersController {
     service;
-    constructor(service) {
+    auth;
+    constructor(service, auth) {
         this.service = service;
+        this.auth = auth;
     }
     createUser(body) {
-        return this.service.create(body.email, body.password);
+        return this.auth.signup(body.email, body.password);
     }
     findUser(id) {
         return this.service.findOne(parseInt(id));
@@ -69,7 +72,7 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], UsersController.prototype, "updateUser", null);
 exports.UsersController = UsersController = __decorate([
-    (0, common_1.Controller)('users'),
-    __metadata("design:paramtypes", [users_service_1.UsersService])
+    (0, common_1.Controller)('auth'),
+    __metadata("design:paramtypes", [users_service_1.UsersService, auth_service_1.AuthService])
 ], UsersController);
 //# sourceMappingURL=users.controller.js.map

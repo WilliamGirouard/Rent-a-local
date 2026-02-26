@@ -1,4 +1,4 @@
-import { User } from './users.entity';
+import { User } from './../users.entity';
 import { Repository } from 'typeorm';
 export declare class UsersService {
     private usersRepository;
@@ -7,4 +7,5 @@ export declare class UsersService {
     updateUser(id: number, attrs: Partial<User>): Promise<import("typeorm").UpdateResult | null>;
     findOne(id: number): Promise<User | null>;
     findAll(): Promise<User[]>;
+    findAllUsersByEmail(email: string): Promise<User[]>;
 }

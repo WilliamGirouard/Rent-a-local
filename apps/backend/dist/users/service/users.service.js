@@ -14,7 +14,7 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.UsersService = void 0;
 const common_1 = require("@nestjs/common");
-const users_entity_1 = require("./users.entity");
+const users_entity_1 = require("./../users.entity");
 const typeorm_1 = require("typeorm");
 const typeorm_2 = require("@nestjs/typeorm");
 let UsersService = class UsersService {
@@ -44,6 +44,9 @@ let UsersService = class UsersService {
     async findAll() {
         const users = await this.usersRepository.find();
         return users;
+    }
+    async findAllUsersByEmail(email) {
+        return await this.usersRepository.findBy({ email });
     }
 };
 exports.UsersService = UsersService;

@@ -31,7 +31,24 @@ let AuthService = class AuthService {
         const user = await this.usersService.create(email, result);
         return user;
     }
-    signin(email, password) {
+    async signin(email, password) {
+        const [user] = await this.usersService.findAllUsersByEmail(email);
+        if (!user) {
+            throw new common_1.NotFoundException("User not found");
+        }
+        const [salt, storedHash] = user.password.split(".");
+        const hash = await scrypt(password, salt, 32);
+        if (hash.toString("hex") !== storedHash) {
+            throw new common_1.BadRequestException("Password does not match");
+        }
+        return user;
+    }
+    async whoAmI(userId) {
+        if (!userId) {
+            return { loggedIn: false, message: "logged out" };
+        }
+        const user = await this.usersService.findOne(userId);
+        return user;
     }
 };
 exports.AuthService = AuthService;

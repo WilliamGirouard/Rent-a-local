@@ -3,9 +3,24 @@ POST http://localhost:3000/auth/signup/
 Content-Type: application/json
 
 {
-    "email" : "Fifou@youtube.com",
-    "password": "DETYPEACIER"
+    "email" : "coucou@gentil.smiley",
+    "password": "mechant"
 }
+
+### signin user
+POST http://localhost:3000/auth/signin/
+Content-Type: application/json
+
+{
+    "email" : "Fifou@youtube.com",
+    "password" : "DETYPEACIER"
+}
+
+### whoami
+GET  http://localhost:3000/auth/whoami/
+
+### signout
+POST http://localhost:3000/auth/signout/
 
 ### update user test
 PATCH http://localhost:3000/auth/3

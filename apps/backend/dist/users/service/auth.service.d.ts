@@ -3,5 +3,9 @@ export declare class AuthService {
     private usersService;
     constructor(usersService: UsersService);
     signup(email: string, password: string): Promise<import("../users.entity").User>;
-    signin(email: string, password: string): void;
+    signin(email: string, password: string): Promise<import("../users.entity").User>;
+    whoAmI(userId: number): Promise<import("../users.entity").User | {
+        loggedIn: boolean;
+        message: string;
+    }>;
 }

@@ -27,8 +27,22 @@ let UsersController = class UsersController {
         this.service = service;
         this.auth = auth;
     }
-    createUser(body) {
-        return this.auth.signup(body.email, body.password);
+    async createUser(body, session) {
+        const user = await this.auth.signup(body.email, body.password);
+        session.userId = user.id;
+        return user;
+    }
+    async signin(body, session) {
+        const user = await this.auth.signin(body.email, body.password);
+        session.userId = user.id;
+        return user;
+    }
+    signout(session) {
+        session.userId = null;
+        return "Successfully logged out";
+    }
+    whoami(session) {
+        return this.auth.whoAmI(session.userId);
     }
     findUser(id) {
         return this.service.findOne(parseInt(id));
@@ -45,10 +59,33 @@ exports.UsersController = UsersController;
 __decorate([
     (0, common_1.Post)("/signup"),
     __param(0, (0, common_1.Body)()),
+    __param(1, (0, common_1.Session)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [create_user_dto_1.CreateUserDto]),
-    __metadata("design:returntype", void 0)
+    __metadata("design:paramtypes", [create_user_dto_1.CreateUserDto, Object]),
+    __metadata("design:returntype", Promise)
 ], UsersController.prototype, "createUser", null);
+__decorate([
+    (0, common_1.Post)("signin"),
+    __param(0, (0, common_1.Body)()),
+    __param(1, (0, common_1.Session)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [create_user_dto_1.CreateUserDto, Object]),
+    __metadata("design:returntype", Promise)
+], UsersController.prototype, "signin", null);
+__decorate([
+    (0, common_1.Post)("signout"),
+    __param(0, (0, common_1.Session)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", void 0)
+], UsersController.prototype, "signout", null);
+__decorate([
+    (0, common_1.Get)("/whoami"),
+    __param(0, (0, common_1.Session)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", void 0)
+], UsersController.prototype, "whoami", null);
 __decorate([
     (0, serialize_interceptor_1.Serialize)(user_dto_1.UserDto),
     (0, common_1.Get)('/:id'),

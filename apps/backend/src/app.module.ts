@@ -31,8 +31,8 @@ import { NestCookieSessionOptions, CookieSessionModule,} from 'nestjs-cookie-ses
           secret: configService.getOrThrow("COOKIE_SECRET"),
           httpOnly: true, // Peut pas être accèder par JS (Empêche des attaques XSS - Cross-site Scripting)
           //sameSite:"Lax",  (Protège des attaques CSRF)
-          //secure:true, Juste envoye sur HTTPS
-          maxAge: configService.getOrThrow("COOKIE_EXPIRES"),// Temps d'expiration du cookie
+          //secure:true, Envoie le cookie session seulement sur HTTPS
+          maxAge: Number(configService.getOrThrow("COOKIE_EXPIRES")),// Temps d'expiration du cookie
          }
       }
     }

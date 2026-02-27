@@ -26,7 +26,7 @@ let AuthController = class AuthController {
     async login(body, session) {
         const token = await this.authService.login(body);
         session.token = token;
-        return { message: "Login Successful" };
+        return { message: "Login Successful", token: session.token };
     }
     async register(body) {
         return this.authService.register(body);
@@ -55,7 +55,6 @@ __decorate([
 ], AuthController.prototype, "register", null);
 __decorate([
     (0, common_1.UseGuards)(auth_guard_1.AuthGuard),
-    (0, common_1.HttpCode)(common_1.HttpStatus.OK),
     (0, common_1.Get)("/profile"),
     __param(0, (0, common_1.Request)()),
     __metadata("design:type", Function),

@@ -38,6 +38,7 @@ exports.AppModule = AppModule = __decorate([
                         session: {
                             secret: configService.getOrThrow("COOKIE_SECRET"),
                             httpOnly: true,
+                            maxAge: Number(configService.getOrThrow("COOKIE_EXPIRES")),
                         }
                     };
                 }

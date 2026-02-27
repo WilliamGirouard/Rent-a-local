@@ -24,7 +24,6 @@ export class AuthController {
 
 
     @UseGuards(AuthGuard)
-    @HttpCode(HttpStatus.OK)
     @Get("/profile")
     getProfile(@Request() req){
         //Profile du user connecte

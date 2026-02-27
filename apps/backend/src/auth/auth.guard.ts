@@ -1,6 +1,5 @@
 import { CanActivate, ExecutionContext, Injectable, UnauthorizedException } from "@nestjs/common";
-import { JsonWebTokenError, JwtService } from "@nestjs/jwt";
-import { Request } from "express";
+import { JwtService } from "@nestjs/jwt";
 
 
 @Injectable()
@@ -10,7 +9,7 @@ export class AuthGuard implements CanActivate {
 
     async canActivate(context: ExecutionContext): Promise<boolean> {
         const request = context.switchToHttp().getRequest();
-        const token = request.session.token?.access_token;
+        const token = request.session.token?.access_token; 
         if (!token) {
             throw new UnauthorizedException("Vous n'avez pas l'autorisation.")
         }

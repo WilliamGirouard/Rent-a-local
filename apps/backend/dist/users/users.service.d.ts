@@ -1,15 +1,11 @@
 import { User } from './user.entity';
-import { Repository } from 'typeorm';
-import { HashingService } from 'src/hashing/hashing.service';
+import { AuthService } from 'src/auth/auth.service';
 export declare class UsersService {
-    private usersRepository;
-    private hashingService;
-    constructor(usersRepository: Repository<User>, hashingService: HashingService);
-    verifyAlreadyExistingEmail(email: string): Promise<void>;
-    addUser(email: string, password: string, firstName: string, lastName: string): Promise<User>;
+    private authService;
+    constructor(authService: AuthService);
     findAllUsers(): Promise<User[]>;
-    FakeLoginTest(email: string, password: string): Promise<boolean>;
-    findOneUser(id: number): Promise<User | null>;
+    findOneUserById(id: number): Promise<User>;
+    findOneUserByEmail(email: string): Promise<User>;
     removeUser(id: number): Promise<User>;
     updateUser(id: number, attrs: Partial<User>): Promise<User>;
 }

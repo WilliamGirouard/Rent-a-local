@@ -1,36 +1,35 @@
-### Create user test
-POST http://localhost:3000/users/signup/
+### Register user test
+POST http://localhost:3000/v1/auth/register
 Content-Type: application/json 
 
 {
-    "email":"MyCoksLong@long.com",
-    "password":"adminUserPassword12345$$",
-    "firstName":"AdminNonnonon",
-    "lastName":"BrrrPatapim"
+    "email":"IamGroot@gmail.com",
+    "password":"GrootIsIam*!1232gggg",
+    "firstName":"Iam",
+    "lastName":"Groot"
 }
+
+### Login user test
+POST http://localhost:3000/v1/auth/login
+Content-Type: application/json 
+
+{
+    "email":"IamGroot@gmail.com",
+    "password":"GrootIsIam*!1232gggg"
+}
+
+### Get user profile test
+GET http://localhost:3000/v1/auth/profile
+Cookie: session=eyJ0b2tlbiI6eyJhY2Nlc3NfdG9rZW4iOiJleUpoYkdjaU9pSklVekkxTmlJc0luUjVjQ0k2SWtwWFZDSjkuZXlKemRXSWlPak1zSW1WdFlXbHNJam9pU1dGdFIzSnZiM1JBWjIxaGFXd3VZMjl0SWl3aWFXRjBJam94TnpjeU1UWTVOVEl4TENKbGVIQWlPakUzTnpJeE5qazFPREY5Lk9zNWFPNmdhRmdFcEhxWmhmYlFTQWoxTWxoTVlabWtvSFhib3FYcW1Md3MifX0=; path=/; httponly,session.sig=qY4ppsPHXq3zUq0MYjJtgr8SsPc; path=/; httponly
 
 ### List all users
-GET http://localhost:3000/users/users/
+GET http://localhost:3000/v1/users
 
 ### Find 1 user
-GET http://localhost:3000/users/16
+GET http://localhost:3000/v1/users/1
 
 ### Update user
-PATCH http://localhost:3000/users/update/2
+PATCH http://localhost:3000/v1/users/2
 
 ### Delete a user
-DELETE http://localhost:3000/users/deleteUser/
-Content-Type: application/json
-
-{
-    "id":12
-}
-
-### Test fake user login
-POST http://localhost:3000/users/login/
-Content-Type: application/json 
-
-{
-    "email":"MyCoksLong@long.com",
-    "password":"caca"
-}
+DELETE http://localhost:3000/v1/users/2

@@ -8,74 +8,46 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var __param = (this && this.__param) || function (paramIndex, decorator) {
-    return function (target, key) { decorator(target, key, paramIndex); }
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.UsersService = void 0;
 const common_1 = require("@nestjs/common");
-const user_entity_1 = require("./user.entity");
-const typeorm_1 = require("typeorm");
-const typeorm_2 = require("@nestjs/typeorm");
-const hashing_service_1 = require("../hashing/hashing.service");
+const auth_service_1 = require("../auth/auth.service");
 let UsersService = class UsersService {
-    usersRepository;
-    hashingService;
-    constructor(usersRepository, hashingService) {
-        this.usersRepository = usersRepository;
-        this.hashingService = hashingService;
-    }
-    async verifyAlreadyExistingEmail(email) {
-        const alreadyExistingBool = await this.usersRepository.existsBy({ email: email });
-        if (alreadyExistingBool) {
-            throw new Error("Un compte utilise deja cet email.");
-        }
-    }
-    async addUser(email, password, firstName, lastName) {
-        this.verifyAlreadyExistingEmail(email);
-        const hashedPassword = await this.hashingService.passwordHasher(password);
-        const user = this.usersRepository.create({ email, password: hashedPassword, firstName, lastName });
-        return await this.usersRepository.save(user);
+    authService;
+    constructor(authService) {
+        this.authService = authService;
     }
     async findAllUsers() {
-        return await this.usersRepository.find();
+        return this.authService.accessUsersRepo().find();
     }
-    async FakeLoginTest(email, password) {
-        let getEmailAccountHash = (await this.usersRepository.findBy({ email: email })).at(0)?.password;
-        if (getEmailAccountHash == undefined) {
-            getEmailAccountHash = "undefined";
-        }
-        return await this.hashingService.compareHashToPassword(password, getEmailAccountHash);
-    }
-    async findOneUser(id) {
-        const foundUser = await this.usersRepository.findOneBy({ id });
+    async findOneUserById(id) {
+        const foundUser = await this.authService.accessUsersRepo().findOneBy({ id: id });
         if (foundUser == null) {
-            throw new common_1.NotFoundException("L'utilisateur n'existe pas..");
+            throw new common_1.NotFoundException("Invalid Id");
+        }
+        return foundUser;
+    }
+    async findOneUserByEmail(email) {
+        const foundUser = await this.authService.accessUsersRepo().findOneBy({ email: email });
+        if (foundUser == null) {
+            throw new common_1.BadRequestException("Invalid email");
         }
         return foundUser;
     }
     async removeUser(id) {
-        const user = await this.usersRepository.findOneBy({ id });
-        if (!user) {
-            throw new common_1.NotFoundException("User is non-existent");
-        }
-        return await this.usersRepository.remove(user);
+        const foundUser = await this.findOneUserById(id);
+        return await this.authService.accessUsersRepo().remove(foundUser);
     }
     async updateUser(id, attrs) {
-        const user = await this.usersRepository.findOneBy({ id });
-        if (!user) {
-            throw new common_1.NotFoundException("User is non-existent");
-        }
+        const foundUser = await this.findOneUserById(id);
         if (attrs == id)
-            Object.assign(user, attrs);
-        return this.usersRepository.save(user);
+            Object.assign(foundUser, attrs);
+        return this.authService.accessUsersRepo().save(foundUser);
     }
 };
 exports.UsersService = UsersService;
 exports.UsersService = UsersService = __decorate([
     (0, common_1.Injectable)(),
-    __param(0, (0, typeorm_2.InjectRepository)(user_entity_1.User)),
-    __metadata("design:paramtypes", [typeorm_1.Repository,
-        hashing_service_1.HashingService])
+    __metadata("design:paramtypes", [auth_service_1.AuthService])
 ], UsersService);
 //# sourceMappingURL=users.service.js.map

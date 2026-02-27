@@ -1,19 +1,17 @@
 import { ConflictException, Injectable, UnauthorizedException } from '@nestjs/common';
 import { HashingService } from 'src/hashing/hashing.service';
-import { UsersService } from 'src/users/users.service';
 import { JwtService } from '@nestjs/jwt';
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from 'src/users/user.entity';
 import { Repository } from 'typeorm';
 import { CreateUserDto } from 'src/dtos/create-user.dto';
 import { LoginUserDto } from 'src/dtos/login-user.dto';
-
+import { Role } from 'src/users/roles/roles.enum';
 
 @Injectable()
 export class AuthService {
 
     constructor(
-        private usersService : UsersService,
         private hashingService : HashingService,
         private jwtService : JwtService,
         @InjectRepository(User)
@@ -26,6 +24,9 @@ export class AuthService {
             throw new ConflictException("Un compte utilise deja cet email.")
         }
     }
+    accessUsersRepo() : Repository<User>{
+        return this.usersRepository
+    }
     
     async register(user : CreateUserDto) : Promise<User> {
         await this.verifyAlreadyExistingEmail(user.email);
@@ -35,13 +36,14 @@ export class AuthService {
                 email:user.email,
                 password:hashedPassword,
                 firstName:user.firstName,
-                lastName:user.lastName
+                lastName:user.lastName,
+                role:Role.User,
             });
         return await this.usersRepository.save(userWithHash);
     }
 
     async login(user : LoginUserDto): Promise<{access_token:string}> {
-        const userVerified = await this.usersService.findOneUserByEmail(user.email);
+        const userVerified = await this.usersRepository.findOneBy({email:user.email});
         if(userVerified == null) {
             throw new UnauthorizedException("Invalid credentials")
         }
@@ -51,4 +53,5 @@ export class AuthService {
         const payload = {sub: userVerified.id, email:userVerified.email};
         return {access_token: await this.jwtService.signAsync(payload)}
     }
+    
 }

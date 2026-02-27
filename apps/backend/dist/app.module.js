@@ -15,6 +15,9 @@ const users_module_1 = require("./users/users.module");
 const typeorm_1 = require("@nestjs/typeorm");
 const user_entity_1 = require("./users/user.entity");
 const hashing_module_1 = require("./hashing/hashing.module");
+const config_1 = require("@nestjs/config");
+const auth_module_1 = require("./auth/auth.module");
+const nestjs_cookie_session_1 = require("nestjs-cookie-session");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
@@ -25,7 +28,20 @@ exports.AppModule = AppModule = __decorate([
                 database: "db.sqlite",
                 entities: [user_entity_1.User],
                 synchronize: true,
-            }), users_module_1.UsersModule, reports_module_1.ReportsModule, hashing_module_1.HashingModule],
+            }), config_1.ConfigModule.forRoot({
+                envFilePath: ".env",
+                isGlobal: true,
+            }), nestjs_cookie_session_1.CookieSessionModule.forRootAsync({
+                inject: [config_1.ConfigService],
+                useFactory: async (configService) => {
+                    return {
+                        session: {
+                            secret: configService.getOrThrow("COOKIE_SECRET"),
+                            httpOnly: true,
+                        }
+                    };
+                }
+            }), users_module_1.UsersModule, reports_module_1.ReportsModule, hashing_module_1.HashingModule, auth_module_1.AuthModule],
         controllers: [app_controller_1.AppController],
         providers: [app_service_1.AppService],
     })

@@ -6,9 +6,9 @@ import { UsersModule } from './users/users.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from './users/user.entity';
 import { HashingModule } from './hashing/hashing.module';
-import { ConfigModule } from '@nestjs/config';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 import { AuthModule } from './auth/auth.module';
-
+import { NestCookieSessionOptions, CookieSessionModule,} from 'nestjs-cookie-session';
 @Module({
   imports: [TypeOrmModule.forRoot(
     {
@@ -21,7 +21,23 @@ import { AuthModule } from './auth/auth.module';
   {
     envFilePath: ".env",
     isGlobal:true,
-  }), UsersModule, ReportsModule, HashingModule, AuthModule],
+  }
+),CookieSessionModule.forRootAsync(
+  {
+    inject:[ConfigService],
+    useFactory: async (configService: ConfigService) : Promise<NestCookieSessionOptions> => {
+      return {
+        session: {
+          secret: configService.getOrThrow("COOKIE_SECRET"),
+          httpOnly: true, // Peut pas être accèder par JS (Empêche des attaques XSS - Cross-site Scripting)
+          //sameSite:"Lax",  (Protège des attaques CSRF)
+          //secure:true, Juste envoye sur HTTPS
+          maxAge: configService.getOrThrow("COOKIE_EXPIRES"),// Temps d'expiration du cookie
+         }
+      }
+    }
+  }
+  ),UsersModule, ReportsModule, HashingModule, AuthModule],
   controllers: [AppController],
   providers: [AppService],
 })

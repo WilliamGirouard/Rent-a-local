@@ -11,15 +11,12 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.UserDto = void 0;
 const class_transformer_1 = require("class-transformer");
-let UserDto = class UserDto {
+class UserDto {
     id;
     email;
     firstName;
     lastName;
-    get fullName() {
-        return `${this.firstName} ${this.lastName}`;
-    }
-};
+}
 exports.UserDto = UserDto;
 __decorate([
     (0, class_transformer_1.Expose)(),
@@ -37,12 +34,4 @@ __decorate([
     (0, class_transformer_1.Expose)(),
     __metadata("design:type", String)
 ], UserDto.prototype, "lastName", void 0);
-__decorate([
-    (0, class_transformer_1.Expose)(),
-    __metadata("design:type", String),
-    __metadata("design:paramtypes", [])
-], UserDto.prototype, "fullName", null);
-exports.UserDto = UserDto = __decorate([
-    (0, class_transformer_1.Exclude)()
-], UserDto);
 //# sourceMappingURL=user.dto.js.map

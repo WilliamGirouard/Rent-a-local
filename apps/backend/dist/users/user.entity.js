@@ -10,17 +10,15 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.User = void 0;
-const class_transformer_1 = require("class-transformer");
 const typeorm_1 = require("typeorm");
+const roles_enum_1 = require("./roles/roles.enum");
 let User = class User {
     id;
     email;
     password;
     firstName;
     lastName;
-    get fullName() {
-        return `${this.firstName} ${this.lastName}`;
-    }
+    role;
     logInsert() {
         console.log(`User inserted with ID : ${this.id}`);
     }
@@ -34,7 +32,7 @@ __decorate([
     __metadata("design:type", Number)
 ], User.prototype, "id", void 0);
 __decorate([
-    (0, typeorm_1.Column)(),
+    (0, typeorm_1.Column)({ unique: true }),
     __metadata("design:type", String)
 ], User.prototype, "email", void 0);
 __decorate([
@@ -50,10 +48,9 @@ __decorate([
     __metadata("design:type", String)
 ], User.prototype, "lastName", void 0);
 __decorate([
-    (0, class_transformer_1.Expose)(),
-    __metadata("design:type", String),
-    __metadata("design:paramtypes", [])
-], User.prototype, "fullName", null);
+    (0, typeorm_1.Column)(),
+    __metadata("design:type", String)
+], User.prototype, "role", void 0);
 __decorate([
     (0, typeorm_1.AfterInsert)(),
     __metadata("design:type", Function),

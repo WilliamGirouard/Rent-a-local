@@ -12,10 +12,16 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.updateUserDto = void 0;
 const class_validator_1 = require("class-validator");
 class updateUserDto {
+    id;
     email;
     password;
+    admin;
 }
 exports.updateUserDto = updateUserDto;
+__decorate([
+    (0, class_validator_1.IsOptional)(),
+    __metadata("design:type", Number)
+], updateUserDto.prototype, "id", void 0);
 __decorate([
     (0, class_validator_1.IsEmail)(),
     (0, class_validator_1.IsOptional)(),
@@ -25,4 +31,8 @@ __decorate([
     (0, class_validator_1.IsOptional)(),
     __metadata("design:type", String)
 ], updateUserDto.prototype, "password", void 0);
+__decorate([
+    (0, class_validator_1.IsOptional)(),
+    __metadata("design:type", Boolean)
+], updateUserDto.prototype, "admin", void 0);
 //# sourceMappingURL=update-user.dto.js.map

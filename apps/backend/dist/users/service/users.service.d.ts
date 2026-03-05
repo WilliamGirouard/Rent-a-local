@@ -8,4 +8,7 @@ export declare class UsersService {
     findOne(id: number): Promise<User>;
     findAll(): Promise<User[]>;
     findAllUsersByEmail(email: string): Promise<User[]>;
+    deleteUser(id: number): Promise<{
+        message: string;
+    }>;
 }

@@ -60,10 +60,11 @@ export class UsersController {
         return this.service.findAll()
     }
     
-    //@Delete(":/id")
-    //deleteUser(@Param("id") id:string){
-    //    return this.service.deleteUser(parseInt(id))
-    //}
+    @UseGuards(AdminGuard)
+    @Delete("/:id")
+    deleteUser(@Param("id") id:number){
+        return this.service.deleteUser(id);
+    }
 
     @Patch('/:id')
     updateUser(@Param('id') id:string, @Body() body:updateUserDto){

@@ -35,7 +35,7 @@ let UsersService = class UsersService {
         return this.usersRepository.update(id, attrs);
     }
     async findOne(id) {
-        const user = await this.usersRepository.findOneBy({ id: id });
+        const user = await this.usersRepository.findOneBy({ id });
         if (!user) {
             throw new common_1.NotFoundException("user not found");
         }
@@ -48,14 +48,13 @@ let UsersService = class UsersService {
     async findAllUsersByEmail(email) {
         return await this.usersRepository.findBy({ email });
     }
+    async deleteUser(id) {
+        const user = await this.findOne(id);
+        await this.usersRepository.remove(user);
+        return { message: "User deleted successfully" };
+    }
 };
 exports.UsersService = UsersService;
-__decorate([
-    __param(0, (0, common_1.Param)('id')),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Number]),
-    __metadata("design:returntype", Promise)
-], UsersService.prototype, "findOne", null);
 exports.UsersService = UsersService = __decorate([
     (0, common_1.Injectable)(),
     __param(0, (0, typeorm_2.InjectRepository)(users_entity_1.User)),

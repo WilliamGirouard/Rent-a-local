@@ -26,8 +26,8 @@ export class UsersService {
     }
 
 
-    async findOne(@Param('id') id:number){
-        const user = await this.usersRepository.findOneBy({id: id})
+    async findOne(id:number){
+        const user = await this.usersRepository.findOneBy({id})
         
         
         if (!user){throw new NotFoundException("user not found")}
@@ -43,7 +43,9 @@ export class UsersService {
         return await this.usersRepository.findBy({email})
     }
 
-    //async deleteUser(id:number){
-    //    return await this.usersRepository.findBy({id})
-    //}
+    async deleteUser(id:number){
+        const user = await this.findOne(id);
+        await this.usersRepository.remove(user);
+        return { message: "User deleted successfully" };
+    }
 }

@@ -53,6 +53,9 @@ let UsersController = class UsersController {
     findAllUsers() {
         return this.service.findAll();
     }
+    deleteUser(id) {
+        return this.service.deleteUser(id);
+    }
     updateUser(id, body) {
         return this.service.updateUser(parseInt(id), body);
     }
@@ -103,6 +106,14 @@ __decorate([
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", void 0)
 ], UsersController.prototype, "findAllUsers", null);
+__decorate([
+    (0, common_1.UseGuards)(admin_guard_1.AdminGuard),
+    (0, common_1.Delete)("/:id"),
+    __param(0, (0, common_1.Param)("id")),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Number]),
+    __metadata("design:returntype", void 0)
+], UsersController.prototype, "deleteUser", null);
 __decorate([
     (0, common_1.Patch)('/:id'),
     __param(0, (0, common_1.Param)('id')),

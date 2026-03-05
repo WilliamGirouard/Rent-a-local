@@ -3,8 +3,8 @@ POST http://localhost:3000/auth/signup/
 Content-Type: application/json
 
 {
-    "email" : "coucou@gentil.smiley",
-    "password": "mechant"
+    "email" : "abc@def.ghi",
+    "password": "jklmnop"
 }
 
 ### signin user
@@ -23,16 +23,20 @@ GET  http://localhost:3000/auth/whoami/
 POST http://localhost:3000/auth/signout/
 
 ### update user test
-PATCH http://localhost:3000/auth/7
+PATCH http://localhost:3000/auth/9
 Content-Type: application/json
 
 {
-    "email" : "coucou@gentil.smiley",
-    "password": "mechant",
-    "admin": "true"
+    "id": 3
 }
 
 ### find user test
-GET http://localhost:3000/auth/4
+GET http://localhost:3000/auth/8
+
+// ADMIN ONLY
+
 ### find users test
 GET http://localhost:3000/auth/
+
+### delete user test
+DELETE http://localhost:3000/auth/6

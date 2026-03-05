@@ -13,5 +13,8 @@ export declare class UsersController {
     whoami(user: User): User;
     findUser(id: string): Promise<User>;
     findAllUsers(): Promise<User[]>;
+    deleteUser(id: number): Promise<{
+        message: string;
+    }>;
     updateUser(id: string, body: updateUserDto): Promise<import("typeorm").UpdateResult | null>;
 }

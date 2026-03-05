@@ -5,8 +5,11 @@ import { AuthController } from './auth.controller';
 import { JwtModule } from '@nestjs/jwt';
 import { ConfigService } from '@nestjs/config';
 import { UsersModule } from 'src/users/users.module';
+import { AdminGuard } from 'src/auth/guards/admin.guard';
+
 @Module({
-  providers: [AuthService],
+  providers: [AuthService, AdminGuard
+  ],
   imports: [JwtModule.registerAsync({
     inject:[ConfigService],
     useFactory: (configService: ConfigService) => ({

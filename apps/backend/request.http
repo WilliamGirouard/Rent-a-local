@@ -14,14 +14,13 @@ POST http://localhost:3000/v1/auth/login
 Content-Type: application/json 
 
 {
-    "email":"bbygurl@gmail.com",
-    "password":"ILove12yearsold!!!"
+    "email":"sasa@yolo.com",
+    "password":"123SASAsasa$$$#$##$#$#$#@@"
 }
 
 ### Get user profile test
 GET http://localhost:3000/v1/auth/profile
 Cookie: session=eyJ0b2tlbiI6eyJhY2Nlc3NfdG9rZW4iOiJleUpoYkdjaU9pSklVekkxTmlJc0luUjVjQ0k2SWtwWFZDSjkuZXlKemRXSWlPalVzSW1WdFlXbHNJam9pWW1KNVozVnliRUJuYldGcGJDNWpiMjBpTENKcFlYUWlPakUzTnpJME56a3dOak1zSW1WNGNDSTZNVGMzTXpBNE16ZzJNMzAuQndUNjlsYW9mSWpWTVFsMFJ5YWx2UmFOWWNyOWVscDRZS2tXSzBqWENoNCJ9fQ==; path=/; expires=Mon, 09 Mar 2026 19:17:43 GMT; httponly,session.sig=ghsCnAK3_BR9clOFAbXfj5GBVQs; path=/; expires=Mon, 09 Mar 2026 19:17:43 GMT; httponly
-
 
 ### List all users
 GET http://localhost:3000/v1/users

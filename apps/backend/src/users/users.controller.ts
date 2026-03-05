@@ -3,8 +3,6 @@ import { UsersService } from './users.service';
 import { UpdateUserDto } from 'src/dtos/update-user.dto';
 import { Serialize } from 'src/interceptors/serialize.interceptor';
 import { UserDto } from 'src/dtos/user.dto';
-import { Roles } from './roles/roles.decorator';
-import { Role } from './roles/roles.enum';
 import { User } from './user.entity';
 
 @Controller('users')
@@ -15,7 +13,6 @@ export class UsersController {
     // @UseInterceptors(ClassSerializerInterceptor)
     // @UseInterceptors(new SerializeInterceptor(UserDto))
     // @SerializeOptions({type: User})
-    // @Roles(Role.Admin)
     @Serialize(UserDto)
     @Get()
     async listUsers() {
@@ -27,14 +24,12 @@ export class UsersController {
     // @UseInterceptors(new SerializeInterceptor(UserDto))
     // @SerializeOptions({type: User})
 
-    // @Roles(Role.Admin, Role.User)
     @Serialize(UserDto)
     @Get("/:id")
     async getUserById(@Param("id") id : number) : Promise<User> {
         return await this.usersService.findOneUserById(id);
     }
 
-    // @Roles(Role.Admin)
     @Delete("/:id")
     async deleteUser(@Param("id") id : number) {
         return await this.usersService.removeUser(id)
@@ -44,4 +39,5 @@ export class UsersController {
     async updateUser(@Param("id") id: number, @Body() body : UpdateUserDto) {
         return await this.usersService.updateUser(id, body)
     }
+
 }

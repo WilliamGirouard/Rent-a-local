@@ -1,10 +1,11 @@
-import { Body, Controller, Get, HttpCode, HttpStatus, Post, Request, Session, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, HttpCode, HttpStatus, Post, Request, Session, UseGuards, UseInterceptors } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { CreateUserDto } from 'src/dtos/create-user.dto';
 import { LoginUserDto } from 'src/dtos/login-user.dto';
-import { AuthGuard } from 'src/auth/auth.guard';
-import { Roles } from 'src/users/roles/roles.decorator';
-import { Role } from 'src/users/roles/roles.enum';
+import { AuthGuard } from 'src/auth/guards/auth.guard';
+import { currentUser } from 'src/users/decorators/current-user.decorator';
+import { User } from 'src/users/user.entity';
+import { AdminGuard } from 'src/auth/guards/admin.guard';
 
 @Controller('auth')
 export class AuthController {
@@ -24,12 +25,11 @@ export class AuthController {
         return this.authService.register(body)
     }
 
-    // @Roles(Role.User)
-    @UseGuards(AuthGuard)
+    // Juste pour exemple, accessible seulement si le role du User est administrator
+    @UseGuards(AuthGuard, AdminGuard)
     @Get("/profile")
-    getProfile(@Request() req){
+    getProfile(@currentUser() user : User){
         //Profile du user connecte
-        return req.user;
+        return user;
     }
-
 }

@@ -50,7 +50,7 @@ let AuthService = class AuthService {
         if (await this.hashingService.compareHashToPassword(user.password, userVerified?.password) == false) {
             throw new common_1.UnauthorizedException("Unauthorized connection");
         }
-        const payload = { sub: userVerified.id, email: userVerified.email };
+        const payload = { sub: userVerified.id, email: userVerified.email, role: userVerified.role };
         return { access_token: await this.jwtService.signAsync(payload) };
     }
 };

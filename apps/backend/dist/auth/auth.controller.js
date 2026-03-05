@@ -17,7 +17,10 @@ const common_1 = require("@nestjs/common");
 const auth_service_1 = require("./auth.service");
 const create_user_dto_1 = require("../dtos/create-user.dto");
 const login_user_dto_1 = require("../dtos/login-user.dto");
-const auth_guard_1 = require("./auth.guard");
+const auth_guard_1 = require("./guards/auth.guard");
+const current_user_decorator_1 = require("../users/decorators/current-user.decorator");
+const user_entity_1 = require("../users/user.entity");
+const admin_guard_1 = require("./guards/admin.guard");
 let AuthController = class AuthController {
     authService;
     constructor(authService) {
@@ -31,8 +34,8 @@ let AuthController = class AuthController {
     async register(body) {
         return this.authService.register(body);
     }
-    getProfile(req) {
-        return req.user;
+    getProfile(user) {
+        return user;
     }
 };
 exports.AuthController = AuthController;
@@ -54,11 +57,11 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], AuthController.prototype, "register", null);
 __decorate([
-    (0, common_1.UseGuards)(auth_guard_1.AuthGuard),
+    (0, common_1.UseGuards)(auth_guard_1.AuthGuard, admin_guard_1.AdminGuard),
     (0, common_1.Get)("/profile"),
-    __param(0, (0, common_1.Request)()),
+    __param(0, (0, current_user_decorator_1.currentUser)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object]),
+    __metadata("design:paramtypes", [user_entity_1.User]),
     __metadata("design:returntype", void 0)
 ], AuthController.prototype, "getProfile", null);
 exports.AuthController = AuthController = __decorate([

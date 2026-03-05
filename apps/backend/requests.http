@@ -12,8 +12,8 @@ POST http://localhost:3000/auth/signin/
 Content-Type: application/json
 
 {
-    "email" : "Fifou@youtube.com",
-    "password" : "DETYPEACIER"
+    "email" : "coucou@gentil.smiley",
+    "password" : "mechant"
 }
 
 ### whoami
@@ -23,12 +23,13 @@ GET  http://localhost:3000/auth/whoami/
 POST http://localhost:3000/auth/signout/
 
 ### update user test
-PATCH http://localhost:3000/auth/3
+PATCH http://localhost:3000/auth/7
 Content-Type: application/json
 
 {
-    "email" : "prezdelarepubliquefr@gouv.fr",
-    "password" : "BRIGITTE"
+    "email" : "coucou@gentil.smiley",
+    "password": "mechant",
+    "admin": "true"
 }
 
 ### find user test

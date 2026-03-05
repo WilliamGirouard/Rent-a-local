@@ -35,7 +35,7 @@ let UsersService = class UsersService {
         return this.usersRepository.update(id, attrs);
     }
     async findOne(id) {
-        const user = await this.usersRepository.findOneBy({ id });
+        const user = await this.usersRepository.findOneBy({ id: id });
         if (!user) {
             throw new common_1.NotFoundException("user not found");
         }

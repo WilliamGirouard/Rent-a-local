@@ -1,12 +1,15 @@
-import { Body, Controller, Get, Post, Param, Patch,/*, UseInterceptors, ClassSerializerInterceptor*/ 
-UseInterceptors,
-Session} from '@nestjs/common';
+import { Body, Controller, Get, Post, Param, Patch, /*ClassSerializerInterceptor*/ UseInterceptors, Session, Delete, UseGuards} from '@nestjs/common';
 import { UsersService } from './service/users.service';
 import { CreateUserDto } from './dtos/create-user.dto';
 import { updateUserDto } from './dtos/update-user.dto';
-import { Serialize, SerializeInterceptor } from 'src/interceptors/serialize.interceptor';
+import { Serialize } from 'src/interceptors/serialize.interceptor';
 import { UserDto } from './dtos/user.dto';
 import { AuthService } from './service/auth.service';
+import { CurrentUser } from './decorators/current-user.decorator';
+import { CurrentUserInterceptor } from './interceptors/current-user.interceptor';
+import { User } from './users.entity';
+import { AdminGuard } from './guards/admin.guard';
+
 
 @Controller('auth')
 export class UsersController {
@@ -34,10 +37,13 @@ export class UsersController {
         return "Successfully logged out"
     }
 
+    
     @Get("/whoami")
-    whoami(@Session() session:any){
+    //@UseInterceptors(CurrentUserInterceptor)
+    whoami(@CurrentUser() user:User){
         //return this.service.findOne(session.userId)
-        return this.auth.whoAmI(session.userId)
+        //return this.auth.whoAmI(user.userId)
+        return user;
     }
 
     //@UseInterceptors(ClassSerializerInterceptor)
@@ -48,12 +54,16 @@ export class UsersController {
         return this.service.findOne(parseInt(id))
     }
 
+    @UseGuards(AdminGuard)
     @Get()
     findAllUsers(){
         return this.service.findAll()
     }
-
-    deleteUser(){}
+    
+    //@Delete(":/id")
+    //deleteUser(@Param("id") id:string){
+    //    return this.service.deleteUser(parseInt(id))
+    //}
 
     @Patch('/:id')
     updateUser(@Param('id') id:string, @Body() body:updateUserDto){

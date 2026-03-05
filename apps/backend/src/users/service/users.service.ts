@@ -27,7 +27,7 @@ export class UsersService {
 
 
     async findOne(@Param('id') id:number){
-        const user = await this.usersRepository.findOneBy({id})
+        const user = await this.usersRepository.findOneBy({id: id})
         
         
         if (!user){throw new NotFoundException("user not found")}
@@ -43,5 +43,7 @@ export class UsersService {
         return await this.usersRepository.findBy({email})
     }
 
-    
+    //async deleteUser(id:number){
+    //    return await this.usersRepository.findBy({id})
+    //}
 }

@@ -20,6 +20,9 @@ const update_user_dto_1 = require("./dtos/update-user.dto");
 const serialize_interceptor_1 = require("../interceptors/serialize.interceptor");
 const user_dto_1 = require("./dtos/user.dto");
 const auth_service_1 = require("./service/auth.service");
+const current_user_decorator_1 = require("./decorators/current-user.decorator");
+const users_entity_1 = require("./users.entity");
+const admin_guard_1 = require("./guards/admin.guard");
 let UsersController = class UsersController {
     service;
     auth;
@@ -41,8 +44,8 @@ let UsersController = class UsersController {
         session.userId = null;
         return "Successfully logged out";
     }
-    whoami(session) {
-        return this.auth.whoAmI(session.userId);
+    whoami(user) {
+        return user;
     }
     findUser(id) {
         return this.service.findOne(parseInt(id));
@@ -50,7 +53,6 @@ let UsersController = class UsersController {
     findAllUsers() {
         return this.service.findAll();
     }
-    deleteUser() { }
     updateUser(id, body) {
         return this.service.updateUser(parseInt(id), body);
     }
@@ -81,9 +83,9 @@ __decorate([
 ], UsersController.prototype, "signout", null);
 __decorate([
     (0, common_1.Get)("/whoami"),
-    __param(0, (0, common_1.Session)()),
+    __param(0, (0, current_user_decorator_1.CurrentUser)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object]),
+    __metadata("design:paramtypes", [users_entity_1.User]),
     __metadata("design:returntype", void 0)
 ], UsersController.prototype, "whoami", null);
 __decorate([
@@ -95,6 +97,7 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], UsersController.prototype, "findUser", null);
 __decorate([
+    (0, common_1.UseGuards)(admin_guard_1.AdminGuard),
     (0, common_1.Get)(),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),

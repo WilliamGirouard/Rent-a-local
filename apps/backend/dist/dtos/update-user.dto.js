@@ -10,6 +10,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.UpdateUserDto = void 0;
+const class_transformer_1 = require("class-transformer");
 const class_validator_1 = require("class-validator");
 class UpdateUserDto {
     email;
@@ -21,6 +22,7 @@ exports.UpdateUserDto = UpdateUserDto;
 __decorate([
     (0, class_validator_1.IsEmail)(),
     (0, class_validator_1.IsOptional)(),
+    (0, class_transformer_1.Expose)(),
     __metadata("design:type", String)
 ], UpdateUserDto.prototype, "email", void 0);
 __decorate([
@@ -41,12 +43,14 @@ __decorate([
     (0, class_validator_1.IsString)(),
     (0, class_validator_1.IsNotEmpty)(),
     (0, class_validator_1.IsOptional)(),
+    (0, class_transformer_1.Expose)(),
     __metadata("design:type", String)
 ], UpdateUserDto.prototype, "firstName", void 0);
 __decorate([
     (0, class_validator_1.IsString)(),
     (0, class_validator_1.IsNotEmpty)(),
     (0, class_validator_1.IsOptional)(),
+    (0, class_transformer_1.Expose)(),
     __metadata("design:type", String)
 ], UpdateUserDto.prototype, "lastName", void 0);
 //# sourceMappingURL=update-user.dto.js.map

@@ -1,9 +1,11 @@
+import { Expose } from "class-transformer";
 import { IsEmail, IsStrongPassword, IsString, IsNotEmpty, IsOptional } from "class-validator";
 
 export class UpdateUserDto {
     
     @IsEmail()
     @IsOptional()
+    @Expose()
     email : string
 
     @IsStrongPassword({
@@ -22,11 +24,13 @@ export class UpdateUserDto {
     @IsString()
     @IsNotEmpty()
     @IsOptional()
+    @Expose()
     firstName: string;
     
     @IsString()
     @IsNotEmpty()
     @IsOptional()
+    @Expose()
     lastName: string;
 
 }

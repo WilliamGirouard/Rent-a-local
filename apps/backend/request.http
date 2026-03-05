@@ -3,8 +3,8 @@ POST http://localhost:3000/v1/auth/register
 Content-Type: application/json 
 
 {
-    "email":"yeah@gmail.com",
-    "password":"ILoveGhislaineAnd12yearsold!!!",
+    "email":"bbygurl@gmail.com",
+    "password":"ILove12yearsold!!!",
     "firstName":"Jerome",
     "lastName":"Grrr"
 }
@@ -14,13 +14,13 @@ POST http://localhost:3000/v1/auth/login
 Content-Type: application/json 
 
 {
-    "email":"yolo@gmail.com",
-    "password":"ILoveGhislaineAnd12yearsold!!!"
+    "email":"bbygurl@gmail.com",
+    "password":"ILove12yearsold!!!"
 }
 
 ### Get user profile test
 GET http://localhost:3000/v1/auth/profile
-Cookie: session=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjMsImVtYWlsIjoiSWFtR3Jvb3RAZ21haWwuY29tIiwiaWF0IjoxNzcyMTY5NTIxLCJleHAiOjE3NzIxNjk1ODF9.Os5aO6gaFgEpHqZhfbQSAj1MlhMYZmkoHXboqXqmLws
+Cookie: session=eyJ0b2tlbiI6eyJhY2Nlc3NfdG9rZW4iOiJleUpoYkdjaU9pSklVekkxTmlJc0luUjVjQ0k2SWtwWFZDSjkuZXlKemRXSWlPalVzSW1WdFlXbHNJam9pWW1KNVozVnliRUJuYldGcGJDNWpiMjBpTENKcFlYUWlPakUzTnpJME56a3dOak1zSW1WNGNDSTZNVGMzTXpBNE16ZzJNMzAuQndUNjlsYW9mSWpWTVFsMFJ5YWx2UmFOWWNyOWVscDRZS2tXSzBqWENoNCJ9fQ==; path=/; expires=Mon, 09 Mar 2026 19:17:43 GMT; httponly,session.sig=ghsCnAK3_BR9clOFAbXfj5GBVQs; path=/; expires=Mon, 09 Mar 2026 19:17:43 GMT; httponly
 
 
 ### List all users

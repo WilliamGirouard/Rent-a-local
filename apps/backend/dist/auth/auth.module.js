@@ -13,22 +13,21 @@ const hashing_module_1 = require("../hashing/hashing.module");
 const auth_controller_1 = require("./auth.controller");
 const jwt_1 = require("@nestjs/jwt");
 const config_1 = require("@nestjs/config");
-const typeorm_1 = require("@nestjs/typeorm");
-const user_entity_1 = require("../users/user.entity");
+const users_module_1 = require("../users/users.module");
 let AuthModule = class AuthModule {
 };
 exports.AuthModule = AuthModule;
 exports.AuthModule = AuthModule = __decorate([
     (0, common_1.Module)({
         providers: [auth_service_1.AuthService],
-        imports: [typeorm_1.TypeOrmModule.forFeature([user_entity_1.User]), jwt_1.JwtModule.registerAsync({
+        imports: [jwt_1.JwtModule.registerAsync({
                 inject: [config_1.ConfigService],
                 useFactory: (configService) => ({
                     secret: configService.getOrThrow("JWT_SECRET"),
                     signOptions: { expiresIn: configService.getOrThrow("JWT_EXPIRES"), },
                 }),
                 global: true,
-            }), hashing_module_1.HashingModule],
+            }), hashing_module_1.HashingModule, users_module_1.UsersModule],
         controllers: [auth_controller_1.AuthController],
         exports: [auth_service_1.AuthService],
     })

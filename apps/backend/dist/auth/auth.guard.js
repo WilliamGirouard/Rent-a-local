@@ -19,14 +19,12 @@ let AuthGuard = class AuthGuard {
     }
     async canActivate(context) {
         const request = context.switchToHttp().getRequest();
-        console.log(request.session);
         const token = request.session.token?.access_token;
         if (!token) {
             throw new common_1.UnauthorizedException("Vous n'avez pas l'autorisation.");
         }
         try {
             const payload = await this.jwtService.verifyAsync(token);
-            console.log(payload);
             request['user'] = payload;
         }
         catch (error) {

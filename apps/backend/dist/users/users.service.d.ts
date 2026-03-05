@@ -1,8 +1,9 @@
 import { User } from './user.entity';
-import { AuthService } from 'src/auth/auth.service';
+import { Repository } from 'typeorm';
 export declare class UsersService {
-    private authService;
-    constructor(authService: AuthService);
+    private usersRepository;
+    constructor(usersRepository: Repository<User>);
+    accessUsersRepo(): Repository<User>;
     findAllUsers(): Promise<User[]>;
     findOneUserById(id: number): Promise<User>;
     findOneUserByEmail(email: string): Promise<User>;

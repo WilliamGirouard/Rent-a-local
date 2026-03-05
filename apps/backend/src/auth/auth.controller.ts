@@ -3,6 +3,8 @@ import { AuthService } from './auth.service';
 import { CreateUserDto } from 'src/dtos/create-user.dto';
 import { LoginUserDto } from 'src/dtos/login-user.dto';
 import { AuthGuard } from 'src/auth/auth.guard';
+import { Roles } from 'src/users/roles/roles.decorator';
+import { Role } from 'src/users/roles/roles.enum';
 
 @Controller('auth')
 export class AuthController {
@@ -22,7 +24,7 @@ export class AuthController {
         return this.authService.register(body)
     }
 
-
+    // @Roles(Role.User)
     @UseGuards(AuthGuard)
     @Get("/profile")
     getProfile(@Request() req){

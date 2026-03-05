@@ -8,27 +8,35 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+var __param = (this && this.__param) || function (paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.UsersService = void 0;
 const common_1 = require("@nestjs/common");
-const auth_service_1 = require("../auth/auth.service");
+const user_entity_1 = require("./user.entity");
+const typeorm_1 = require("@nestjs/typeorm");
+const typeorm_2 = require("typeorm");
 let UsersService = class UsersService {
-    authService;
-    constructor(authService) {
-        this.authService = authService;
+    usersRepository;
+    constructor(usersRepository) {
+        this.usersRepository = usersRepository;
+    }
+    accessUsersRepo() {
+        return this.usersRepository;
     }
     async findAllUsers() {
-        return this.authService.accessUsersRepo().find();
+        return this.usersRepository.find();
     }
     async findOneUserById(id) {
-        const foundUser = await this.authService.accessUsersRepo().findOneBy({ id: id });
+        const foundUser = await this.usersRepository.findOneBy({ id: id });
         if (foundUser == null) {
             throw new common_1.NotFoundException("Invalid Id");
         }
         return foundUser;
     }
     async findOneUserByEmail(email) {
-        const foundUser = await this.authService.accessUsersRepo().findOneBy({ email: email });
+        const foundUser = await this.usersRepository.findOneBy({ email: email });
         if (foundUser == null) {
             throw new common_1.BadRequestException("Invalid email");
         }
@@ -36,18 +44,19 @@ let UsersService = class UsersService {
     }
     async removeUser(id) {
         const foundUser = await this.findOneUserById(id);
-        return await this.authService.accessUsersRepo().remove(foundUser);
+        return await this.usersRepository.remove(foundUser);
     }
     async updateUser(id, attrs) {
         const foundUser = await this.findOneUserById(id);
         if (attrs == id)
             Object.assign(foundUser, attrs);
-        return this.authService.accessUsersRepo().save(foundUser);
+        return this.usersRepository.save(foundUser);
     }
 };
 exports.UsersService = UsersService;
 exports.UsersService = UsersService = __decorate([
     (0, common_1.Injectable)(),
-    __metadata("design:paramtypes", [auth_service_1.AuthService])
+    __param(0, (0, typeorm_1.InjectRepository)(user_entity_1.User)),
+    __metadata("design:paramtypes", [typeorm_2.Repository])
 ], UsersService);
 //# sourceMappingURL=users.service.js.map

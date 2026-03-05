@@ -26,7 +26,7 @@ let AuthController = class AuthController {
     async login(body, session) {
         const token = await this.authService.login(body);
         session.token = token;
-        return { message: "Login Successful", token: session.token };
+        return { message: "Login Successful" };
     }
     async register(body) {
         return this.authService.register(body);

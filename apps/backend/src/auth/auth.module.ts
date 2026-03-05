@@ -4,11 +4,10 @@ import { HashingModule } from 'src/hashing/hashing.module';
 import { AuthController } from './auth.controller';
 import { JwtModule } from '@nestjs/jwt';
 import { ConfigService } from '@nestjs/config';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { User } from 'src/users/user.entity';
+import { UsersModule } from 'src/users/users.module';
 @Module({
   providers: [AuthService],
-  imports: [TypeOrmModule.forFeature([User]), JwtModule.registerAsync({
+  imports: [JwtModule.registerAsync({
     inject:[ConfigService],
     useFactory: (configService: ConfigService) => ({
       secret: configService.getOrThrow("JWT_SECRET"),
@@ -16,7 +15,7 @@ import { User } from 'src/users/user.entity';
     }),
     global: true,
 
-    }), HashingModule],
+    }), HashingModule, UsersModule],
   controllers: [AuthController],
   exports:[AuthService],
 })

@@ -61,6 +61,7 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], UsersController.prototype, "deleteUser", null);
 __decorate([
+    (0, serialize_interceptor_1.Serialize)(update_user_dto_1.UpdateUserDto),
     (0, common_1.Patch)("/:id"),
     __param(0, (0, common_1.Param)("id")),
     __param(1, (0, common_1.Body)()),

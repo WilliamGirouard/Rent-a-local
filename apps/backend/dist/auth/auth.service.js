@@ -8,50 +8,42 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var __param = (this && this.__param) || function (paramIndex, decorator) {
-    return function (target, key) { decorator(target, key, paramIndex); }
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AuthService = void 0;
 const common_1 = require("@nestjs/common");
 const hashing_service_1 = require("../hashing/hashing.service");
 const jwt_1 = require("@nestjs/jwt");
-const typeorm_1 = require("@nestjs/typeorm");
-const user_entity_1 = require("../users/user.entity");
-const typeorm_2 = require("typeorm");
 const roles_enum_1 = require("../users/roles/roles.enum");
+const users_service_1 = require("../users/users.service");
 let AuthService = class AuthService {
     hashingService;
     jwtService;
-    usersRepository;
-    constructor(hashingService, jwtService, usersRepository) {
+    userService;
+    constructor(hashingService, jwtService, userService) {
         this.hashingService = hashingService;
         this.jwtService = jwtService;
-        this.usersRepository = usersRepository;
+        this.userService = userService;
     }
     async verifyAlreadyExistingEmail(email) {
-        const alreadyExistingBool = await this.usersRepository.existsBy({ email: email });
+        const alreadyExistingBool = await this.userService.accessUsersRepo().existsBy({ email: email });
         if (alreadyExistingBool) {
             throw new common_1.ConflictException("Un compte utilise deja cet email.");
         }
     }
-    accessUsersRepo() {
-        return this.usersRepository;
-    }
     async register(user) {
         await this.verifyAlreadyExistingEmail(user.email);
         const hashedPassword = await this.hashingService.passwordHasher(user.password);
-        const userWithHash = this.usersRepository.create({
+        const userWithHash = this.userService.accessUsersRepo().create({
             email: user.email,
             password: hashedPassword,
             firstName: user.firstName,
             lastName: user.lastName,
             role: roles_enum_1.Role.User,
         });
-        return await this.usersRepository.save(userWithHash);
+        return await this.userService.accessUsersRepo().save(userWithHash);
     }
     async login(user) {
-        const userVerified = await this.usersRepository.findOneBy({ email: user.email });
+        const userVerified = await this.userService.accessUsersRepo().findOneBy({ email: user.email });
         if (userVerified == null) {
             throw new common_1.UnauthorizedException("Invalid credentials");
         }
@@ -65,9 +57,8 @@ let AuthService = class AuthService {
 exports.AuthService = AuthService;
 exports.AuthService = AuthService = __decorate([
     (0, common_1.Injectable)(),
-    __param(2, (0, typeorm_1.InjectRepository)(user_entity_1.User)),
     __metadata("design:paramtypes", [hashing_service_1.HashingService,
         jwt_1.JwtService,
-        typeorm_2.Repository])
+        users_service_1.UsersService])
 ], AuthService);
 //# sourceMappingURL=auth.service.js.map

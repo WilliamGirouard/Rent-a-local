@@ -2,7 +2,6 @@
 
 Web application that lets you rent premises for your private meetings.
 
-<<<<<<< WilliamG_backend
 ## Commands for backend
 
     1- cd apps/backend/
@@ -70,4 +69,3 @@ Web application that lets you rent premises for your private meetings.
 
 =======
 Numéro d'équipe : 2
->>>>>>> master

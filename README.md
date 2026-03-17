@@ -2,6 +2,7 @@
 
 Web application that lets you rent premises for your private meetings.
 
+<<<<<<< WilliamG_backend
 ## Commands for backend
 
     1- cd apps/backend/
@@ -67,3 +68,6 @@ Web application that lets you rent premises for your private meetings.
     https://docs.nestjs.com/recipes/passport#implementing-passport-strategies
     https://docs.nestjs.com/security/authentication  
 
+=======
+Numéro d'équipe : 2
+>>>>>>> master

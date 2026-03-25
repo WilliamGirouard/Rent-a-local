@@ -4,7 +4,7 @@ import { Reservation } from './reservations.entity';
 import { Repository } from 'typeorm';
 import { UsersService } from 'src/users/users.service';
 import { CreateReservationDto } from 'src/dtos/create-reservation.dto';
-import { ReservationFactory } from './reservationFactory';
+import { ReservationFactory } from './reservation.factory';
 
 @Injectable()
 export class ReservationsService {

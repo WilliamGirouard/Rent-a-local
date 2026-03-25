@@ -18,7 +18,7 @@ const typeorm_1 = require("@nestjs/typeorm");
 const reservations_entity_1 = require("./reservations.entity");
 const typeorm_2 = require("typeorm");
 const users_service_1 = require("../users/users.service");
-const reservationFactory_1 = require("./reservationFactory");
+const reservation_factory_1 = require("./reservation.factory");
 let ReservationsService = class ReservationsService {
     repo;
     usersService;
@@ -28,7 +28,7 @@ let ReservationsService = class ReservationsService {
     }
     async create(dto) {
         const user = await this.usersService.findOneUserById(dto.userId);
-        const reservation = reservationFactory_1.ReservationFactory.create(dto, user);
+        const reservation = reservation_factory_1.ReservationFactory.create(dto, user);
         return await this.repo.save(reservation);
     }
     async findAll() {

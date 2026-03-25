@@ -17,4 +17,4 @@ class ReservationFactory {
     }
 }
 exports.ReservationFactory = ReservationFactory;
-//# sourceMappingURL=reservationFactory.js.map
+//# sourceMappingURL=reservation.factory.js.map

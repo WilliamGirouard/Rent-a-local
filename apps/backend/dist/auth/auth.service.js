@@ -13,16 +13,18 @@ exports.AuthService = void 0;
 const common_1 = require("@nestjs/common");
 const hashing_service_1 = require("../hashing/hashing.service");
 const jwt_1 = require("@nestjs/jwt");
-const roles_enum_1 = require("../users/roles/roles.enum");
 const users_service_1 = require("../users/users.service");
+const user_factory_1 = require("../users/user.factory");
 let AuthService = class AuthService {
     hashingService;
     jwtService;
     userService;
-    constructor(hashingService, jwtService, userService) {
+    userFactory;
+    constructor(hashingService, jwtService, userService, userFactory) {
         this.hashingService = hashingService;
         this.jwtService = jwtService;
         this.userService = userService;
+        this.userFactory = userFactory;
     }
     async verifyAlreadyExistingEmail(email) {
         const alreadyExistingBool = await this.userService.accessUsersRepo().existsBy({ email: email });
@@ -30,17 +32,10 @@ let AuthService = class AuthService {
             throw new common_1.ConflictException("Un compte utilise deja cet email.");
         }
     }
-    async register(user) {
-        await this.verifyAlreadyExistingEmail(user.email);
-        const hashedPassword = await this.hashingService.passwordHasher(user.password);
-        const userWithHash = this.userService.accessUsersRepo().create({
-            email: user.email,
-            password: hashedPassword,
-            firstName: user.firstName,
-            lastName: user.lastName,
-            role: roles_enum_1.Role.User,
-        });
-        return await this.userService.accessUsersRepo().save(userWithHash);
+    async register(dto) {
+        await this.verifyAlreadyExistingEmail(dto.email);
+        const newUser = await this.userFactory.createUser(dto);
+        return await this.userService.accessUsersRepo().save(newUser);
     }
     async login(user) {
         const userVerified = await this.userService.accessUsersRepo().findOneBy({ email: user.email });
@@ -59,6 +54,7 @@ exports.AuthService = AuthService = __decorate([
     (0, common_1.Injectable)(),
     __metadata("design:paramtypes", [hashing_service_1.HashingService,
         jwt_1.JwtService,
-        users_service_1.UsersService])
+        users_service_1.UsersService,
+        user_factory_1.UserFactory])
 ], AuthService);
 //# sourceMappingURL=auth.service.js.map

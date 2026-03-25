@@ -20,7 +20,6 @@ const login_user_dto_1 = require("../dtos/login-user.dto");
 const auth_guard_1 = require("./guards/auth.guard");
 const current_user_decorator_1 = require("../users/decorators/current-user.decorator");
 const user_entity_1 = require("../users/user.entity");
-const admin_guard_1 = require("./guards/admin.guard");
 let AuthController = class AuthController {
     authService;
     constructor(authService) {
@@ -57,7 +56,7 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], AuthController.prototype, "register", null);
 __decorate([
-    (0, common_1.UseGuards)(auth_guard_1.AuthGuard, admin_guard_1.AdminGuard),
+    (0, common_1.UseGuards)(auth_guard_1.AuthGuard),
     (0, common_1.Get)("/profile"),
     __param(0, (0, current_user_decorator_1.currentUser)()),
     __metadata("design:type", Function),

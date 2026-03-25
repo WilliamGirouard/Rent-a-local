@@ -1,5 +1,6 @@
-import {Entity, Column, PrimaryGeneratedColumn, AfterInsert, BeforeRemove} from "typeorm";
+import {Entity, Column, PrimaryGeneratedColumn, AfterInsert, BeforeRemove, OneToMany} from "typeorm";
 import { Role } from "./roles/roles.enum";
+import { Reservation } from "src/reservations/reservations.entity";
 
 @Entity()
 export class User {

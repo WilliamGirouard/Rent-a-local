@@ -9,12 +9,14 @@ import { HashingModule } from './hashing/hashing.module';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { AuthModule } from './auth/auth.module';
 import { NestCookieSessionOptions, CookieSessionModule,} from 'nestjs-cookie-session';
+import { ReservationsModule } from './reservations/reservations.module';
+import { Reservation } from './reservations/reservations.entity';
 @Module({
   imports: [TypeOrmModule.forRoot(
     {
       type: "sqlite",
       database: "db.sqlite",
-      entities: [User],
+      entities: [User, Reservation],
       synchronize: true,
     }
 ),ConfigModule.forRoot( 
@@ -37,7 +39,7 @@ import { NestCookieSessionOptions, CookieSessionModule,} from 'nestjs-cookie-ses
       }
     }
   }
-  ),UsersModule, ReportsModule, HashingModule, AuthModule],
+  ),UsersModule, ReportsModule, HashingModule, AuthModule, ReservationsModule],
   controllers: [AppController],
   providers: [AppService],
 })

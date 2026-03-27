@@ -9,6 +9,8 @@ import { HashingModule } from './hashing/hashing.module';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { AuthModule } from './auth/auth.module';
 import { NestCookieSessionOptions, CookieSessionModule,} from 'nestjs-cookie-session';
+import { LocalsModule } from './locals/locals.module';
+import { Local } from './locals/locals.entity';
 @Module({
   imports: [TypeOrmModule.forRoot(
     {

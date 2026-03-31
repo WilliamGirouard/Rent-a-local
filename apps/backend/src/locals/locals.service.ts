@@ -2,7 +2,6 @@ import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Local } from './locals.entity';
 import { Repository } from 'typeorm';
-import { UsersService } from 'src/users/users.service';
 import { CreateLocalDto } from 'src/dtos/create-local.dto';
 import { LocalFactory } from './locals.factory';
 
@@ -11,21 +10,25 @@ export class LocalsService {
     constructor(
         @InjectRepository(Local)
         private repo: Repository<Local>,
-        private usersService: UsersService
+        //Pas besoin de usersService ici, car reservation contient tout les ids
+        // private usersService: UsersService
     ) {}
 
     async create(dto: CreateLocalDto): Promise<Local> {
-        const owner = await this.usersService.findOneUserById(dto.ownerId);
-        const local = LocalFactory.create(dto, owner);
+        
+        const local = LocalFactory.create(dto);
         return await this.repo.save(local);
     }
 
     async findAll(): Promise<Local[]> {
-        return await this.repo.find({ relations: ['owner'] });
+        // Ce n'est pas la bonne méthode pour lister tous les locaux. Inspire toi de User
+        // Local n'a besoin de User. Un local qui se fait réserver ===> Réservations
+        // await this.repo.find()
+        return await this.repo.find(/*{ relations: ['owner'] }*/);
     }
 
     async findOne(id: number): Promise<Local> {
-        const local = await this.repo.findOne({ where: { id }, relations: ['owner'] });
+        const local = await this.repo.findOneBy({id:id});
         if (!local) {
             throw new BadRequestException('Local non trouvé.');
         }

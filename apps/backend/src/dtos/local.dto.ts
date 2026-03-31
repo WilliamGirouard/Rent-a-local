@@ -16,6 +16,6 @@ export class LocalDto {
     @Expose()
     pricePerDay: number;
 
-    @Expose()
-    ownerId: number;
+    //@Expose()
+    //ownerId: number;
 }

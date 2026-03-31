@@ -3,10 +3,9 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { Local } from './locals.entity';
 import { LocalsService } from './locals.service';
 import { LocalsController } from './locals.controller';
-import { UsersModule } from 'src/users/users.module';
 
 @Module({
-    imports: [TypeOrmModule.forFeature([Local]), UsersModule],
+    imports: [TypeOrmModule.forFeature([Local])],
     providers: [LocalsService],
     controllers: [LocalsController],
     exports: [LocalsService],

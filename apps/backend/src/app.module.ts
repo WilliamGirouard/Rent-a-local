@@ -11,12 +11,14 @@ import { AuthModule } from './auth/auth.module';
 import { NestCookieSessionOptions, CookieSessionModule,} from 'nestjs-cookie-session';
 import { LocalsModule } from './locals/locals.module';
 import { Local } from './locals/locals.entity';
+import { ReservationsModule } from './reservations/reservations.module';
+import { Reservation } from './reservations/reservations.entity';
 @Module({
   imports: [TypeOrmModule.forRoot(
     {
       type: "sqlite",
       database: "db.sqlite",
-      entities: [User],
+      entities: [User, Reservation, Local],
       synchronize: true,
     }
 ),ConfigModule.forRoot( 
@@ -39,7 +41,7 @@ import { Local } from './locals/locals.entity';
       }
     }
   }
-  ),UsersModule, ReportsModule, HashingModule, AuthModule],
+  ),UsersModule, ReportsModule, HashingModule, AuthModule, ReservationsModule, LocalsModule],
   controllers: [AppController],
   providers: [AppService],
 })

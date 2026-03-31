@@ -6,6 +6,7 @@ import { CreateUserDto } from 'src/dtos/create-user.dto';
 import { LoginUserDto } from 'src/dtos/login-user.dto';
 import { Role } from 'src/users/roles/roles.enum';
 import { UsersService } from 'src/users/users.service';
+import { UserFactory } from 'src/users/user.factory';
 
 @Injectable()
 export class AuthService {
@@ -14,6 +15,7 @@ export class AuthService {
         private hashingService : HashingService,
         private jwtService : JwtService,
         private userService : UsersService,
+        private userFactory : UserFactory, 
     ){}
 
     async verifyAlreadyExistingEmail(email:string) {
@@ -23,18 +25,10 @@ export class AuthService {
         }
     }
     
-    async register(user : CreateUserDto) : Promise<User> {
-        await this.verifyAlreadyExistingEmail(user.email);
-        const hashedPassword = await this.hashingService.passwordHasher(user.password);
-        const userWithHash = this.userService.accessUsersRepo().create(
-            {
-                email:user.email,
-                password:hashedPassword,
-                firstName:user.firstName,
-                lastName:user.lastName,
-                role:Role.User,
-            });
-        return await this.userService.accessUsersRepo().save(userWithHash);
+    async register(dto : CreateUserDto) : Promise<User> {
+        await this.verifyAlreadyExistingEmail(dto.email);
+        const newUser = await this.userFactory.createUser(dto);
+        return await this.userService.accessUsersRepo().save(newUser);
     }
 
     async login(user : LoginUserDto): Promise<{access_token:string}> {

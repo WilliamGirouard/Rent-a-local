@@ -3,10 +3,10 @@ POST http://localhost:3000/v1/auth/register
 Content-Type: application/json 
 
 {
-    "email":"bbygurl@gmail.com",
-    "password":"ILove12yearsold!!!",
-    "firstName":"Jerome",
-    "lastName":"Grrr"
+    "email":"ohHi@gmail.com",
+    "password":"WelcomeToRentALocal",
+    "firstName":"HowCanI",
+    "lastName":"HelpYou"
 }
 
 ### Login user test
@@ -20,7 +20,7 @@ Content-Type: application/json
 
 ### Get user profile test
 GET http://localhost:3000/v1/auth/profile
-Cookie: session=eyJ0b2tlbiI6eyJhY2Nlc3NfdG9rZW4iOiJleUpoYkdjaU9pSklVekkxTmlJc0luUjVjQ0k2SWtwWFZDSjkuZXlKemRXSWlPalVzSW1WdFlXbHNJam9pWW1KNVozVnliRUJuYldGcGJDNWpiMjBpTENKcFlYUWlPakUzTnpJME56a3dOak1zSW1WNGNDSTZNVGMzTXpBNE16ZzJNMzAuQndUNjlsYW9mSWpWTVFsMFJ5YWx2UmFOWWNyOWVscDRZS2tXSzBqWENoNCJ9fQ==; path=/; expires=Mon, 09 Mar 2026 19:17:43 GMT; httponly,session.sig=ghsCnAK3_BR9clOFAbXfj5GBVQs; path=/; expires=Mon, 09 Mar 2026 19:17:43 GMT; httponly
+Cookie: session=eyJ0b2tlbiI6eyJhY2Nlc3NfdG9rZW4iOiJleUpoYkdjaU9pSklVekkxTmlJc0luUjVjQ0k2SWtwWFZDSjkuZXlKemRXSWlPakVzSW1WdFlXbHNJam9pYzJGellVQjViMnh2TG1OdmJTSXNJbkp2YkdVaU9pSjFjMlZ5SWl3aWFXRjBJam94TnpjME5EVXdORGcxTENKbGVIQWlPakUzTnpRME5UUXdPRFY5LjdwbnY5WDd6cUpnRWNSb29WNmFOckxhYURNaVZmVGdab2tqLUJHdy1DS1UifX0=; path=/; expires=Wed, 25 Mar 2026 15:54:45 GMT; httponly
 
 ### List all users
 GET http://localhost:3000/v1/users
@@ -33,3 +33,66 @@ PATCH http://localhost:3000/v1/users/2
 
 ### Delete a user
 DELETE http://localhost:3000/v1/users/2
+
+#### RESERVATIONS
+
+### List all reservations
+GET http://localhost:3000/v1/reservations
+
+### Find 1 reservation
+GET http://localhost:3000/v1/reservations/8
+
+### Create a new reservation
+POST http://localhost:3000/v1/reservations
+Content-Type: application/json
+
+{
+    "startDate": "2027-01-23",
+    "endDate": "2027-03-23",
+    "userId": 1
+    //"localId": 1
+}
+
+### Update a reservation
+PATCH http://localhost:3000/v1/reservations/3
+Content-Type: application/json
+
+{
+    "endDate": "2026-03-31"
+}
+
+### Delete a reservation
+DELETE http://localhost:3000/v1/reservations/7
+
+
+#### LOCALS
+
+### List all locals
+
+GET http://localhost:3000/v1/locals
+
+### List local by Id
+
+GET http://localhost:3000/v1/locals/1
+
+### Create a new local
+POST http://localhost:3000/v1/locals
+Content-Type: application/json
+
+{
+    "name": "Little St. James",
+    "address": "St Thomas 00802, Îles Vierges des États-Unis",
+    "description": "Lotsa fun going around here.",
+    "pricePerDay": 67069
+}
+
+### Delete Local
+DELETE  http://localhost:3000/v1/locals/1
+
+### Update a reservation
+PATCH http://localhost:3000/v1/locals/1
+Content-Type: application/json
+
+{
+    "name": "Big Island"
+}

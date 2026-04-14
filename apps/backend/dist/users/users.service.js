@@ -17,6 +17,7 @@ const common_1 = require("@nestjs/common");
 const user_entity_1 = require("./user.entity");
 const typeorm_1 = require("@nestjs/typeorm");
 const typeorm_2 = require("typeorm");
+const roles_enum_1 = require("./roles/roles.enum");
 let UsersService = class UsersService {
     usersRepository;
     constructor(usersRepository) {
@@ -41,6 +42,16 @@ let UsersService = class UsersService {
             throw new common_1.BadRequestException("Invalid email");
         }
         return foundUser;
+    }
+    async createUser(dto, hashedPassword) {
+        const newUser = this.usersRepository.create({
+            email: dto.email,
+            password: hashedPassword,
+            firstName: dto.firstName,
+            lastName: dto.lastName,
+            role: roles_enum_1.Role.User
+        });
+        return await this.usersRepository.save(newUser);
     }
     async removeUser(id) {
         const foundUser = await this.findOneUserById(id);

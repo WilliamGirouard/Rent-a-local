@@ -14,17 +14,14 @@ const common_1 = require("@nestjs/common");
 const hashing_service_1 = require("../hashing/hashing.service");
 const jwt_1 = require("@nestjs/jwt");
 const users_service_1 = require("../users/users.service");
-const user_factory_1 = require("../users/user.factory");
 let AuthService = class AuthService {
     hashingService;
     jwtService;
     userService;
-    userFactory;
-    constructor(hashingService, jwtService, userService, userFactory) {
+    constructor(hashingService, jwtService, userService) {
         this.hashingService = hashingService;
         this.jwtService = jwtService;
         this.userService = userService;
-        this.userFactory = userFactory;
     }
     async verifyAlreadyExistingEmail(email) {
         const alreadyExistingBool = await this.userService.accessUsersRepo().existsBy({ email: email });
@@ -34,11 +31,11 @@ let AuthService = class AuthService {
     }
     async register(dto) {
         await this.verifyAlreadyExistingEmail(dto.email);
-        const newUser = await this.userFactory.createUser(dto);
-        return await this.userService.accessUsersRepo().save(newUser);
+        const hashedPassword = await this.hashingService.passwordHasher(dto.password);
+        return await this.userService.createUser(dto, hashedPassword);
     }
     async login(user) {
-        const userVerified = await this.userService.accessUsersRepo().findOneBy({ email: user.email });
+        const userVerified = await this.userService.findOneUserByEmail(user.email);
         if (userVerified == null) {
             throw new common_1.UnauthorizedException("Invalid credentials");
         }
@@ -54,7 +51,6 @@ exports.AuthService = AuthService = __decorate([
     (0, common_1.Injectable)(),
     __metadata("design:paramtypes", [hashing_service_1.HashingService,
         jwt_1.JwtService,
-        users_service_1.UsersService,
-        user_factory_1.UserFactory])
+        users_service_1.UsersService])
 ], AuthService);
 //# sourceMappingURL=auth.service.js.map

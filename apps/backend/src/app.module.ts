@@ -21,7 +21,7 @@ import { Local } from './local/locals.entity';
       host: 'localhost',
       port: 5432,
       username: 'postgres',
-      password: 'root',
+      password: 'vivemdu212',
       database: 'rental_db',
       entities: [User, Reservation, Local],
       synchronize: true,

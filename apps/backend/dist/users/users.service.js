@@ -59,8 +59,7 @@ let UsersService = class UsersService {
     }
     async updateUser(id, attrs) {
         const foundUser = await this.findOneUserById(id);
-        if (attrs == id)
-            Object.assign(foundUser, attrs);
+        Object.assign(foundUser, attrs);
         return this.usersRepository.save(foundUser);
     }
 };

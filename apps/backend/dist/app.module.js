@@ -28,15 +28,19 @@ exports.AppModule = AppModule;
 exports.AppModule = AppModule = __decorate([
     (0, common_1.Module)({
         imports: [
-            typeorm_1.TypeOrmModule.forRoot({
-                type: 'postgres',
-                host: 'localhost',
-                port: 5432,
-                username: 'postgres',
-                password: 'vivemdu212',
-                database: 'rental_db',
-                entities: [user_entity_1.User, reservations_entity_1.Reservation, locals_entity_1.Local],
-                synchronize: true,
+            typeorm_1.TypeOrmModule.forRootAsync({
+                imports: [config_1.ConfigModule],
+                inject: [config_1.ConfigService],
+                useFactory: (configService) => ({
+                    type: 'postgres',
+                    host: configService.get('DB_HOST'),
+                    port: configService.get('DB_PORT'),
+                    username: configService.get('DB_USERNAME'),
+                    password: configService.get('DB_PASSWORD'),
+                    database: configService.get('DB_DATABASE'),
+                    entities: [user_entity_1.User, reservations_entity_1.Reservation, locals_entity_1.Local],
+                    synchronize: true,
+                }),
             }),
             config_1.ConfigModule.forRoot({
                 envFilePath: ".env",

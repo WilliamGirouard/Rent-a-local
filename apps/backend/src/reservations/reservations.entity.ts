@@ -1,5 +1,6 @@
 import { Expose } from "class-transformer";
 import { User } from "src/users/user.entity";
+import { Local } from "src/local/locals.entity";
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 
 
@@ -26,11 +27,11 @@ export class Reservation{
         return this.user.id;
     }
 
-    //@ManyToOne(() => Local)
-    //local: Local;
+    @ManyToOne(() => Local)
+    local: Local;
 
-    //@Expose()
-    //get localId(): number {
-    //    return this.local.id;
-    //}
+    @Expose()
+    get localId(): number {
+       return this.local.id;
+    }
 }

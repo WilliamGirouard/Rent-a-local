@@ -1,6 +1,7 @@
 import {Entity, Column, PrimaryGeneratedColumn, AfterInsert, BeforeRemove, OneToMany} from "typeorm";
 import { Role } from "./roles/roles.enum";
 import { Reservation } from "src/reservations/reservations.entity";
+import { Local } from "src/local/locals.entity";
 
 @Entity()
 export class User {
@@ -32,5 +33,5 @@ export class User {
     logRemove() {
         console.log(`User deleted with ID : ${this.id} `)
     }
-
+    
 }

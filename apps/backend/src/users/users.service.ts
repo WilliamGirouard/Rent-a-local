@@ -10,11 +10,12 @@ export class UsersService {
     constructor(
         @InjectRepository(User)
         private usersRepository : Repository<User>,
-       // private dataSource : DataSource, Plus pour database et se connecter genre Postegresql etc..
     ) {}
+    
     accessUsersRepo() : Repository<User>{
         return this.usersRepository
     }
+    
     async findAllUsers() : Promise<User[]> {
         return this.usersRepository.find();
     }
@@ -28,11 +29,11 @@ export class UsersService {
     }
 
     async findOneUserByEmail(email : string) : Promise<User> {
-    const foundUser = await this.usersRepository.findOneBy({email:email})
-    if (foundUser == null) {
-        throw new BadRequestException("Invalid email")
-    }
-    return foundUser;
+        const foundUser = await this.usersRepository.findOneBy({email:email})
+        if (foundUser == null) {
+            throw new BadRequestException("Invalid email")
+        }
+        return foundUser;
     }
 
     async createUser(dto : CreateUserDto, hashedPassword : string) : Promise<User> {
@@ -51,10 +52,9 @@ export class UsersService {
         return await this.usersRepository.remove(foundUser);
     }
 
-    async updateUser(id:number, attrs : Partial<User>)  {
+    async updateUser(id:number, attrs : Partial<User>) : Promise<User> {
         const foundUser = await this.findOneUserById(id);
-        if (attrs == id)
-        Object.assign(foundUser,attrs);
-        return this.usersRepository.save(foundUser)
+        Object.assign(foundUser, attrs);
+        return this.usersRepository.save(foundUser);
     }
 }

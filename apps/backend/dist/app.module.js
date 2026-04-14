@@ -20,6 +20,7 @@ const auth_module_1 = require("./auth/auth.module");
 const nestjs_cookie_session_1 = require("nestjs-cookie-session");
 const reservations_module_1 = require("./reservations/reservations.module");
 const reservations_entity_1 = require("./reservations/reservations.entity");
+const local_module_1 = require("./local/local.module");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
@@ -44,7 +45,7 @@ exports.AppModule = AppModule = __decorate([
                         }
                     };
                 }
-            }), users_module_1.UsersModule, reports_module_1.ReportsModule, hashing_module_1.HashingModule, auth_module_1.AuthModule, reservations_module_1.ReservationsModule],
+            }), users_module_1.UsersModule, reports_module_1.ReportsModule, hashing_module_1.HashingModule, auth_module_1.AuthModule, reservations_module_1.ReservationsModule, local_module_1.LocalModule],
         controllers: [app_controller_1.AppController],
         providers: [app_service_1.AppService],
     })

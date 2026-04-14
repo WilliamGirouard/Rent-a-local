@@ -11,6 +11,7 @@ import { AuthModule } from './auth/auth.module';
 import { NestCookieSessionOptions, CookieSessionModule,} from 'nestjs-cookie-session';
 import { ReservationsModule } from './reservations/reservations.module';
 import { Reservation } from './reservations/reservations.entity';
+import { LocalModule } from './local/local.module';
 @Module({
   imports: [TypeOrmModule.forRoot(
     {
@@ -39,7 +40,7 @@ import { Reservation } from './reservations/reservations.entity';
       }
     }
   }
-  ),UsersModule, ReportsModule, HashingModule, AuthModule, ReservationsModule],
+  ),UsersModule, ReportsModule, HashingModule, AuthModule, ReservationsModule, LocalModule],
   controllers: [AppController],
   providers: [AppService],
 })

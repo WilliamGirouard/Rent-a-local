@@ -18,6 +18,8 @@ let Local = class Local {
     address;
     description;
     pricePerDay;
+    lat;
+    lng;
     reservations;
     logInsert() {
         console.log(`Local inserted with ID: ${this.id}`);
@@ -47,6 +49,14 @@ __decorate([
     (0, typeorm_1.Column)({ type: 'decimal', precision: 10, scale: 2 }),
     __metadata("design:type", Number)
 ], Local.prototype, "pricePerDay", void 0);
+__decorate([
+    (0, typeorm_1.Column)(),
+    __metadata("design:type", Number)
+], Local.prototype, "lat", void 0);
+__decorate([
+    (0, typeorm_1.Column)(),
+    __metadata("design:type", Number)
+], Local.prototype, "lng", void 0);
 __decorate([
     (0, typeorm_1.OneToMany)(() => reservations_entity_1.Reservation, (reservation) => reservation.local),
     __metadata("design:type", Array)

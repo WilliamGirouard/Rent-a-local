@@ -3,4 +3,6 @@ export declare class CreateLocalDto {
     address: string;
     description: string;
     pricePerDay: number;
+    lat: number;
+    lng: number;
 }

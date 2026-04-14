@@ -6,5 +6,7 @@ export declare class LocalBuilder {
     setAddress(address: string): LocalBuilder;
     setDescription(description: string): LocalBuilder;
     setPricePerDay(pricePerDay: number): LocalBuilder;
+    setLat(lat: number): LocalBuilder;
+    setLng(lng: number): LocalBuilder;
     build(): Local;
 }

@@ -26,7 +26,15 @@ export class LocalBuilder {
         this.local.pricePerDay = pricePerDay;
         return this;
     }
+    setLat(lat: number): LocalBuilder {
+        this.local.lat = lat;
+        return this;
+    }
 
+    setLng(lng: number): LocalBuilder {
+        this.local.lng = lng;
+        return this;
+    }
     // setOwner est ENLEVÉ - pas de lien direct User → Local
 
     build(): Local {

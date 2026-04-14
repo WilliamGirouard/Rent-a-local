@@ -20,6 +20,6 @@ export class ReservationDto {
     @Expose()
     userId: number;
 
-    //@Expose()
-    //localId: number;
+    @Expose()
+    localId: number;
 }

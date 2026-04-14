@@ -2,9 +2,10 @@ import { Reservation } from './reservations.entity';
 import { User } from '../users/user.entity';
 import { CreateReservationDto } from '../dtos/create-reservation.dto';
 import { BadRequestException } from '@nestjs/common/exceptions/bad-request.exception';
+import { Local } from 'src/local/locals.entity';
 
 export class ReservationFactory {
-    static create(dto: CreateReservationDto, user: User): Reservation {
+    static create(dto: CreateReservationDto, user: User, local: Local): Reservation {
         if (dto.endDate <= dto.startDate) {
             throw new BadRequestException("Date de fin doit être après la date de début.");
         }
@@ -13,6 +14,7 @@ export class ReservationFactory {
         reservation.endDate = dto.endDate;
         reservation.paid = false;
         reservation.user = user;
+        reservation.local = local;
         return reservation;
     }
 }

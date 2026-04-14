@@ -29,6 +29,7 @@ export class ReservationsController {
         return await this.reservationsService.create(body);
     }
 
+    @Serialize(ReservationDto)
     @Delete("/:id")
     async remove(@Param("id") id: number) {
         return await this.reservationsService.remove(id);

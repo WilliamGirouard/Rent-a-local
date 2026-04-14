@@ -50,11 +50,11 @@ __decorate([
     __metadata("design:type", Number)
 ], Local.prototype, "pricePerDay", void 0);
 __decorate([
-    (0, typeorm_1.Column)(),
+    (0, typeorm_1.Column)('double precision'),
     __metadata("design:type", Number)
 ], Local.prototype, "lat", void 0);
 __decorate([
-    (0, typeorm_1.Column)(),
+    (0, typeorm_1.Column)('double precision'),
     __metadata("design:type", Number)
 ], Local.prototype, "lng", void 0);
 __decorate([

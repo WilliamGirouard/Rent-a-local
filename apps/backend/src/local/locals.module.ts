@@ -5,9 +5,9 @@ import { LocalsService } from './locals.service';
 import { LocalsController } from './locals.controller';
 
 @Module({
-    imports: [TypeOrmModule.forFeature([Local])],
-    providers: [LocalsService],
-    controllers: [LocalsController], 
-    exports: [LocalsService],
+  imports: [TypeOrmModule.forFeature([Local])],
+  controllers: [LocalsController],
+  providers: [LocalsService],
+  exports: [LocalsService]
 })
 export class LocalsModule {}

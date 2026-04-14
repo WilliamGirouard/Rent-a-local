@@ -18,10 +18,10 @@ export class Local {
     @Column({ type: 'decimal', precision: 10, scale: 2 })
     pricePerDay: number;
 
-    @Column()
+    @Column('double precision')
     lat: number;
-
-    @Column()
+    
+    @Column('double precision')
     lng: number;
     
     // SEULEMENT cette relation - PAS de ManyToOne vers User

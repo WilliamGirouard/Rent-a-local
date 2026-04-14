@@ -18,24 +18,37 @@ const typeorm_1 = require("@nestjs/typeorm");
 const reservations_entity_1 = require("./reservations.entity");
 const typeorm_2 = require("typeorm");
 const users_service_1 = require("../users/users.service");
+const locals_service_1 = require("../local/locals.service");
 const reservation_factory_1 = require("./reservation.factory");
 let ReservationsService = class ReservationsService {
     repo;
     usersService;
-    constructor(repo, usersService) {
+    localsService;
+    constructor(repo, usersService, localsService) {
         this.repo = repo;
         this.usersService = usersService;
+        this.localsService = localsService;
     }
     async create(dto) {
-        const user = await this.usersService.findOneUserById(dto.userId);
-        const reservation = reservation_factory_1.ReservationFactory.create(dto, user);
+        const { startDate, endDate, userId, localId } = dto;
+        if (endDate <= startDate) {
+            throw new common_1.BadRequestException("Date de fin doit être après la date de début.");
+        }
+        const user = await this.usersService.findOneUserById(userId);
+        const local = await this.localsService.findOne(localId);
+        const reservation = reservation_factory_1.ReservationFactory.create(dto, user, local);
         return await this.repo.save(reservation);
     }
     async findAll() {
-        return await this.repo.find({ relations: ['user'] });
+        return await this.repo.find({
+            relations: ['user', 'local'],
+        });
     }
     async findOne(id) {
-        const reservation = await this.repo.findOne({ where: { id }, relations: ["user"] });
+        const reservation = await this.repo.findOne({
+            where: { id },
+            relations: ['user', 'local'],
+        });
         if (!reservation) {
             throw new common_1.BadRequestException("Réservation non trouvée.");
         }
@@ -48,12 +61,15 @@ let ReservationsService = class ReservationsService {
     async update(id, attrs) {
         const reservation = await this.findOne(id);
         if (reservation.paid) {
-            throw new common_1.BadRequestException("Impossible de modifier le statut de paiement d'une réservation");
+            throw new common_1.BadRequestException("Impossible de modifier une réservation déjà payée.");
         }
         const newStart = attrs.startDate ?? reservation.startDate;
         const newEnd = attrs.endDate ?? reservation.endDate;
         if (newEnd <= newStart) {
             throw new common_1.BadRequestException("Date de fin doit être après la date de début.");
+        }
+        if (attrs.user || attrs.local) {
+            throw new common_1.BadRequestException("Impossible de modifier l'utilisateur ou le local d'une réservation.");
         }
         Object.assign(reservation, attrs);
         return await this.repo.save(reservation);
@@ -64,6 +80,7 @@ exports.ReservationsService = ReservationsService = __decorate([
     (0, common_1.Injectable)(),
     __param(0, (0, typeorm_1.InjectRepository)(reservations_entity_1.Reservation)),
     __metadata("design:paramtypes", [typeorm_2.Repository,
-        users_service_1.UsersService])
+        users_service_1.UsersService,
+        locals_service_1.LocalsService])
 ], ReservationsService);
 //# sourceMappingURL=reservations.service.js.map

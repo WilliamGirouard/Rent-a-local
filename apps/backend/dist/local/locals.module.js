@@ -18,9 +18,9 @@ exports.LocalsModule = LocalsModule;
 exports.LocalsModule = LocalsModule = __decorate([
     (0, common_1.Module)({
         imports: [typeorm_1.TypeOrmModule.forFeature([locals_entity_1.Local])],
-        providers: [locals_service_1.LocalsService],
         controllers: [locals_controller_1.LocalsController],
-        exports: [locals_service_1.LocalsService],
+        providers: [locals_service_1.LocalsService],
+        exports: [locals_service_1.LocalsService]
     })
 ], LocalsModule);
 //# sourceMappingURL=locals.module.js.map

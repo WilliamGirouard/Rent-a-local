@@ -12,6 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.Reservation = void 0;
 const class_transformer_1 = require("class-transformer");
 const user_entity_1 = require("../users/user.entity");
+const locals_entity_1 = require("../local/locals.entity");
 const typeorm_1 = require("typeorm");
 let Reservation = class Reservation {
     id;
@@ -21,6 +22,10 @@ let Reservation = class Reservation {
     user;
     get userId() {
         return this.user.id;
+    }
+    local;
+    get localId() {
+        return this.local.id;
     }
 };
 exports.Reservation = Reservation;
@@ -49,6 +54,15 @@ __decorate([
     __metadata("design:type", Number),
     __metadata("design:paramtypes", [])
 ], Reservation.prototype, "userId", null);
+__decorate([
+    (0, typeorm_1.ManyToOne)(() => locals_entity_1.Local),
+    __metadata("design:type", locals_entity_1.Local)
+], Reservation.prototype, "local", void 0);
+__decorate([
+    (0, class_transformer_1.Expose)(),
+    __metadata("design:type", Number),
+    __metadata("design:paramtypes", [])
+], Reservation.prototype, "localId", null);
 exports.Reservation = Reservation = __decorate([
     (0, typeorm_1.Entity)()
 ], Reservation);

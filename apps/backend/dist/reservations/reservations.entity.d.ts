@@ -1,4 +1,5 @@
 import { User } from "src/users/user.entity";
+import { Local } from "src/local/locals.entity";
 export declare class Reservation {
     id: number;
     startDate: Date;
@@ -6,4 +7,6 @@ export declare class Reservation {
     paid: boolean;
     user: User;
     get userId(): number;
+    local: Local;
+    get localId(): number;
 }

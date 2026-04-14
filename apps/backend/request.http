@@ -62,3 +62,32 @@ Content-Type: application/json
 
 ### Delete a reservation
 DELETE http://localhost:3000/v1/reservations/2
+
+### Create a new local
+POST http://localhost:3000/v1/locals
+Content-Type: application/json
+
+{
+    "name": "Studio downtown",
+    "address": "123 Rue Sainte-Catherine, Montreal",
+    "description": "Beautiful studio in the heart of downtown",
+    "pricePerDay": 89.99
+}
+
+### List all locals
+GET http://localhost:3000/v1/locals
+
+### Find a local by ID
+GET http://localhost:3000/v1/locals/1
+
+### Update a local
+PATCH http://localhost:3000/v1/locals/1
+Content-Type: application/json
+
+{
+    "pricePerDay": 99.99,
+    "description": "Beautiful studio with wifi and AC"
+}
+
+### Delete a local
+DELETE http://localhost:3000/v1/locals/1

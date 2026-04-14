@@ -4,9 +4,7 @@ import { JwtService } from '@nestjs/jwt';
 import { User } from 'src/users/user.entity';
 import { CreateUserDto } from 'src/dtos/create-user.dto';
 import { LoginUserDto } from 'src/dtos/login-user.dto';
-import { Role } from 'src/users/roles/roles.enum';
 import { UsersService } from 'src/users/users.service';
-import { UserFactory } from 'src/users/user.factory';
 
 @Injectable()
 export class AuthService {
@@ -15,7 +13,6 @@ export class AuthService {
         private hashingService : HashingService,
         private jwtService : JwtService,
         private userService : UsersService,
-        private userFactory : UserFactory, 
     ){}
 
     async verifyAlreadyExistingEmail(email:string) {
@@ -27,12 +24,12 @@ export class AuthService {
     
     async register(dto : CreateUserDto) : Promise<User> {
         await this.verifyAlreadyExistingEmail(dto.email);
-        const newUser = await this.userFactory.createUser(dto);
-        return await this.userService.accessUsersRepo().save(newUser);
+        const hashedPassword = await this.hashingService.passwordHasher(dto.password);
+        return await this.userService.createUser(dto, hashedPassword);
     }
 
     async login(user : LoginUserDto): Promise<{access_token:string}> {
-        const userVerified = await this.userService.accessUsersRepo().findOneBy({email:user.email});
+        const userVerified = await this.userService.findOneUserByEmail(user.email);
         if(userVerified == null) {
             throw new UnauthorizedException("Invalid credentials")
         }

@@ -65,6 +65,7 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], ReservationsController.prototype, "createReservation", null);
 __decorate([
+    (0, serialize_interceptor_1.Serialize)(reservation_dto_1.ReservationDto),
     (0, common_1.Delete)("/:id"),
     __param(0, (0, common_1.Param)("id")),
     __metadata("design:type", Function),

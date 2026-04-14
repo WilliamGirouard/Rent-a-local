@@ -4,7 +4,7 @@ exports.ReservationFactory = void 0;
 const reservations_entity_1 = require("./reservations.entity");
 const bad_request_exception_1 = require("@nestjs/common/exceptions/bad-request.exception");
 class ReservationFactory {
-    static create(dto, user) {
+    static create(dto, user, local) {
         if (dto.endDate <= dto.startDate) {
             throw new bad_request_exception_1.BadRequestException("Date de fin doit être après la date de début.");
         }
@@ -13,6 +13,7 @@ class ReservationFactory {
         reservation.endDate = dto.endDate;
         reservation.paid = false;
         reservation.user = user;
+        reservation.local = local;
         return reservation;
     }
 }

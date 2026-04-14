@@ -6,17 +6,21 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.LocalModule = void 0;
+exports.LocalsModule = void 0;
 const common_1 = require("@nestjs/common");
-const local_service_1 = require("./local.service");
-const local_controller_1 = require("./local.controller");
-let LocalModule = class LocalModule {
+const typeorm_1 = require("@nestjs/typeorm");
+const locals_entity_1 = require("./locals.entity");
+const locals_service_1 = require("./locals.service");
+const locals_controller_1 = require("./locals.controller");
+let LocalsModule = class LocalsModule {
 };
-exports.LocalModule = LocalModule;
-exports.LocalModule = LocalModule = __decorate([
+exports.LocalsModule = LocalsModule;
+exports.LocalsModule = LocalsModule = __decorate([
     (0, common_1.Module)({
-        providers: [local_service_1.LocalService],
-        controllers: [local_controller_1.LocalController]
+        imports: [typeorm_1.TypeOrmModule.forFeature([locals_entity_1.Local])],
+        controllers: [locals_controller_1.LocalsController],
+        providers: [locals_service_1.LocalsService],
+        exports: [locals_service_1.LocalsService]
     })
-], LocalModule);
-//# sourceMappingURL=local.module.js.map
+], LocalsModule);
+//# sourceMappingURL=locals.module.js.map

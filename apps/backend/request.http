@@ -47,9 +47,10 @@ POST http://localhost:3000/v1/reservations
 Content-Type: application/json
 
 {
-    "startDate": "2026-06-11",
-    "endDate": "2026-07-17",
-    "userId": 1
+    "startDate": "2026-12-24",
+    "endDate": "2026-12-25",
+    "userId": 4,
+    "localId": 2
 }
 
 ### Update a reservation
@@ -61,17 +62,17 @@ Content-Type: application/json
 }
 
 ### Delete a reservation
-DELETE http://localhost:3000/v1/reservations/2
+DELETE http://localhost:3000/v1/reservations/14
 
 ### Create a new local
 POST http://localhost:3000/v1/locals
 Content-Type: application/json
 
 {
-    "name": "Studio downtown",
+    "name": "North Pole",
     "address": "123 Rue Sainte-Catherine, Montreal",
     "description": "Beautiful studio in the heart of downtown",
-    "pricePerDay": 89.99
+    "pricePerDay": 100.00
 }
 
 ### List all locals

@@ -16,6 +16,8 @@ class UpdateLocalDto {
     address;
     description;
     pricePerDay;
+    lat;
+    lng;
 }
 exports.UpdateLocalDto = UpdateLocalDto;
 __decorate([
@@ -39,4 +41,14 @@ __decorate([
     (0, class_validator_1.Min)(0),
     __metadata("design:type", Number)
 ], UpdateLocalDto.prototype, "pricePerDay", void 0);
+__decorate([
+    (0, class_validator_1.IsNumber)(),
+    (0, class_validator_1.IsOptional)(),
+    __metadata("design:type", Number)
+], UpdateLocalDto.prototype, "lat", void 0);
+__decorate([
+    (0, class_validator_1.IsNumber)(),
+    (0, class_validator_1.IsOptional)(),
+    __metadata("design:type", Number)
+], UpdateLocalDto.prototype, "lng", void 0);
 //# sourceMappingURL=update-local.dto.js.map

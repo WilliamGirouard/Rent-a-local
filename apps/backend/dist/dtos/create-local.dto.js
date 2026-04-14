@@ -16,6 +16,8 @@ class CreateLocalDto {
     address;
     description;
     pricePerDay;
+    lat;
+    lng;
 }
 exports.CreateLocalDto = CreateLocalDto;
 __decorate([
@@ -39,4 +41,14 @@ __decorate([
     (0, class_validator_1.Min)(0),
     __metadata("design:type", Number)
 ], CreateLocalDto.prototype, "pricePerDay", void 0);
+__decorate([
+    (0, class_validator_1.IsNumber)(),
+    (0, class_validator_1.IsNotEmpty)(),
+    __metadata("design:type", Number)
+], CreateLocalDto.prototype, "lat", void 0);
+__decorate([
+    (0, class_validator_1.IsNumber)(),
+    (0, class_validator_1.IsNotEmpty)(),
+    __metadata("design:type", Number)
+], CreateLocalDto.prototype, "lng", void 0);
 //# sourceMappingURL=create-local.dto.js.map

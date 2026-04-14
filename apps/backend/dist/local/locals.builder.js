@@ -23,6 +23,14 @@ class LocalBuilder {
         this.local.pricePerDay = pricePerDay;
         return this;
     }
+    setLat(lat) {
+        this.local.lat = lat;
+        return this;
+    }
+    setLng(lng) {
+        this.local.lng = lng;
+        return this;
+    }
     build() {
         return this.local;
     }

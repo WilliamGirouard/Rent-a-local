@@ -11,8 +11,11 @@ import { AuthModule } from './auth/auth.module';
 import { NestCookieSessionOptions, CookieSessionModule } from 'nestjs-cookie-session';
 import { ReservationsModule } from './reservations/reservations.module';
 import { Reservation } from './reservations/reservations.entity';
-import { LocalsModule } from './local/local.module';
 import { Local } from './local/locals.entity';
+import { LocalsModule } from './local/locals.module';
+import { PaymentModule } from './payment/payment.module';
+
+
 
 @Module({
   imports: [
@@ -55,6 +58,7 @@ import { Local } from './local/locals.entity';
     AuthModule,
     ReservationsModule,
     LocalsModule,
+    PaymentModule,
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -4,4 +4,5 @@ export declare class ReservationDto {
     endDate: Date;
     paid: boolean;
     userId: number;
+    localId: number;
 }

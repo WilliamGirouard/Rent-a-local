@@ -6,21 +6,19 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.LocalsModule = void 0;
+exports.PaymentModule = void 0;
 const common_1 = require("@nestjs/common");
-const typeorm_1 = require("@nestjs/typeorm");
-const locals_entity_1 = require("./locals.entity");
-const locals_service_1 = require("./locals.service");
-const locals_controller_1 = require("./locals.controller");
-let LocalsModule = class LocalsModule {
+const payment_service_1 = require("./payment.service");
+const payment_controller_1 = require("./payment.controller");
+const reservations_module_1 = require("../reservations/reservations.module");
+let PaymentModule = class PaymentModule {
 };
-exports.LocalsModule = LocalsModule;
-exports.LocalsModule = LocalsModule = __decorate([
+exports.PaymentModule = PaymentModule;
+exports.PaymentModule = PaymentModule = __decorate([
     (0, common_1.Module)({
-        imports: [typeorm_1.TypeOrmModule.forFeature([locals_entity_1.Local])],
-        providers: [locals_service_1.LocalsService],
-        controllers: [locals_controller_1.LocalsController],
-        exports: [locals_service_1.LocalsService],
+        imports: [reservations_module_1.ReservationsModule],
+        controllers: [payment_controller_1.PaymentController],
+        providers: [payment_service_1.PaymentService],
     })
-], LocalsModule);
-//# sourceMappingURL=local.module.js.map
+], PaymentModule);
+//# sourceMappingURL=payment.module.js.map

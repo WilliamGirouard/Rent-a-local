@@ -16,4 +16,8 @@ export class CreateReservationDto {
     @IsInt()
     @IsNotEmpty()
     userId: number;
+
+    @IsInt()
+    @IsNotEmpty()
+    localId: number;
 }

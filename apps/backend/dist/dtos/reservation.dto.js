@@ -17,6 +17,7 @@ class ReservationDto {
     endDate;
     paid;
     userId;
+    localId;
 }
 exports.ReservationDto = ReservationDto;
 __decorate([
@@ -39,4 +40,8 @@ __decorate([
     (0, class_transformer_1.Expose)(),
     __metadata("design:type", Number)
 ], ReservationDto.prototype, "userId", void 0);
+__decorate([
+    (0, class_transformer_1.Expose)(),
+    __metadata("design:type", Number)
+], ReservationDto.prototype, "localId", void 0);
 //# sourceMappingURL=reservation.dto.js.map

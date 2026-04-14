@@ -1,7 +1,7 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Patch, Post } from '@nestjs/common';
 import { LocalsService } from './locals.service';
-import { CreateLocalDto } from '../dtos/create-local.dto';
-import { UpdateLocalDto } from '../dtos/update-local.dto';
+import { CreateLocalDto } from 'src/dtos/create-local.dto';
+import { UpdateLocalDto } from 'src/dtos/update-local.dto';
 
 @Controller('locals')
 export class LocalsController {

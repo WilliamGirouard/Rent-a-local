@@ -25,7 +25,6 @@ export class AuthController {
         return this.authService.register(body)
     }
 
-    // Juste pour exemple, accessible seulement si le role du User est administrator
     @UseGuards(AuthGuard)
     @Get("/profile")
     getProfile(@currentUser() user : User){

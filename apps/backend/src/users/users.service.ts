@@ -2,6 +2,8 @@ import { BadRequestException, Injectable, NotFoundException } from '@nestjs/comm
 import { User } from './user.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+import { CreateUserDto } from 'src/dtos/create-user.dto';
+import { Role } from './roles/roles.enum';
 
 @Injectable()
 export class UsersService {
@@ -31,6 +33,17 @@ export class UsersService {
         throw new BadRequestException("Invalid email")
     }
     return foundUser;
+    }
+
+    async createUser(dto : CreateUserDto, hashedPassword : string) : Promise<User> {
+        const newUser = this.usersRepository.create({
+            email: dto.email,
+            password: hashedPassword,
+            firstName: dto.firstName,
+            lastName: dto.lastName,
+            role: Role.User
+        });
+        return await this.usersRepository.save(newUser);
     }
 
     async removeUser(id:number) : Promise<User> {

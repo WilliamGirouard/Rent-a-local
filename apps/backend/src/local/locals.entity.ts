@@ -18,6 +18,12 @@ export class Local {
     @Column({ type: 'decimal', precision: 10, scale: 2 })
     pricePerDay: number;
 
+    @Column('double precision')
+    lat: number;
+    
+    @Column('double precision')
+    lng: number;
+    
     // SEULEMENT cette relation - PAS de ManyToOne vers User
     @OneToMany(() => Reservation, (reservation) => reservation.local)
     reservations: Reservation[];

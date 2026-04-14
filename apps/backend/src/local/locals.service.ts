@@ -33,6 +33,8 @@ export class LocalsService {
             .setAddress(dto.address)
             .setDescription(dto.description)
             .setPricePerDay(dto.pricePerDay)
+            .setLat(dto.lat)
+            .setLng(dto.lng)
             .build();
         
         return await this.localsRepository.save(local);

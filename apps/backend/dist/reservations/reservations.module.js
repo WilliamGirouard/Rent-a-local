@@ -21,7 +21,8 @@ exports.ReservationsModule = ReservationsModule = __decorate([
     (0, common_1.Module)({
         imports: [typeorm_module_1.TypeOrmModule.forFeature([reservations_entity_1.Reservation]), users_module_1.UsersModule, locals_module_1.LocalsModule],
         providers: [reservations_service_1.ReservationsService],
-        controllers: [reservations_controller_1.ReservationsController]
+        controllers: [reservations_controller_1.ReservationsController],
+        exports: [reservations_service_1.ReservationsService]
     })
 ], ReservationsModule);
 //# sourceMappingURL=reservations.module.js.map

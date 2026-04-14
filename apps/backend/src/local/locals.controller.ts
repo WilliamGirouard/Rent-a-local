@@ -5,30 +5,30 @@ import { UpdateLocalDto } from 'src/dtos/update-local.dto';
 
 @Controller('locals')
 export class LocalsController {
-    constructor(private localsService: LocalsService) {}
-
-    @Get()
-    async findAll() {
-        return await this.localsService.findAll();
-    }
-
-    @Get('/:id')
-    async findOne(@Param('id') id: number) {
-        return await this.localsService.findOne(id);
-    }
+    constructor(private readonly localsService: LocalsService) {}
 
     @Post()
-    async create(@Body() body: CreateLocalDto) {
-        return await this.localsService.create(body);
+    create(@Body() createLocalDto: CreateLocalDto) {
+        return this.localsService.create(createLocalDto);
     }
 
-    @Patch('/:id')
-    async update(@Param('id') id: number, @Body() body: UpdateLocalDto) {
-        return await this.localsService.update(id, body);
+    @Get()
+    findAll() {
+        return this.localsService.findAll();
     }
 
-    @Delete('/:id')
-    async remove(@Param('id') id: number) {
-        return await this.localsService.remove(id);
+    @Get(':id')
+    findOne(@Param('id') id: string) {
+        return this.localsService.findOne(+id);
+    }
+
+    @Patch(':id')
+    update(@Param('id') id: string, @Body() updateLocalDto: UpdateLocalDto) {
+        return this.localsService.update(+id, updateLocalDto);
+    }
+
+    @Delete(':id')
+    remove(@Param('id') id: string) {
+        return this.localsService.remove(+id);
     }
 }

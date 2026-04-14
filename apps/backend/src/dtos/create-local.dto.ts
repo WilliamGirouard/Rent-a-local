@@ -17,4 +17,12 @@ export class CreateLocalDto {
     @IsNotEmpty()
     @Min(0)
     pricePerDay: number;
+
+    @IsNumber()
+    @IsNotEmpty()
+    lat: number;
+
+    @IsNumber()
+    @IsNotEmpty()
+    lng: number;
 }

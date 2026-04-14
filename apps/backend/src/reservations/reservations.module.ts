@@ -9,6 +9,7 @@ import { LocalsModule } from 'src/local/locals.module';
 @Module({
   imports: [TypeOrmModule.forFeature([Reservation]), UsersModule, LocalsModule], 
   providers: [ReservationsService],
-  controllers: [ReservationsController]
+  controllers: [ReservationsController],
+  exports: [ReservationsService]
 })
 export class ReservationsModule {}

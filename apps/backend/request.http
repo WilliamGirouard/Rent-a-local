@@ -1,3 +1,4 @@
+#### USERS
 ### Register user test
 POST http://localhost:3000/v1/auth/register
 Content-Type: application/json 
@@ -14,13 +15,13 @@ POST http://localhost:3000/v1/auth/login
 Content-Type: application/json 
 
 {
-    "email":"sasa@yolo.com",
-    "password":"123SASAsasa$$$#$##$#$#$#@@"
+    "email":"ohHiSS@gmail.com",
+    "password":"WelcomeToRentALFE5553543////ocal"
 }
 
 ### Get user profile test
 GET http://localhost:3000/v1/auth/profile
-Cookie: session=eyJ0b2tlbiI6eyJhY2Nlc3NfdG9rZW4iOiJleUpoYkdjaU9pSklVekkxTmlJc0luUjVjQ0k2SWtwWFZDSjkuZXlKemRXSWlPakVzSW1WdFlXbHNJam9pYzJGellVQjViMnh2TG1OdmJTSXNJbkp2YkdVaU9pSjFjMlZ5SWl3aWFXRjBJam94TnpjME5EVXdORGcxTENKbGVIQWlPakUzTnpRME5UUXdPRFY5LjdwbnY5WDd6cUpnRWNSb29WNmFOckxhYURNaVZmVGdab2tqLUJHdy1DS1UifX0=; path=/; expires=Wed, 25 Mar 2026 15:54:45 GMT; httponly
+Cookie: session=eyJ0b2tlbiI6eyJhY2Nlc3NfdG9rZW4iOiJleUpoYkdjaU9pSklVekkxTmlJc0luUjVjQ0k2SWtwWFZDSjkuZXlKemRXSWlPakVzSW1WdFlXbHNJam9pYjJoSWFWTlRRR2R0WVdsc0xtTnZiU0lzSW5KdmJHVWlPaUoxYzJWeUlpd2lhV0YwSWpveE56YzJNVE01TlRBNUxDSmxlSEFpT2pFM056WTNORFF6TURsOS5ONkR1emJpeUVFYkVlVGNIR09lODZhTDBMeDJWendlb0ZaWG9ndWd3bFU0In19; path=/; expires=Tue, 21 Apr 2026 04:05:09 GMT; httponly,session.sig=f3YUl6D9iqrhwpdwsgJIGetZT9Y; path=/; expires=Tue, 21 Apr 2026 04:05:09 GMT; httponly
 
 ### List all users
 GET http://localhost:3000/v1/users
@@ -49,7 +50,7 @@ Content-Type: application/json
 {
     "startDate": "2026-12-24",
     "endDate": "2026-12-25",
-    "userId": 4,
+    "userId": 1,
     "localId": 2
 }
 
@@ -64,15 +65,18 @@ Content-Type: application/json
 ### Delete a reservation
 DELETE http://localhost:3000/v1/reservations/14
 
+#### LOCALS
 ### Create a new local
 POST http://localhost:3000/v1/locals
 Content-Type: application/json
 
 {
-    "name": "North Pole",
-    "address": "123 Rue Sainte-Catherine, Montreal",
-    "description": "Beautiful studio in the heart of downtown",
-    "pricePerDay": 100.00
+    "name": "Studio Ghibli",
+    "address": "5545 Rue Saint-Michel, Montreal",
+    "description": "Beautiful house in downtown Montreal",
+    "pricePerDay": 125.89,
+    "lat": 46.6,
+    "lng": -76.7
 }
 
 ### List all locals
@@ -91,4 +95,8 @@ Content-Type: application/json
 }
 
 ### Delete a local
-DELETE http://localhost:3000/v1/locals/1
+DELETE http://localhost:3000/v1/locals/4
+
+#### PAYMENTS
+### Pay reservation
+POST http://localhost:3000/v1/payments/2

@@ -5,6 +5,8 @@ export declare class Local {
     address: string;
     description: string;
     pricePerDay: number;
+    lat: number;
+    lng: number;
     reservations: Reservation[];
     logInsert(): void;
     logRemove(): void;

@@ -68,10 +68,12 @@ POST http://localhost:3000/v1/locals
 Content-Type: application/json
 
 {
-    "name": "Studio downtown",
-    "address": "123 Rue Sainte-Catherine, Montreal",
-    "description": "Beautiful studio in the heart of downtown",
-    "pricePerDay": 89.99
+    "name": "Studio Ghibli",
+    "address": "5545 Rue Saint-Michel, Montreal",
+    "description": "Beautiful house in downtown Montreal",
+    "pricePerDay": 125.89,
+    "lat": 46.6,
+    "lng": -76.7
 }
 
 ### List all locals
@@ -90,4 +92,4 @@ Content-Type: application/json
 }
 
 ### Delete a local
-DELETE http://localhost:3000/v1/locals/1
+DELETE http://localhost:3000/v1/locals/4

@@ -17,4 +17,12 @@ export class UpdateLocalDto {
     @IsOptional()
     @Min(0)
     pricePerDay?: number;
+
+    @IsNumber()
+    @IsOptional()
+    lat: number;
+
+    @IsNumber()
+    @IsOptional()
+    lng: number;
 }

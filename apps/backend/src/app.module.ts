@@ -11,20 +11,24 @@ import { AuthModule } from './auth/auth.module';
 import { NestCookieSessionOptions, CookieSessionModule } from 'nestjs-cookie-session';
 import { ReservationsModule } from './reservations/reservations.module';
 import { Reservation } from './reservations/reservations.entity';
-import { LocalModule } from './local/local.module';
+import { LocalsModule } from './local/local.module';
 import { Local } from './local/locals.entity';
 
 @Module({
   imports: [
-    TypeOrmModule.forRoot({
-      type: 'postgres',
-      host: 'localhost',
-      port: 5432,
-      username: 'postgres',
-      password: 'vivemdu212',
-      database: 'rental_db',
-      entities: [User, Reservation, Local],
-      synchronize: true,
+    TypeOrmModule.forRootAsync({
+      imports: [ConfigModule],
+      inject: [ConfigService],
+      useFactory: (configService: ConfigService) => ({
+        type: 'postgres',
+        host: configService.get('DB_HOST'),
+        port: configService.get('DB_PORT'),
+        username: configService.get('DB_USERNAME'),
+        password: configService.get('DB_PASSWORD'),
+        database: configService.get('DB_DATABASE'),
+        entities: [User, Reservation, Local],
+        synchronize: true,
+      }),
     }),
     
     ConfigModule.forRoot({
@@ -50,7 +54,7 @@ import { Local } from './local/locals.entity';
     HashingModule,
     AuthModule,
     ReservationsModule,
-    LocalModule,
+    LocalsModule,
   ],
   controllers: [AppController],
   providers: [AppService],

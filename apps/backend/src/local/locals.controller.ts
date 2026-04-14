@@ -3,7 +3,7 @@ import { LocalsService } from './locals.service';
 import { CreateLocalDto } from '../dtos/create-local.dto';
 import { UpdateLocalDto } from '../dtos/update-local.dto';
 
-@Controller('/locals')
+@Controller('locals')
 export class LocalsController {
     constructor(private readonly localsService: LocalsService) {}
 

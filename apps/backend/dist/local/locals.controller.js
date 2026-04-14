@@ -75,7 +75,7 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], LocalsController.prototype, "remove", null);
 exports.LocalsController = LocalsController = __decorate([
-    (0, common_1.Controller)('v1/locals'),
+    (0, common_1.Controller)('locals'),
     __metadata("design:paramtypes", [locals_service_1.LocalsService])
 ], LocalsController);
 //# sourceMappingURL=locals.controller.js.map

@@ -23,4 +23,4 @@ exports.LocalsModule = LocalsModule = __decorate([
         exports: [locals_service_1.LocalsService],
     })
 ], LocalsModule);
-//# sourceMappingURL=local.module.js.map
+//# sourceMappingURL=locals.module.js.map

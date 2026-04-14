@@ -59,7 +59,7 @@ exports.AppModule = AppModule = __decorate([
             hashing_module_1.HashingModule,
             auth_module_1.AuthModule,
             reservations_module_1.ReservationsModule,
-            local_module_1.LocalModule,
+            local_module_1.LocalsModule,
         ],
         controllers: [app_controller_1.AppController],
         providers: [app_service_1.AppService],

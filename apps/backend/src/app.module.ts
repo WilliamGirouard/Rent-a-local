@@ -8,40 +8,54 @@ import { User } from './users/user.entity';
 import { HashingModule } from './hashing/hashing.module';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { AuthModule } from './auth/auth.module';
-import { NestCookieSessionOptions, CookieSessionModule,} from 'nestjs-cookie-session';
+import { NestCookieSessionOptions, CookieSessionModule } from 'nestjs-cookie-session';
 import { ReservationsModule } from './reservations/reservations.module';
 import { Reservation } from './reservations/reservations.entity';
-import { LocalsModule } from './local/locals.module';
+import { LocalsModule } from './local/local.module';
 import { Local } from './local/locals.entity';
+
 @Module({
-  imports: [TypeOrmModule.forRoot(
-    {
-      type: "sqlite",
-      database: "db.sqlite",
-      entities: [User, Reservation, Local],
-      synchronize: true,
-    }
-),ConfigModule.forRoot( 
-  {
-    envFilePath: ".env",
-    isGlobal:true,
-  }
-),CookieSessionModule.forRootAsync(
-  {
-    inject:[ConfigService],
-    useFactory: async (configService: ConfigService) : Promise<NestCookieSessionOptions> => {
-      return {
-        session: {
-          secret: configService.getOrThrow("COOKIE_SECRET"),
-          httpOnly: true, // Peut pas être accèder par JS (Empêche des attaques XSS - Cross-site Scripting)
-          //sameSite:"Lax",  (Protège des attaques CSRF)
-          //secure:true, Envoie le cookie session seulement sur HTTPS
-          maxAge: Number(configService.getOrThrow("COOKIE_EXPIRES")),// Temps d'expiration du cookie
-         }
+  imports: [
+    TypeOrmModule.forRootAsync({
+      imports: [ConfigModule],
+      inject: [ConfigService],
+      useFactory: (configService: ConfigService) => ({
+        type: 'postgres',
+        host: configService.get('DB_HOST'),
+        port: configService.get('DB_PORT'),
+        username: configService.get('DB_USERNAME'),
+        password: configService.get('DB_PASSWORD'),
+        database: configService.get('DB_DATABASE'),
+        entities: [User, Reservation, Local],
+        synchronize: true,
+      }),
+    }),
+    
+    ConfigModule.forRoot({
+      envFilePath: ".env",
+      isGlobal: true,
+    }),
+    
+    CookieSessionModule.forRootAsync({
+      inject: [ConfigService],
+      useFactory: async (configService: ConfigService): Promise<NestCookieSessionOptions> => {
+        return {
+          session: {
+            secret: configService.getOrThrow("COOKIE_SECRET"),
+            httpOnly: true,
+            maxAge: Number(configService.getOrThrow("COOKIE_EXPIRES")),
+          }
+        }
       }
-    }
-  }
-  ),UsersModule, ReportsModule, HashingModule, AuthModule, ReservationsModule, LocalsModule],
+    }),
+    
+    UsersModule,
+    ReportsModule,
+    HashingModule,
+    AuthModule,
+    ReservationsModule,
+    LocalsModule,
+  ],
   controllers: [AppController],
   providers: [AppService],
 })

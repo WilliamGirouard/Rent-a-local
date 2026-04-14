@@ -1,18 +1,17 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { Local } from './locals.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { CreateLocalDto } from 'src/dtos/create-local.dto';
-import { UpdateLocalDto } from 'src/dtos/update-local.dto';
+import { Local } from './locals.entity';
+import { CreateLocalDto } from '../dtos/create-local.dto';
+import { UpdateLocalDto } from '../dtos/update-local.dto';
 import { LocalBuilder } from './locals.builder';
-import { UsersService } from 'src/users/users.service';
 
 @Injectable()
 export class LocalsService {
     constructor(
         @InjectRepository(Local)
         private localsRepository: Repository<Local>,
-        private usersService: UsersService,
+        // UsersService est ENLEVÉ - pas besoin
     ) {}
 
     async findAll(): Promise<Local[]> {
@@ -27,15 +26,13 @@ export class LocalsService {
         return local;
     }
 
-    async create(dto: CreateLocalDto, ownerId: number): Promise<Local> {
-        const owner = await this.usersService.findOneUserById(ownerId);
-        
+    async create(dto: CreateLocalDto): Promise<Local> {
+        // Pas de ownerId, pas de recherche d'owner
         const local = new LocalBuilder()
             .setName(dto.name)
             .setAddress(dto.address)
             .setDescription(dto.description)
             .setPricePerDay(dto.pricePerDay)
-            .setOwner(owner)
             .build();
         
         return await this.localsRepository.save(local);

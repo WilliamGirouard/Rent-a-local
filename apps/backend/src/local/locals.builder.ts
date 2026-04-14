@@ -1,5 +1,4 @@
 import { Local } from "./locals.entity";
-import { User } from "src/users/user.entity";
 
 export class LocalBuilder {
     private local: Local;
@@ -28,10 +27,7 @@ export class LocalBuilder {
         return this;
     }
 
-    setOwner(owner: User): LocalBuilder {
-        this.local.owner = owner;
-        return this;
-    }
+    // setOwner est ENLEVÉ - pas de lien direct User → Local
 
     build(): Local {
         return this.local;

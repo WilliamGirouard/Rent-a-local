@@ -1,6 +1,5 @@
-import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, OneToMany, AfterInsert, BeforeRemove } from "typeorm";
-import { User } from "src/users/user.entity";
-import { Reservation } from "src/reservations/reservations.entity";
+import { Entity, Column, PrimaryGeneratedColumn, OneToMany, AfterInsert, BeforeRemove } from "typeorm";
+import { Reservation } from "../reservations/reservations.entity";
 
 @Entity()
 export class Local {
@@ -19,9 +18,7 @@ export class Local {
     @Column({ type: 'decimal', precision: 10, scale: 2 })
     pricePerDay: number;
 
-    @ManyToOne(() => User, (user) => user.locals)
-    owner: User;
-
+    // SEULEMENT cette relation - PAS de ManyToOne vers User
     @OneToMany(() => Reservation, (reservation) => reservation.local)
     reservations: Reservation[];
 

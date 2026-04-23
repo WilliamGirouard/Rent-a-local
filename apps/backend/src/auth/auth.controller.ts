@@ -1,11 +1,10 @@
-import { Body, Controller, Get, HttpCode, HttpStatus, Post, Request, Session, UseGuards, UseInterceptors } from '@nestjs/common';
+import { Body, Controller, Get, HttpCode, HttpStatus, Post, UseGuards } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { CreateUserDto } from 'src/dtos/create-user.dto';
 import { LoginUserDto } from 'src/dtos/login-user.dto';
 import { AuthGuard } from 'src/auth/guards/auth.guard';
 import { currentUser } from 'src/users/decorators/current-user.decorator';
 import { User } from 'src/users/user.entity';
-import { AdminGuard } from 'src/auth/guards/admin.guard';
 
 @Controller('auth')
 export class AuthController {
@@ -13,10 +12,8 @@ export class AuthController {
 
     @HttpCode(HttpStatus.OK)
     @Post("/login")
-    async login(@Body() body: LoginUserDto, @Session() session : any){
-        const token = await this.authService.login(body)
-        session.token = token;
-        return {message : "Login Successful"};
+    async login(@Body() body: LoginUserDto){
+        return this.authService.login(body);
     }
 
     @HttpCode(HttpStatus.OK)
@@ -28,7 +25,6 @@ export class AuthController {
     @UseGuards(AuthGuard)
     @Get("/profile")
     getProfile(@currentUser() user : User){
-        //Profile du user connecte
         return user;
     }
 }

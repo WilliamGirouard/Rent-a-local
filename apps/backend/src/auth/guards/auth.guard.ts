@@ -9,10 +9,11 @@ export class AuthGuard implements CanActivate {
 
     async canActivate(context: ExecutionContext): Promise<boolean> {
         const request = context.switchToHttp().getRequest();
-        const token = request.session.token?.access_token; 
-        if (!token) {
+        const headerAuth = request.headers.authorization; 
+        if (!headerAuth) {
             throw new UnauthorizedException("Vous n'avez pas l'autorisation.")
         }
+        const token = headerAuth.substring(7);
         try {
             const payload = await this.jwtService.verifyAsync(token);
             request['user'] = payload;

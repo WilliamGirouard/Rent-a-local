@@ -17,7 +17,6 @@ const user_entity_1 = require("./users/user.entity");
 const hashing_module_1 = require("./hashing/hashing.module");
 const config_1 = require("@nestjs/config");
 const auth_module_1 = require("./auth/auth.module");
-const nestjs_cookie_session_1 = require("nestjs-cookie-session");
 const reservations_module_1 = require("./reservations/reservations.module");
 const reservations_entity_1 = require("./reservations/reservations.entity");
 const locals_entity_1 = require("./local/locals.entity");
@@ -46,18 +45,6 @@ exports.AppModule = AppModule = __decorate([
             config_1.ConfigModule.forRoot({
                 envFilePath: ".env",
                 isGlobal: true,
-            }),
-            nestjs_cookie_session_1.CookieSessionModule.forRootAsync({
-                inject: [config_1.ConfigService],
-                useFactory: async (configService) => {
-                    return {
-                        session: {
-                            secret: configService.getOrThrow("COOKIE_SECRET"),
-                            httpOnly: true,
-                            maxAge: Number(configService.getOrThrow("COOKIE_EXPIRES")),
-                        }
-                    };
-                }
             }),
             users_module_1.UsersModule,
             reports_module_1.ReportsModule,

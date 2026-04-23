@@ -1,7 +1,7 @@
 import { Repository } from 'typeorm';
 import { Local } from './locals.entity';
-import { CreateLocalDto } from '../dtos/create-local.dto';
-import { UpdateLocalDto } from '../dtos/update-local.dto';
+import { CreateLocalDto } from './dtos/create-local.dto';
+import { UpdateLocalDto } from './dtos/update-local.dto';
 export declare class LocalsService {
     private localsRepository;
     constructor(localsRepository: Repository<Local>);

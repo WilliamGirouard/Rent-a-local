@@ -13,7 +13,8 @@ import { Reservation } from './reservations/reservations.entity';
 import { Local } from './local/locals.entity';
 import { LocalsModule } from './local/locals.module';
 import { PaymentModule } from './payment/payment.module';
-
+import { ContactModule } from './contact/contact.module';
+import { MailerModule } from "@nestjs-modules/mailer"
 
 
 @Module({
@@ -32,7 +33,23 @@ import { PaymentModule } from './payment/payment.module';
         synchronize: true,
       }),
     }),
-    
+    MailerModule.forRootAsync({
+      inject: [ConfigService],
+      useFactory: (configService: ConfigService) => ({
+        transport: {
+          service: "gmail",
+          auth: {
+            user: configService.get("GMAIL_MAIL"),
+            pass: configService.get("GMAIL_PASS"),
+          },
+        },
+        defaults : {
+          from: `"Rent-a-local" <${configService.get("GMAIL_MAIL")}>`,
+        },
+      }),
+    }),
+
+
     ConfigModule.forRoot({
       envFilePath: ".env",
       isGlobal: true,
@@ -45,6 +62,7 @@ import { PaymentModule } from './payment/payment.module';
     ReservationsModule,
     LocalsModule,
     PaymentModule,
+    ContactModule,
   ],
   controllers: [AppController],
   providers: [AppService],

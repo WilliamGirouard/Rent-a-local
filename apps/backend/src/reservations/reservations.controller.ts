@@ -1,50 +1,42 @@
-import {
-  Body,
-  Controller,
-  Delete,
-  Get,
-  Param,
-  Patch,
-  Post,
-} from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Patch, Post } from '@nestjs/common';
 import { Serialize } from 'src/interceptors/serialize.interceptor';
-import { Reservation } from './reservations.entity';
 import { ReservationsService } from './reservations.service';
 import { CreateReservationDto } from 'src/reservations/dtos/create-reservation.dto';
-import { UpdateReservationDto } from 'src/reservations/dtos/update-reservation.dto';
+import { UpdateReservationDto} from 'src/reservations/dtos/update-reservation.dto';
 import { ReservationDto } from 'src/reservations/dtos/reservation.dto';
 
 @Controller('reservations')
 export class ReservationsController {
-  constructor(private reservationsService: ReservationsService) {}
 
-  @Serialize(ReservationDto)
-  @Get()
-  async findAll() {
-    return await this.reservationsService.findAll();
-  }
+    constructor(private reservationsService: ReservationsService) {}
 
-  @Serialize(ReservationDto)
-  @Get('/:id')
-  async findOne(@Param('id') id: number) {
-    return await this.reservationsService.findOne(id);
-  }
+    @Serialize(ReservationDto)
+    @Get()
+    async findAll() {
+        return await this.reservationsService.findAll();
+    }
 
-  @Serialize(ReservationDto)
-  @Post()
-  async createReservation(@Body() body: CreateReservationDto) {
-    return await this.reservationsService.create(body);
-  }
+    @Serialize(ReservationDto)
+    @Get("/:id")
+    async findOne(@Param("id") id: number) {
+        return await this.reservationsService.findOne(id);
+    }
 
-  @Serialize(ReservationDto)
-  @Delete('/:id')
-  async remove(@Param('id') id: number) {
-    return await this.reservationsService.remove(id);
-  }
+    @Serialize(ReservationDto)
+    @Post()
+    async createReservation (@Body() body: CreateReservationDto) {
+        return await this.reservationsService.create(body);
+    }
 
-  @Serialize(UpdateReservationDto)
-  @Patch('/:id')
-  async update(@Param('id') id: number, @Body() body: UpdateReservationDto) {
-    return await this.reservationsService.update(id, body);
-  }
+    @Serialize(ReservationDto)
+    @Delete("/:id")
+    async remove(@Param("id") id: number) {
+        return await this.reservationsService.remove(id);
+    }
+
+    @Serialize(UpdateReservationDto)
+    @Patch("/:id")
+    async update(@Param("id") id: number, @Body() body: UpdateReservationDto) {
+        return await this.reservationsService.update(id, body);
+    }
 }

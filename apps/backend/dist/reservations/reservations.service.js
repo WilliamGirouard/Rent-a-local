@@ -32,7 +32,7 @@ let ReservationsService = class ReservationsService {
     async create(dto) {
         const { startDate, endDate, userId, localId } = dto;
         if (endDate <= startDate) {
-            throw new common_1.BadRequestException("Date de fin doit être après la date de début.");
+            throw new common_1.BadRequestException('Date de fin doit être après la date de début.');
         }
         const user = await this.usersService.findOneUserById(userId);
         const local = await this.localsService.findOne(localId);
@@ -50,7 +50,7 @@ let ReservationsService = class ReservationsService {
             relations: ['user', 'local'],
         });
         if (!reservation) {
-            throw new common_1.BadRequestException("Réservation non trouvée.");
+            throw new common_1.BadRequestException('Réservation non trouvée.');
         }
         return reservation;
     }
@@ -61,12 +61,12 @@ let ReservationsService = class ReservationsService {
     async update(id, attrs) {
         const reservation = await this.findOne(id);
         if (reservation.paid) {
-            throw new common_1.BadRequestException("Impossible de modifier une réservation déjà payée.");
+            throw new common_1.BadRequestException('Impossible de modifier une réservation déjà payée.');
         }
         const newStart = attrs.startDate ?? reservation.startDate;
         const newEnd = attrs.endDate ?? reservation.endDate;
         if (newEnd <= newStart) {
-            throw new common_1.BadRequestException("Date de fin doit être après la date de début.");
+            throw new common_1.BadRequestException('Date de fin doit être après la date de début.');
         }
         if (attrs.user || attrs.local) {
             throw new common_1.BadRequestException("Impossible de modifier l'utilisateur ou le local d'une réservation.");

@@ -6,7 +6,7 @@ const bad_request_exception_1 = require("@nestjs/common/exceptions/bad-request.e
 class ReservationFactory {
     static create(dto, user, local) {
         if (dto.endDate <= dto.startDate) {
-            throw new bad_request_exception_1.BadRequestException("Date de fin doit être après la date de début.");
+            throw new bad_request_exception_1.BadRequestException('Date de fin doit être après la date de début.');
         }
         const reservation = new reservations_entity_1.Reservation();
         reservation.startDate = dto.startDate;

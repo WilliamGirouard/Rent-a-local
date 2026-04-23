@@ -1,7 +1,7 @@
 import { Reservation } from './reservations.entity';
 import { ReservationsService } from './reservations.service';
-import { CreateReservationDto } from 'src/dtos/create-reservation.dto';
-import { UpdateReservationDto } from 'src/dtos/update-reservation.dto';
+import { CreateReservationDto } from 'src/reservations/dtos/create-reservation.dto';
+import { UpdateReservationDto } from 'src/reservations/dtos/update-reservation.dto';
 export declare class ReservationsController {
     private reservationsService;
     constructor(reservationsService: ReservationsService);

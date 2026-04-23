@@ -2,7 +2,7 @@ import { Reservation } from './reservations.entity';
 import { Repository } from 'typeorm';
 import { UsersService } from 'src/users/users.service';
 import { LocalsService } from 'src/local/locals.service';
-import { CreateReservationDto } from 'src/dtos/create-reservation.dto';
+import { CreateReservationDto } from 'src/reservations/dtos/create-reservation.dto';
 export declare class ReservationsService {
     private repo;
     private usersService;

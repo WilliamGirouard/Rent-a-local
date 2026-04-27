@@ -16,9 +16,9 @@ exports.ReservationsController = void 0;
 const common_1 = require("@nestjs/common");
 const serialize_interceptor_1 = require("../interceptors/serialize.interceptor");
 const reservations_service_1 = require("./reservations.service");
-const create_reservation_dto_1 = require("../dtos/create-reservation.dto");
-const update_reservation_dto_1 = require("../dtos/update-reservation.dto");
-const reservation_dto_1 = require("../dtos/reservation.dto");
+const create_reservation_dto_1 = require("./dtos/create-reservation.dto");
+const update_reservation_dto_1 = require("./dtos/update-reservation.dto");
+const reservation_dto_1 = require("./dtos/reservation.dto");
 let ReservationsController = class ReservationsController {
     reservationsService;
     constructor(reservationsService) {

@@ -15,56 +15,57 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.AuthController = void 0;
 const common_1 = require("@nestjs/common");
 const auth_service_1 = require("./auth.service");
-const create_user_dto_1 = require("../dtos/create-user.dto");
-const login_user_dto_1 = require("../dtos/login-user.dto");
+const create_user_dto_1 = require("../users/dtos/create-user.dto");
+const login_user_dto_1 = require("./dtos/login-user.dto");
 const auth_guard_1 = require("./guards/auth.guard");
 const current_user_decorator_1 = require("../users/decorators/current-user.decorator");
-const user_entity_1 = require("../users/user.entity");
+const serialize_interceptor_1 = require("../interceptors/serialize.interceptor");
+const user_dto_1 = require("../users/dtos/user.dto");
+const users_service_1 = require("../users/users.service");
 let AuthController = class AuthController {
     authService;
-    constructor(authService) {
+    userService;
+    constructor(authService, userService) {
         this.authService = authService;
+        this.userService = userService;
     }
-    async login(body, session) {
-        const token = await this.authService.login(body);
-        session.token = token;
-        return { message: "Login Successful" };
+    async login(body) {
+        return this.authService.login(body);
     }
     async register(body) {
         return this.authService.register(body);
     }
     getProfile(user) {
-        return user;
+        return this.userService.findOneUserById(user.sub);
     }
 };
 exports.AuthController = AuthController;
 __decorate([
-    (0, common_1.HttpCode)(common_1.HttpStatus.OK),
-    (0, common_1.Post)("/login"),
+    (0, common_1.Post)('/login'),
     __param(0, (0, common_1.Body)()),
-    __param(1, (0, common_1.Session)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [login_user_dto_1.LoginUserDto, Object]),
+    __metadata("design:paramtypes", [login_user_dto_1.LoginUserDto]),
     __metadata("design:returntype", Promise)
 ], AuthController.prototype, "login", null);
 __decorate([
-    (0, common_1.HttpCode)(common_1.HttpStatus.OK),
-    (0, common_1.Post)("/register"),
+    (0, common_1.Post)('/register'),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [create_user_dto_1.CreateUserDto]),
     __metadata("design:returntype", Promise)
 ], AuthController.prototype, "register", null);
 __decorate([
+    (0, serialize_interceptor_1.Serialize)(user_dto_1.UserDto),
     (0, common_1.UseGuards)(auth_guard_1.AuthGuard),
-    (0, common_1.Get)("/profile"),
+    (0, common_1.Get)('/profile'),
     __param(0, (0, current_user_decorator_1.currentUser)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [user_entity_1.User]),
+    __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", void 0)
 ], AuthController.prototype, "getProfile", null);
 exports.AuthController = AuthController = __decorate([
     (0, common_1.Controller)('auth'),
-    __metadata("design:paramtypes", [auth_service_1.AuthService])
+    __metadata("design:paramtypes", [auth_service_1.AuthService,
+        users_service_1.UsersService])
 ], AuthController);
 //# sourceMappingURL=auth.controller.js.map

@@ -24,9 +24,11 @@ let AuthService = class AuthService {
         this.userService = userService;
     }
     async verifyAlreadyExistingEmail(email) {
-        const alreadyExistingBool = await this.userService.accessUsersRepo().existsBy({ email: email });
+        const alreadyExistingBool = await this.userService
+            .accessUsersRepo()
+            .existsBy({ email: email });
         if (alreadyExistingBool) {
-            throw new common_1.ConflictException("Un compte utilise deja cet email.");
+            throw new common_1.ConflictException('Un compte utilise deja cet email.');
         }
     }
     async register(dto) {
@@ -37,12 +39,15 @@ let AuthService = class AuthService {
     async login(user) {
         const userVerified = await this.userService.findOneUserByEmail(user.email);
         if (userVerified == null) {
-            throw new common_1.UnauthorizedException("Invalid credentials");
+            throw new common_1.UnauthorizedException('Invalid credentials');
         }
-        if (await this.hashingService.compareHashToPassword(user.password, userVerified?.password) == false) {
-            throw new common_1.UnauthorizedException("Unauthorized connection");
+        if ((await this.hashingService.compareHashToPassword(user.password, userVerified?.password)) == false) {
+            throw new common_1.UnauthorizedException('Unauthorized connection');
         }
-        const payload = { sub: userVerified.id, email: userVerified.email, role: userVerified.role };
+        const payload = {
+            sub: userVerified.id,
+            role: userVerified.role,
+        };
         return { access_token: await this.jwtService.signAsync(payload) };
     }
 };

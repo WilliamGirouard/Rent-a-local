@@ -10,6 +10,13 @@ async function bootstrap() {
         forbidNonWhitelisted: true,
         transform: true,
     }));
+    app.enableCors({
+        origin: process.env.FRONTEND_ORIGIN || [
+            'http://localhost:5173',
+            'http://localhost:5175',
+        ],
+        credentials: true,
+    });
     app.setGlobalPrefix("/v1");
     await app.listen(process.env.PORT ?? 3000);
 }

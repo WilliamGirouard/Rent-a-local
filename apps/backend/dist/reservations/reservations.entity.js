@@ -27,6 +27,12 @@ let Reservation = class Reservation {
     get localId() {
         return this.local.id;
     }
+    logInsert() {
+        console.log(`Reservation inserted with ID: ${this.id}`);
+    }
+    logRemove() {
+        console.log(`Reservation deleted with ID: ${this.id}`);
+    }
 };
 exports.Reservation = Reservation;
 __decorate([
@@ -63,6 +69,18 @@ __decorate([
     __metadata("design:type", Number),
     __metadata("design:paramtypes", [])
 ], Reservation.prototype, "localId", null);
+__decorate([
+    (0, typeorm_1.AfterInsert)(),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", void 0)
+], Reservation.prototype, "logInsert", null);
+__decorate([
+    (0, typeorm_1.BeforeRemove)(),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", void 0)
+], Reservation.prototype, "logRemove", null);
 exports.Reservation = Reservation = __decorate([
     (0, typeorm_1.Entity)()
 ], Reservation);

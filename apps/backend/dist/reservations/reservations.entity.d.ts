@@ -9,4 +9,6 @@ export declare class Reservation {
     get userId(): number;
     local: Local;
     get localId(): number;
+    logInsert(): void;
+    logRemove(): void;
 }

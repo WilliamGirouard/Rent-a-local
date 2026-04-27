@@ -16,7 +16,7 @@ exports.PaymentController = void 0;
 const common_1 = require("@nestjs/common");
 const payment_service_1 = require("./payment.service");
 const serialize_interceptor_1 = require("../interceptors/serialize.interceptor");
-const reservation_dto_1 = require("../dtos/reservation.dto");
+const reservation_dto_1 = require("../reservations/dtos/reservation.dto");
 let PaymentController = class PaymentController {
     paymentService;
     constructor(paymentService) {

@@ -1,8 +1,8 @@
 import { Controller, Post,Body,Get, Param, Delete, Patch, UseInterceptors, ClassSerializerInterceptor, SerializeOptions, Request } from '@nestjs/common';
 import { UsersService } from './users.service';
-import { UpdateUserDto } from 'src/dtos/update-user.dto';
+import { UpdateUserDto } from 'src/users/dtos/update-user.dto';
 import { Serialize } from 'src/interceptors/serialize.interceptor';
-import { UserDto } from 'src/dtos/user.dto';
+import { UserDto } from 'src/users/dtos/user.dto';
 import { User } from './user.entity';
 
 @Controller('users')
@@ -34,6 +34,7 @@ export class UsersController {
     async deleteUser(@Param("id") id : number) {
         return await this.usersService.removeUser(id)
     }
+    
     @Serialize(UpdateUserDto)
     @Patch("/:id")
     async updateUser(@Param("id") id: number, @Body() body : UpdateUserDto) {

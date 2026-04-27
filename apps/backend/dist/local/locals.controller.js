@@ -15,8 +15,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.LocalsController = void 0;
 const common_1 = require("@nestjs/common");
 const locals_service_1 = require("./locals.service");
-const create_local_dto_1 = require("../dtos/create-local.dto");
-const update_local_dto_1 = require("../dtos/update-local.dto");
+const create_local_dto_1 = require("./dtos/create-local.dto");
+const update_local_dto_1 = require("./dtos/update-local.dto");
 let LocalsController = class LocalsController {
     localsService;
     constructor(localsService) {

@@ -17,12 +17,13 @@ const user_entity_1 = require("./users/user.entity");
 const hashing_module_1 = require("./hashing/hashing.module");
 const config_1 = require("@nestjs/config");
 const auth_module_1 = require("./auth/auth.module");
-const nestjs_cookie_session_1 = require("nestjs-cookie-session");
 const reservations_module_1 = require("./reservations/reservations.module");
 const reservations_entity_1 = require("./reservations/reservations.entity");
 const locals_entity_1 = require("./local/locals.entity");
 const locals_module_1 = require("./local/locals.module");
 const payment_module_1 = require("./payment/payment.module");
+const contact_module_1 = require("./contact/contact.module");
+const mailer_1 = require("@nestjs-modules/mailer");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
@@ -43,21 +44,24 @@ exports.AppModule = AppModule = __decorate([
                     synchronize: true,
                 }),
             }),
+            mailer_1.MailerModule.forRootAsync({
+                inject: [config_1.ConfigService],
+                useFactory: (configService) => ({
+                    transport: {
+                        service: "gmail",
+                        auth: {
+                            user: configService.get("GMAIL_MAIL"),
+                            pass: configService.get("GMAIL_PASS"),
+                        },
+                    },
+                    defaults: {
+                        from: `"Rent-a-local" <${configService.get("GMAIL_MAIL")}>`,
+                    },
+                }),
+            }),
             config_1.ConfigModule.forRoot({
                 envFilePath: ".env",
                 isGlobal: true,
-            }),
-            nestjs_cookie_session_1.CookieSessionModule.forRootAsync({
-                inject: [config_1.ConfigService],
-                useFactory: async (configService) => {
-                    return {
-                        session: {
-                            secret: configService.getOrThrow("COOKIE_SECRET"),
-                            httpOnly: true,
-                            maxAge: Number(configService.getOrThrow("COOKIE_EXPIRES")),
-                        }
-                    };
-                }
             }),
             users_module_1.UsersModule,
             reports_module_1.ReportsModule,
@@ -66,6 +70,7 @@ exports.AppModule = AppModule = __decorate([
             reservations_module_1.ReservationsModule,
             locals_module_1.LocalsModule,
             payment_module_1.PaymentModule,
+            contact_module_1.ContactModule,
         ],
         controllers: [app_controller_1.AppController],
         providers: [app_service_1.AppService],

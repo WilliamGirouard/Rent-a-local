@@ -1,5 +1,5 @@
 import { UsersService } from './users.service';
-import { UpdateUserDto } from 'src/dtos/update-user.dto';
+import { UpdateUserDto } from 'src/users/dtos/update-user.dto';
 import { User } from './user.entity';
 export declare class UsersController {
     private usersService;

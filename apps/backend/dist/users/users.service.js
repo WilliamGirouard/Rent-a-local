@@ -32,14 +32,14 @@ let UsersService = class UsersService {
     async findOneUserById(id) {
         const foundUser = await this.usersRepository.findOneBy({ id: id });
         if (foundUser == null) {
-            throw new common_1.NotFoundException("Invalid Id");
+            throw new common_1.NotFoundException('Invalid Id');
         }
         return foundUser;
     }
     async findOneUserByEmail(email) {
         const foundUser = await this.usersRepository.findOneBy({ email: email });
         if (foundUser == null) {
-            throw new common_1.BadRequestException("Invalid email");
+            throw new common_1.BadRequestException('Invalid email');
         }
         return foundUser;
     }
@@ -49,7 +49,7 @@ let UsersService = class UsersService {
             password: hashedPassword,
             firstName: dto.firstName,
             lastName: dto.lastName,
-            role: roles_enum_1.Role.User
+            role: roles_enum_1.Role.User,
         });
         return await this.usersRepository.save(newUser);
     }

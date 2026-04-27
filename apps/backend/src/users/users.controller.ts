@@ -34,6 +34,7 @@ export class UsersController {
     async deleteUser(@Param("id") id : number) {
         return await this.usersService.removeUser(id)
     }
+    
     @Serialize(UpdateUserDto)
     @Patch("/:id")
     async updateUser(@Param("id") id: number, @Body() body : UpdateUserDto) {

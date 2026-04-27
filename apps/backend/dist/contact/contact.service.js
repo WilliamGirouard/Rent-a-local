@@ -36,6 +36,7 @@ let ContactService = class ContactService {
                 Message: ${dto.message}
             `
             });
+            return { message: "Email envoyé avec succès" };
         }
         catch (e) {
             throw new common_1.InternalServerErrorException("Erreur lors de l'envoi du courriel, veuillez réessayer plus tard.");

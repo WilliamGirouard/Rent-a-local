@@ -10,8 +10,8 @@ export class ContactService {
         private reservationService : ReservationsService
     ) {}
 
-    async sendEmailToUs(dto: ContactDto) {
-        const reservation = await this.reservationService.findOne(dto.reservationId);
+    async sendEmailToUs(dto: ContactDto, userId : number) {
+        const reservation = await this.reservationService.UserActiveReservationValidation(userId, dto.reservationId );
         if (!reservation) {
             throw new NotFoundException(`La reservation #${dto.reservationId} n'a pas été trouvé.`);
         }

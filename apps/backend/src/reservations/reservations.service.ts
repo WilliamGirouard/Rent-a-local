@@ -1,4 +1,4 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Reservation } from './reservations.entity';
 import { Repository } from 'typeorm';
@@ -52,6 +52,35 @@ export class ReservationsService {
     return reservation;
   }
 
+  async findAllForUser(userId : number): Promise<Reservation[]> {
+    return this.repo.find({
+      where: {
+        user: { id: userId},
+      },
+      relations: ['local'],
+      order: {
+        startDate: 'DESC',
+      },
+    });
+  }
+  async UserActiveReservationValidation(userId: number, reservationId: number) {
+    const currentDate = new Date();
+
+    const reservation = await this.repo.findOne({
+      where: {
+        id : reservationId,
+        userId: userId,
+      },
+    });
+
+    if (!reservation) {
+      throw new NotFoundException("Reservation not found");
+    }
+    if (reservation.endDate < currentDate) {
+      throw new BadRequestException("Reservation is expired.");
+    }
+    return reservation;
+  }
   async remove(id: number): Promise<Reservation> {
     const reservation = await this.findOne(id);
     return await this.repo.remove(reservation);

@@ -24,12 +24,12 @@ __decorate([
 ], CreateUserDto.prototype, "email", void 0);
 __decorate([
     (0, class_validator_1.IsStrongPassword)({
-        minLength: 15,
+        minLength: 8,
         minNumbers: 2,
         minSymbols: 1,
-        minUppercase: 2,
+        minUppercase: 1,
     }, {
-        message: "Your Password is cooked...Needs to be at least 14 carac. long, 2 uppercase, 2 numbers and 1 symbols.."
+        message: "Password needs at least: \n8 caracters\n1 Uppercase letter\n2 numbers\n1 symbol"
     }),
     (0, class_validator_1.IsString)(),
     (0, class_validator_1.IsNotEmpty)(),

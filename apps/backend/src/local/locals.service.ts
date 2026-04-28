@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Local } from './locals.entity';
@@ -39,15 +39,25 @@ export class LocalsService {
 
     return await this.localsRepository.save(local);
   }
-
+  // update et remove vérifient si le local est réservé avant de procéder
   async update(id: number, dto: UpdateLocalDto): Promise<Local> {
     const local = await this.findOne(id);
+
+    if (local.isReserved){
+      throw new BadRequestException(`Local with ID ${id} is reserved and cannot be Updated`);
+    }
+
     Object.assign(local, dto);
     return await this.localsRepository.save(local);
   }
 
   async remove(id: number): Promise<Local> {
     const local = await this.findOne(id);
+    if (local.isReserved){
+      throw new BadRequestException(`Local with ID ${id} is reserved and cannot be Removed`);
+    }
     return await this.localsRepository.remove(local);
   }
+  //aussi utilisation du 'BadRequestException' car le local existe surement, mais laction ne peut pas etre faite 
+  
 }

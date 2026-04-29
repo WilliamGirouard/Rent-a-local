@@ -19,6 +19,10 @@ export class Reservation{
     @Column({ default: false })
     paid: boolean;
 
+    @Column({ default: false })
+    isReserved: boolean; //same coloumn is reserved
+    
+
     @ManyToOne(() => User)
     user: User;
 

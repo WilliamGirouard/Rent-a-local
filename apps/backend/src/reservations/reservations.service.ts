@@ -25,8 +25,13 @@ export class ReservationsService {
       );
     }
 
+
     const user = await this.usersService.findOneUserById(userId);
     const local = await this.localsService.findOne(localId);
+
+    if (local.isReserved) {     // Vérification de la disponibilité du local avant de reserv
+      throw new BadRequestException('Local déjà réservé pour ces dates.');
+    }
 
     const reservation = ReservationFactory.create(dto, user, local);
 
@@ -83,6 +88,11 @@ export class ReservationsService {
   }
   async remove(id: number): Promise<Reservation> {
     const reservation = await this.findOne(id);
+    if (reservation.paid) {
+      throw new BadRequestException(
+        'Impossible de supprimer une réservation déjà payée.',
+      );
+    }
     return await this.repo.remove(reservation);
   }
 
@@ -94,15 +104,13 @@ export class ReservationsService {
         'Impossible de modifier une réservation déjà payée.',
       );
     }
-
-    const newStart = attrs.startDate ?? reservation.startDate;
-    const newEnd = attrs.endDate ?? reservation.endDate;
-
-    if (newEnd <= newStart) {
-      throw new BadRequestException(
-        'Date de fin doit être après la date de début.',
-      );
+    if (attrs.startDate || attrs.endDate) {
+    throw new BadRequestException(
+        'Impossible de modifier les dates. Veuillez contacter un administrateur.'
+    );
     }
+    //jai sup pcq finalemnt on peut just changer les date avec le admin 
+    
     if (attrs.user || attrs.local) {
       throw new BadRequestException(
         "Impossible de modifier l'utilisateur ou le local d'une réservation.",

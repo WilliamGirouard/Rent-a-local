@@ -54,6 +54,33 @@ let ReservationsService = class ReservationsService {
         }
         return reservation;
     }
+    async findAllForUser(userId) {
+        return this.repo.find({
+            where: {
+                user: { id: userId },
+            },
+            relations: ['local', 'user'],
+            order: {
+                startDate: 'DESC',
+            },
+        });
+    }
+    async UserActiveReservationValidation(userId, reservationId) {
+        const currentDate = new Date();
+        const reservation = await this.repo.findOne({
+            where: {
+                id: reservationId,
+                userId: userId,
+            },
+        });
+        if (!reservation) {
+            throw new common_1.NotFoundException("Reservation not found");
+        }
+        if (reservation.endDate < currentDate) {
+            throw new common_1.BadRequestException("Reservation is expired.");
+        }
+        return reservation;
+    }
     async remove(id) {
         const reservation = await this.findOne(id);
         return await this.repo.remove(reservation);

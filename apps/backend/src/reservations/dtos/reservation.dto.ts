@@ -1,25 +1,27 @@
-import {Expose} from "class-transformer";
-import { User } from "src/users/user.entity";
-import { ManyToOne } from "typeorm";
-
+import { Expose, Type } from "class-transformer";
+import { LocalDto } from "src/local/dtos/local.dto";
+import { UserDto } from "src/users/dtos/user.dto";
 
 export class ReservationDto {
+  @Expose()
+  id: number;
 
-    @Expose()
-    id: number;
+  @Expose()
+  startDate: Date;
 
-    @Expose()
-    startDate: Date;
+  @Expose()
+  endDate: Date;
 
-    @Expose()
-    endDate: Date;
+  @Expose()
+  paid: boolean;
 
-    @Expose()
-    paid: boolean;
+  @Expose()
+  totalPrice: number;
 
-    @Expose()
-    userId: number;
+  @Expose()
+  @Type(() => UserDto)
+  user: UserDto;
 
-    @Expose()
-    localId: number;
+  @Type(() => LocalDto)
+  local: LocalDto;
 }

@@ -20,8 +20,8 @@ let ContactService = class ContactService {
         this.mailService = mailService;
         this.reservationService = reservationService;
     }
-    async sendEmailToUs(dto) {
-        const reservation = await this.reservationService.findOne(dto.reservationId);
+    async sendEmailToUs(dto, userId) {
+        const reservation = await this.reservationService.UserActiveReservationValidation(userId, dto.reservationId);
         if (!reservation) {
             throw new common_1.NotFoundException(`La reservation #${dto.reservationId} n'a pas été trouvé.`);
         }

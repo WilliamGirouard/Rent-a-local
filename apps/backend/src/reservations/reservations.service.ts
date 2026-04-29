@@ -57,7 +57,7 @@ export class ReservationsService {
       where: {
         user: { id: userId},
       },
-      relations: ['local'],
+      relations: ['local', 'user'],
       order: {
         startDate: 'DESC',
       },

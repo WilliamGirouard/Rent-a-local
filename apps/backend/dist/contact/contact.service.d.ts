@@ -5,7 +5,7 @@ export declare class ContactService {
     private mailService;
     private reservationService;
     constructor(mailService: MailerService, reservationService: ReservationsService);
-    sendEmailToUs(dto: ContactDto): Promise<{
+    sendEmailToUs(dto: ContactDto, userId: number): Promise<{
         message: string;
     }>;
 }

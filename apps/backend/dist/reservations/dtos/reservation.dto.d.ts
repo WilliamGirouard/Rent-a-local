@@ -1,8 +1,11 @@
+import { LocalDto } from "src/local/dtos/local.dto";
+import { UserDto } from "src/users/dtos/user.dto";
 export declare class ReservationDto {
     id: number;
     startDate: Date;
     endDate: Date;
     paid: boolean;
-    userId: number;
-    localId: number;
+    totalPrice: number;
+    user: UserDto;
+    local: LocalDto;
 }

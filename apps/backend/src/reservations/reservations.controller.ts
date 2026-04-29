@@ -14,7 +14,9 @@ export class ReservationsController {
     @Serialize(ReservationDto)
     @Get()
     async findAll() {
-        return await this.reservationsService.findAll();
+      const data = await this.reservationsService.findAll();
+      console.log("DEBUG:", data[0]);
+      return data;
     }
 
     @Serialize(ReservationDto)

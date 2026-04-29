@@ -1,10 +1,12 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Patch, Post, UseGuards } from '@nestjs/common';
 import { Serialize } from 'src/interceptors/serialize.interceptor';
 import { ReservationsService } from './reservations.service';
 import { CreateReservationDto } from 'src/reservations/dtos/create-reservation.dto';
 import { UpdateReservationDto} from 'src/reservations/dtos/update-reservation.dto';
 import { ReservationDto } from 'src/reservations/dtos/reservation.dto';
 import { currentUser } from 'src/users/decorators/current-user.decorator';
+import { AdminGuard } from 'src/auth/guards/admin.guard';
+
 
 @Controller('reservations')
 export class ReservationsController {
@@ -40,7 +42,8 @@ export class ReservationsController {
     async remove(@Param("id") id: number) {
         return await this.reservationsService.remove(id);
     }
-
+    
+    @UseGuards(AdminGuard)
     @Serialize(UpdateReservationDto)
     @Patch("/:id")
     async update(@Param("id") id: number, @Body() body: UpdateReservationDto) {

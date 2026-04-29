@@ -7,6 +7,6 @@ export declare function Serialize(dto: ClassConstructor): MethodDecorator & Clas
 export declare class SerializeInterceptor implements NestInterceptor {
     private dto;
     constructor(dto: ClassConstructor);
-    intercept(context: ExecutionContext, handler: CallHandler): Observable<any>;
+    intercept(context: ExecutionContext, handler: CallHandler<any>): Observable<any> | Promise<Observable<any>>;
 }
 export {};

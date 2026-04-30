@@ -19,6 +19,8 @@ const reservations_service_1 = require("./reservations.service");
 const create_reservation_dto_1 = require("./dtos/create-reservation.dto");
 const update_reservation_dto_1 = require("./dtos/update-reservation.dto");
 const reservation_dto_1 = require("./dtos/reservation.dto");
+const current_user_decorator_1 = require("../users/decorators/current-user.decorator");
+const auth_guard_1 = require("../auth/guards/auth.guard");
 let ReservationsController = class ReservationsController {
     reservationsService;
     constructor(reservationsService) {
@@ -26,6 +28,9 @@ let ReservationsController = class ReservationsController {
     }
     async findAll() {
         return await this.reservationsService.findAll();
+    }
+    async findMyReservations(user) {
+        return await this.reservationsService.findAllForUser(user.sub);
     }
     async findOne(id) {
         return await this.reservationsService.findOne(id);
@@ -50,8 +55,17 @@ __decorate([
 ], ReservationsController.prototype, "findAll", null);
 __decorate([
     (0, serialize_interceptor_1.Serialize)(reservation_dto_1.ReservationDto),
-    (0, common_1.Get)("/:id"),
-    __param(0, (0, common_1.Param)("id")),
+    (0, common_1.UseGuards)(auth_guard_1.AuthGuard),
+    (0, common_1.Get)('me'),
+    __param(0, (0, current_user_decorator_1.currentUser)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], ReservationsController.prototype, "findMyReservations", null);
+__decorate([
+    (0, serialize_interceptor_1.Serialize)(reservation_dto_1.ReservationDto),
+    (0, common_1.Get)('/:id'),
+    __param(0, (0, common_1.Param)('id')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Number]),
     __metadata("design:returntype", Promise)
@@ -66,16 +80,16 @@ __decorate([
 ], ReservationsController.prototype, "createReservation", null);
 __decorate([
     (0, serialize_interceptor_1.Serialize)(reservation_dto_1.ReservationDto),
-    (0, common_1.Delete)("/:id"),
-    __param(0, (0, common_1.Param)("id")),
+    (0, common_1.Delete)('/:id'),
+    __param(0, (0, common_1.Param)('id')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Number]),
     __metadata("design:returntype", Promise)
 ], ReservationsController.prototype, "remove", null);
 __decorate([
     (0, serialize_interceptor_1.Serialize)(update_reservation_dto_1.UpdateReservationDto),
-    (0, common_1.Patch)("/:id"),
-    __param(0, (0, common_1.Param)("id")),
+    (0, common_1.Patch)('/:id'),
+    __param(0, (0, common_1.Param)('id')),
     __param(1, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Number, update_reservation_dto_1.UpdateReservationDto]),

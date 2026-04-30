@@ -22,11 +22,11 @@ let Reservation = class Reservation {
     isReserved;
     user;
     get userId() {
-        return this.user.id;
+        return this.user?.id;
     }
     local;
     get localId() {
-        return this.local.id;
+        return this.local?.id;
     }
     logInsert() {
         console.log(`Reservation inserted with ID: ${this.id}`);

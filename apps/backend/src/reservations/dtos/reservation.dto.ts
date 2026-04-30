@@ -1,7 +1,15 @@
-import {Expose} from "class-transformer";
-import { User } from "src/users/user.entity";
-import { ManyToOne } from "typeorm";
+import {Expose, Type} from "class-transformer";
 
+class LocalDto {
+    @Expose()
+    id: number;
+
+    @Expose()
+    name: string;
+
+    @Expose()
+    address: string;
+}
 
 export class ReservationDto {
 
@@ -22,4 +30,8 @@ export class ReservationDto {
 
     @Expose()
     localId: number;
+
+    @Expose()
+    @Type(() => LocalDto)
+    local: LocalDto;
 }

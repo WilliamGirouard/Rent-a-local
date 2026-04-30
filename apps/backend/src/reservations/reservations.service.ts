@@ -1,7 +1,7 @@
 import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Reservation } from './reservations.entity';
-import { Repository } from 'typeorm';
+import { Not, Repository } from 'typeorm';
 import { UsersService } from 'src/users/users.service';
 import { LocalsService } from 'src/local/locals.service';
 import { CreateReservationDto } from 'src/reservations/dtos/create-reservation.dto';
@@ -27,6 +27,20 @@ export class ReservationsService {
 
     const user = await this.usersService.findOneUserById(userId);
     const local = await this.localsService.findOne(localId);
+
+    //plus aumoins nécésaire vu que jai ajouter le conflict mais une barrirer sup 
+    if (local.isReserved) {     // Vérification de la disponibilité du local avant de reserv
+      throw new BadRequestException('Local déjà réservé pour ces dates.');
+    }
+
+    const conflict =  await this.repo.find({where: {local: { id: localId },}
+    });
+
+    for (const c of conflict) {
+      if (c.startDate < endDate && c.endDate > startDate) {
+        throw new BadRequestException('Local déjà réservé pour ces dates.');
+      }
+    }
 
     const reservation = ReservationFactory.create(dto, user, local);
 
@@ -83,6 +97,11 @@ export class ReservationsService {
   }
   async remove(id: number): Promise<Reservation> {
     const reservation = await this.findOne(id);
+    if (reservation.paid) {
+      throw new BadRequestException(
+        'Impossible de supprimer une réservation déjà payée.',
+      );
+    }
     return await this.repo.remove(reservation);
   }
 
@@ -94,19 +113,22 @@ export class ReservationsService {
         'Impossible de modifier une réservation déjà payée.',
       );
     }
-
     const newStart = attrs.startDate ?? reservation.startDate;
     const newEnd = attrs.endDate ?? reservation.endDate;
 
     if (newEnd <= newStart) {
-      throw new BadRequestException(
-        'Date de fin doit être après la date de début.',
-      );
+    throw new BadRequestException(
+    'Date de fin doit être après la date de début.',);
     }
-    if (attrs.user || attrs.local) {
-      throw new BadRequestException(
-        "Impossible de modifier l'utilisateur ou le local d'une réservation.",
-      );
+
+    const conflict =  await this.repo.find({where: {local: { id: reservation.localId },
+        id: Not(reservation.id),}
+    });
+
+    for (const c of conflict) {
+      if (c.startDate < newEnd && c.endDate > newStart) {
+          throw new BadRequestException('Local déjà réservé pour ces dates.');
+      }
     }
 
     Object.assign(reservation, attrs);

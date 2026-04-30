@@ -15,6 +15,7 @@ import { UpdateReservationDto } from 'src/reservations/dtos/update-reservation.d
 import { ReservationDto } from 'src/reservations/dtos/reservation.dto';
 import { currentUser } from 'src/users/decorators/current-user.decorator';
 import { AuthGuard } from 'src/auth/guards/auth.guard';
+import { AdminGuard } from 'src/auth/guards/admin.guard';
 
 @Controller('reservations')
 export class ReservationsController {
@@ -50,6 +51,7 @@ export class ReservationsController {
     return await this.reservationsService.remove(id);
   }
 
+  @UseGuards(AdminGuard)
   @Serialize(UpdateReservationDto)
   @Patch('/:id')
   async update(@Param('id') id: number, @Body() body: UpdateReservationDto) {

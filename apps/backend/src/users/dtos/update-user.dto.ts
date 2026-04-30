@@ -1,6 +1,5 @@
 import { Expose } from "class-transformer";
 import { IsEmail, IsStrongPassword, IsString, IsNotEmpty, IsOptional } from "class-validator";
-
 export class UpdateUserDto {
     
     @IsEmail()
@@ -32,5 +31,4 @@ export class UpdateUserDto {
     @IsOptional()
     @Expose()
     lastName: string;
-
 }

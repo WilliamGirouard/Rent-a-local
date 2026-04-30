@@ -19,12 +19,16 @@ export class Reservation{
     @Column({ default: false })
     paid: boolean;
 
+    @Column({ default: false })
+    isReserved: boolean; //same coloumn is reserved
+    
+
     @ManyToOne(() => User)
     user: User;
 
     @Expose()
     get userId(): number {
-        return this.user.id;
+        return this.user?.id;
     }
 
     @ManyToOne(() => Local)
@@ -32,7 +36,7 @@ export class Reservation{
 
     @Expose()
     get localId(): number {
-       return this.local.id;
+       return this.local?.id;
     }
 
     @AfterInsert()

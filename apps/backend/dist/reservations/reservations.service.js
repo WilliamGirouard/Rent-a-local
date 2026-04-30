@@ -36,6 +36,16 @@ let ReservationsService = class ReservationsService {
         }
         const user = await this.usersService.findOneUserById(userId);
         const local = await this.localsService.findOne(localId);
+        if (local.isReserved) {
+            throw new common_1.BadRequestException('Local déjà réservé pour ces dates.');
+        }
+        const conflict = await this.repo.find({ where: { local: { id: localId }, }
+        });
+        for (const c of conflict) {
+            if (c.startDate < endDate && c.endDate > startDate) {
+                throw new common_1.BadRequestException('Local déjà réservé pour ces dates.');
+            }
+        }
         const reservation = reservation_factory_1.ReservationFactory.create(dto, user, local);
         await this.checkOverlap(localId, new Date(startDate), new Date(endDate));
         return await this.repo.save(reservation);
@@ -99,6 +109,9 @@ let ReservationsService = class ReservationsService {
     }
     async remove(id) {
         const reservation = await this.findOne(id);
+        if (reservation.paid) {
+            throw new common_1.BadRequestException('Impossible de supprimer une réservation déjà payée.');
+        }
         return await this.repo.remove(reservation);
     }
     async update(id, attrs) {
@@ -111,8 +124,13 @@ let ReservationsService = class ReservationsService {
         if (newEnd <= newStart) {
             throw new common_1.BadRequestException('Date de fin doit être après la date de début.');
         }
-        if (attrs.user || attrs.local) {
-            throw new common_1.BadRequestException("Impossible de modifier l'utilisateur ou le local d'une réservation.");
+        const conflict = await this.repo.find({ where: { local: { id: reservation.localId },
+                id: (0, typeorm_2.Not)(reservation.id), }
+        });
+        for (const c of conflict) {
+            if (c.startDate < newEnd && c.endDate > newStart) {
+                throw new common_1.BadRequestException('Local déjà réservé pour ces dates.');
+            }
         }
         Object.assign(reservation, attrs);
         await this.checkOverlap(reservation.local.id, new Date(newStart), new Date(newEnd), id);
@@ -127,14 +145,17 @@ let ReservationsService = class ReservationsService {
         return reservations;
     }
     async checkOverlap(localId, startDate, endDate, excludeId) {
-        const overlapping = await this.repo
+        const query = this.repo
             .createQueryBuilder('r')
             .innerJoin('r.local', 'local')
             .where('local.id = :localId', { localId })
+            .andWhere('r.paid = :paid', { paid: true })
             .andWhere('r.startDate < :endDate', { endDate })
-            .andWhere('r.endDate > :startDate', { startDate })
-            .andWhere(excludeId ? 'r.id != :excludeId' : '1=1', { excludeId })
-            .getOne();
+            .andWhere('r.endDate > :startDate', { startDate });
+        if (excludeId) {
+            query.andWhere('r.id != :excludeId', { excludeId });
+        }
+        const overlapping = await query.getOne();
         if (overlapping) {
             throw new common_1.BadRequestException('Ce local est déjà réservé pour ces dates.');
         }

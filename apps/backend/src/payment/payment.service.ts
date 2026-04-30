@@ -4,7 +4,7 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { ReservationsService } from 'src/reservations/reservations.service';
-import { UsersService } from 'src/users/service/users.service';
+import { UsersService } from 'src/users/users.service';
 
 export interface PaymentReceipt {
   reservationId: number;

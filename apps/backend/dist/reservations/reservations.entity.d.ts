@@ -5,6 +5,7 @@ export declare class Reservation {
     startDate: Date;
     endDate: Date;
     paid: boolean;
+    isReserved: boolean;
     user: User;
     get userId(): number;
     local: Local;

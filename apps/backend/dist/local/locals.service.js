@@ -56,11 +56,17 @@ let LocalsService = class LocalsService {
     }
     async update(id, dto) {
         const local = await this.findOne(id);
+        if (local.isReserved) {
+            throw new common_1.BadRequestException(`Local with ID ${id} is reserved and cannot be Updated`);
+        }
         Object.assign(local, dto);
         return await this.localsRepository.save(local);
     }
     async remove(id) {
         const local = await this.findOne(id);
+        if (local.isReserved) {
+            throw new common_1.BadRequestException(`Local with ID ${id} is reserved and cannot be Removed`);
+        }
         return await this.localsRepository.remove(local);
     }
 };

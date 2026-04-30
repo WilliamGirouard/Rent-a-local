@@ -19,13 +19,14 @@ let Reservation = class Reservation {
     startDate;
     endDate;
     paid;
+    isReserved;
     user;
     get userId() {
-        return this.user.id;
+        return this.user?.id;
     }
     local;
     get localId() {
-        return this.local.id;
+        return this.local?.id;
     }
     logInsert() {
         console.log(`Reservation inserted with ID: ${this.id}`);
@@ -51,6 +52,10 @@ __decorate([
     (0, typeorm_1.Column)({ default: false }),
     __metadata("design:type", Boolean)
 ], Reservation.prototype, "paid", void 0);
+__decorate([
+    (0, typeorm_1.Column)({ default: false }),
+    __metadata("design:type", Boolean)
+], Reservation.prototype, "isReserved", void 0);
 __decorate([
     (0, typeorm_1.ManyToOne)(() => user_entity_1.User),
     __metadata("design:type", user_entity_1.User)

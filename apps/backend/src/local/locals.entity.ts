@@ -23,7 +23,10 @@ export class Local {
     
     @Column('double precision')
     lng: number;
-    
+
+    @Column({ default: false }) // ajout de la colonne isReserved pour gerer les exceptions (dans service)
+    isReserved: boolean;
+
     // SEULEMENT cette relation - PAS de ManyToOne vers User
     @OneToMany(() => Reservation, (reservation) => reservation.local)
     reservations: Reservation[];

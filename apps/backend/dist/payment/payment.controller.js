@@ -22,8 +22,8 @@ let PaymentController = class PaymentController {
     constructor(paymentService) {
         this.paymentService = paymentService;
     }
-    async pay(reservationId) {
-        return await this.paymentService.payReservation(reservationId);
+    async pay(reservationId, userId) {
+        return await this.paymentService.payReservation(reservationId, userId);
     }
 };
 exports.PaymentController = PaymentController;
@@ -32,7 +32,7 @@ __decorate([
     (0, common_1.Post)('/:reservationId'),
     __param(0, (0, common_1.Param)('reservationId')),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Number]),
+    __metadata("design:paramtypes", [Number, Number]),
     __metadata("design:returntype", Promise)
 ], PaymentController.prototype, "pay", null);
 exports.PaymentController = PaymentController = __decorate([

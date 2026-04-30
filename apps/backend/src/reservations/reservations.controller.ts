@@ -1,10 +1,11 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, ParseIntPipe, Patch, Post, UseGuards } from '@nestjs/common';
 import { Serialize } from 'src/interceptors/serialize.interceptor';
 import { ReservationsService } from './reservations.service';
 import { CreateReservationDto } from 'src/reservations/dtos/create-reservation.dto';
 import { UpdateReservationDto} from 'src/reservations/dtos/update-reservation.dto';
 import { ReservationDto } from 'src/reservations/dtos/reservation.dto';
 import { currentUser } from 'src/users/decorators/current-user.decorator';
+import { AuthGuard } from 'src/auth/guards/auth.guard';
 
 @Controller('reservations')
 export class ReservationsController {
@@ -15,20 +16,23 @@ export class ReservationsController {
     @Get()
     async findAll() {
       const data = await this.reservationsService.findAll();
-      console.log("DEBUG:", data[0]);
       return data;
     }
 
     @Serialize(ReservationDto)
-    @Get("/:id")
-    async findOne(@Param("id") id: number) {
-        return await this.reservationsService.findOne(id);
-    }
-    
-    @Serialize(ReservationDto)
+    @UseGuards(AuthGuard)
     @Get("me")
     async findMyReservations(@currentUser() user: any) {
         return await this.reservationsService.findAllForUser(user.sub);
+    }
+
+    @UseGuards(AuthGuard)
+    @Get(':id')
+    async findOne(
+        @Param('id', ParseIntPipe) id: number,
+        @currentUser() user: any,
+    ) {
+      return this.reservationsService.findOneSecure(id, user);
     }
 
     @Serialize(ReservationDto)

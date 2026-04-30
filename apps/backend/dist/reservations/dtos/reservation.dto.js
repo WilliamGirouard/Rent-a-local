@@ -49,6 +49,7 @@ __decorate([
     __metadata("design:type", user_dto_1.UserDto)
 ], ReservationDto.prototype, "user", void 0);
 __decorate([
+    (0, class_transformer_1.Expose)(),
     (0, class_transformer_1.Type)(() => local_dto_1.LocalDto),
     __metadata("design:type", local_dto_1.LocalDto)
 ], ReservationDto.prototype, "local", void 0);

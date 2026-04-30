@@ -7,4 +7,6 @@ export class LocalDto {
   name: string;
   @Expose() 
   address: string;
+  @Expose()
+  pricePerDay: number;
 }

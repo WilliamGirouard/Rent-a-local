@@ -2,6 +2,7 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Local } from './locals.entity';
+import { Reservation } from 'src/reservations/reservations.entity';
 import { CreateLocalDto } from './dtos/create-local.dto';
 import { UpdateLocalDto } from './dtos/update-local.dto';
 import { LocalBuilder } from './locals.builder';
@@ -11,7 +12,8 @@ export class LocalsService {
   constructor(
     @InjectRepository(Local)
     private localsRepository: Repository<Local>,
-    // UsersService est ENLEVÉ - pas besoin
+    @InjectRepository(Reservation)
+    private reservationsRepository: Repository<Reservation>,
   ) {}
 
   async findAll(): Promise<Local[]> {
@@ -26,8 +28,15 @@ export class LocalsService {
     return local;
   }
 
+  async findReservationsForLocal(localId: number): Promise<{ startDate: Date; endDate: Date }[]> {
+    return this.reservationsRepository.find({
+      where: { local: { id: localId } },
+      relations: ['local'],
+      select: ['startDate', 'endDate'],
+    });
+  }
+
   async create(dto: CreateLocalDto): Promise<Local> {
-    // Pas de ownerId, pas de recherche d'owner
     const local = new LocalBuilder()
       .setName(dto.name)
       .setAddress(dto.address)

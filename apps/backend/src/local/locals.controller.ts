@@ -1,12 +1,4 @@
-import {
-  Body,
-  Controller,
-  Delete,
-  Get,
-  Param,
-  Patch,
-  Post,
-} from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Patch, Post } from '@nestjs/common';
 import { LocalsService } from './locals.service';
 import { CreateLocalDto } from 'src/local/dtos/create-local.dto';
 import { UpdateLocalDto } from 'src/local/dtos/update-local.dto';
@@ -28,6 +20,11 @@ export class LocalsController {
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.localsService.findOne(+id);
+  }
+
+  @Get(':id/reservations')
+  getReservations(@Param('id') id: string) {
+    return this.localsService.findReservationsForLocal(+id);
   }
 
   @Patch(':id')

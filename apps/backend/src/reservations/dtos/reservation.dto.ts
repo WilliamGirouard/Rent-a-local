@@ -22,6 +22,7 @@ export class ReservationDto {
   @Type(() => UserDto)
   user: UserDto;
 
+  @Expose()
   @Type(() => LocalDto)
   local: LocalDto;
 }

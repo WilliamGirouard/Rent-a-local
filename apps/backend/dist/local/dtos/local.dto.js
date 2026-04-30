@@ -15,6 +15,7 @@ class LocalDto {
     id;
     name;
     address;
+    pricePerDay;
 }
 exports.LocalDto = LocalDto;
 __decorate([
@@ -29,4 +30,8 @@ __decorate([
     (0, class_transformer_1.Expose)(),
     __metadata("design:type", String)
 ], LocalDto.prototype, "address", void 0);
+__decorate([
+    (0, class_transformer_1.Expose)(),
+    __metadata("design:type", Number)
+], LocalDto.prototype, "pricePerDay", void 0);
 //# sourceMappingURL=local.dto.js.map

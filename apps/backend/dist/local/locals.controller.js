@@ -31,6 +31,9 @@ let LocalsController = class LocalsController {
     findOne(id) {
         return this.localsService.findOne(+id);
     }
+    getReservations(id) {
+        return this.localsService.findReservationsForLocal(+id);
+    }
     update(id, updateLocalDto) {
         return this.localsService.update(+id, updateLocalDto);
     }
@@ -59,6 +62,13 @@ __decorate([
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", void 0)
 ], LocalsController.prototype, "findOne", null);
+__decorate([
+    (0, common_1.Get)(':id/reservations'),
+    __param(0, (0, common_1.Param)('id')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", void 0)
+], LocalsController.prototype, "getReservations", null);
 __decorate([
     (0, common_1.Patch)(':id'),
     __param(0, (0, common_1.Param)('id')),

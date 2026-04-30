@@ -1,3 +1,8 @@
+declare class LocalDto {
+    id: number;
+    name: string;
+    address: string;
+}
 export declare class ReservationDto {
     id: number;
     startDate: Date;
@@ -5,4 +10,6 @@ export declare class ReservationDto {
     paid: boolean;
     userId: number;
     localId: number;
+    local: LocalDto;
 }
+export {};

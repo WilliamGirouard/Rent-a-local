@@ -28,7 +28,7 @@ export class Reservation{
 
     @Expose()
     get userId(): number {
-        return this.user.id;
+        return this.user?.id;
     }
 
     @ManyToOne(() => Local)
@@ -36,7 +36,7 @@ export class Reservation{
 
     @Expose()
     get localId(): number {
-       return this.local.id;
+       return this.local?.id;
     }
 
     @AfterInsert()

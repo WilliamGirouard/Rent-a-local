@@ -11,6 +11,23 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ReservationDto = void 0;
 const class_transformer_1 = require("class-transformer");
+class LocalDto {
+    id;
+    name;
+    address;
+}
+__decorate([
+    (0, class_transformer_1.Expose)(),
+    __metadata("design:type", Number)
+], LocalDto.prototype, "id", void 0);
+__decorate([
+    (0, class_transformer_1.Expose)(),
+    __metadata("design:type", String)
+], LocalDto.prototype, "name", void 0);
+__decorate([
+    (0, class_transformer_1.Expose)(),
+    __metadata("design:type", String)
+], LocalDto.prototype, "address", void 0);
 class ReservationDto {
     id;
     startDate;
@@ -18,6 +35,7 @@ class ReservationDto {
     paid;
     userId;
     localId;
+    local;
 }
 exports.ReservationDto = ReservationDto;
 __decorate([
@@ -44,4 +62,9 @@ __decorate([
     (0, class_transformer_1.Expose)(),
     __metadata("design:type", Number)
 ], ReservationDto.prototype, "localId", void 0);
+__decorate([
+    (0, class_transformer_1.Expose)(),
+    (0, class_transformer_1.Type)(() => LocalDto),
+    __metadata("design:type", LocalDto)
+], ReservationDto.prototype, "local", void 0);
 //# sourceMappingURL=reservation.dto.js.map

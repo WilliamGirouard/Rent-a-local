@@ -21,6 +21,7 @@ const update_reservation_dto_1 = require("./dtos/update-reservation.dto");
 const reservation_dto_1 = require("./dtos/reservation.dto");
 const current_user_decorator_1 = require("../users/decorators/current-user.decorator");
 const auth_guard_1 = require("../auth/guards/auth.guard");
+const admin_guard_1 = require("../auth/guards/admin.guard");
 let ReservationsController = class ReservationsController {
     reservationsService;
     constructor(reservationsService) {
@@ -87,6 +88,7 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], ReservationsController.prototype, "remove", null);
 __decorate([
+    (0, common_1.UseGuards)(auth_guard_1.AuthGuard, admin_guard_1.AdminGuard),
     (0, serialize_interceptor_1.Serialize)(update_reservation_dto_1.UpdateReservationDto),
     (0, common_1.Patch)('/:id'),
     __param(0, (0, common_1.Param)('id')),

@@ -51,7 +51,7 @@ export class ReservationsController {
     return await this.reservationsService.remove(id);
   }
 
-  @UseGuards(AdminGuard)
+  @UseGuards(AuthGuard, AdminGuard)
   @Serialize(UpdateReservationDto)
   @Patch('/:id')
   async update(@Param('id') id: number, @Body() body: UpdateReservationDto) {

@@ -10,19 +10,12 @@ export class UsersController {
 
     constructor(private usersService : UsersService){}
 
-    // @UseInterceptors(ClassSerializerInterceptor)
-    // @UseInterceptors(new SerializeInterceptor(UserDto))
-    // @SerializeOptions({type: User})
     @Serialize(UserDto)
     @Get()
     async listUsers() {
         console.log("Handler is running")
         return await this.usersService.findAllUsers();
     }
-
-    // @UseInterceptors(ClassSerializerInterceptor)
-    // @UseInterceptors(new SerializeInterceptor(UserDto))
-    // @SerializeOptions({type: User})
 
     @Serialize(UserDto)
     @Get("/:id")
@@ -34,7 +27,7 @@ export class UsersController {
     async deleteUser(@Param("id") id : number) {
         return await this.usersService.removeUser(id)
     }
-    
+
     @Serialize(UpdateUserDto)
     @Patch("/:id")
     async updateUser(@Param("id") id: number, @Body() body : UpdateUserDto) {

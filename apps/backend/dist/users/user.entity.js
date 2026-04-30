@@ -12,6 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.User = void 0;
 const typeorm_1 = require("typeorm");
 const roles_enum_1 = require("./roles/roles.enum");
+const reservations_entity_1 = require("../reservations/reservations.entity");
 let User = class User {
     id;
     email;
@@ -19,6 +20,7 @@ let User = class User {
     firstName;
     lastName;
     role;
+    reservations;
     logInsert() {
         console.log(`User inserted with ID : ${this.id}`);
     }
@@ -51,6 +53,10 @@ __decorate([
     (0, typeorm_1.Column)(),
     __metadata("design:type", String)
 ], User.prototype, "role", void 0);
+__decorate([
+    (0, typeorm_1.OneToMany)(() => reservations_entity_1.Reservation, (reservation) => reservation.user),
+    __metadata("design:type", Array)
+], User.prototype, "reservations", void 0);
 __decorate([
     (0, typeorm_1.AfterInsert)(),
     __metadata("design:type", Function),

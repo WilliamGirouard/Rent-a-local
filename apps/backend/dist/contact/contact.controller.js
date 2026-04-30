@@ -17,23 +17,24 @@ const common_1 = require("@nestjs/common");
 const contact_service_1 = require("./contact.service");
 const auth_guard_1 = require("../auth/guards/auth.guard");
 const contact_dto_1 = require("./dtos/contact.dto");
+const current_user_decorator_1 = require("../users/decorators/current-user.decorator");
 let ContactController = class ContactController {
     contactService;
     constructor(contactService) {
         this.contactService = contactService;
     }
-    async sendEmailToUs(body) {
-        return await this.contactService.sendEmailToUs(body);
+    async sendEmailToUs(user, body) {
+        return await this.contactService.sendEmailToUs(body, user.sub);
     }
 };
 exports.ContactController = ContactController;
 __decorate([
     (0, common_1.UseGuards)(auth_guard_1.AuthGuard),
-    (0, common_1.HttpCode)(common_1.HttpStatus.OK),
     (0, common_1.Post)(),
-    __param(0, (0, common_1.Body)()),
+    __param(0, (0, current_user_decorator_1.currentUser)()),
+    __param(1, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [contact_dto_1.ContactDto]),
+    __metadata("design:paramtypes", [Object, contact_dto_1.ContactDto]),
     __metadata("design:returntype", Promise)
 ], ContactController.prototype, "sendEmailToUs", null);
 exports.ContactController = ContactController = __decorate([

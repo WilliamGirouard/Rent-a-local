@@ -12,11 +12,13 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.UpdateUserDto = void 0;
 const class_transformer_1 = require("class-transformer");
 const class_validator_1 = require("class-validator");
+const roles_enum_1 = require("../roles/roles.enum");
 class UpdateUserDto {
     email;
     password;
     firstName;
     lastName;
+    role;
 }
 exports.UpdateUserDto = UpdateUserDto;
 __decorate([
@@ -53,4 +55,9 @@ __decorate([
     (0, class_transformer_1.Expose)(),
     __metadata("design:type", String)
 ], UpdateUserDto.prototype, "lastName", void 0);
+__decorate([
+    (0, class_validator_1.IsEnum)(roles_enum_1.Role),
+    (0, class_validator_1.IsOptional)(),
+    __metadata("design:type", String)
+], UpdateUserDto.prototype, "role", void 0);
 //# sourceMappingURL=update-user.dto.js.map

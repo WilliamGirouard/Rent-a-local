@@ -15,24 +15,25 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.PaymentController = void 0;
 const common_1 = require("@nestjs/common");
 const payment_service_1 = require("./payment.service");
-const serialize_interceptor_1 = require("../interceptors/serialize.interceptor");
-const reservation_dto_1 = require("../reservations/dtos/reservation.dto");
+const current_user_decorator_1 = require("../users/decorators/current-user.decorator");
+const auth_guard_1 = require("../auth/guards/auth.guard");
 let PaymentController = class PaymentController {
     paymentService;
     constructor(paymentService) {
         this.paymentService = paymentService;
     }
-    async pay(reservationId, userId) {
-        return await this.paymentService.payReservation(reservationId, userId);
+    async pay(reservationId, user) {
+        return this.paymentService.payReservation(Number(reservationId), user.sub);
     }
 };
 exports.PaymentController = PaymentController;
 __decorate([
-    (0, serialize_interceptor_1.Serialize)(reservation_dto_1.ReservationDto),
     (0, common_1.Post)('/:reservationId'),
+    (0, common_1.UseGuards)(auth_guard_1.AuthGuard),
     __param(0, (0, common_1.Param)('reservationId')),
+    __param(1, (0, current_user_decorator_1.currentUser)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Number, Number]),
+    __metadata("design:paramtypes", [String, Object]),
     __metadata("design:returntype", Promise)
 ], PaymentController.prototype, "pay", null);
 exports.PaymentController = PaymentController = __decorate([

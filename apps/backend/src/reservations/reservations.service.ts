@@ -50,6 +50,20 @@ export class ReservationsService {
   async findAll(): Promise<Reservation[]> {
     return await this.repo.find({
       relations: ['user', 'local'],
+      select: {
+        user: {
+          id: true,
+          firstName: true,
+          lastName: true,
+          email: true,
+        },
+        local: {
+          id: true,
+          name: true,
+          address: true,
+          pricePerDay: true,
+        }
+      }
     });
   }
 

@@ -1,4 +1,5 @@
 import {Expose, Type} from "class-transformer";
+import { UserDto } from "src/users/dtos/user.dto";
 
 class LocalDto {
     @Expose()
@@ -9,6 +10,9 @@ class LocalDto {
 
     @Expose()
     address: string;
+
+    @Expose()
+    pricePerDay: number;
 }
 
 export class ReservationDto {
@@ -34,4 +38,8 @@ export class ReservationDto {
     @Expose()
     @Type(() => LocalDto)
     local: LocalDto;
+
+    @Expose()
+    @Type(() => UserDto)
+    user: UserDto;
 }

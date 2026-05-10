@@ -14,7 +14,6 @@ const class_validator_1 = require("class-validator");
 class ContactDto {
     email;
     name;
-    reservationId;
     message;
 }
 exports.ContactDto = ContactDto;
@@ -28,11 +27,6 @@ __decorate([
     (0, class_validator_1.IsNotEmpty)(),
     __metadata("design:type", String)
 ], ContactDto.prototype, "name", void 0);
-__decorate([
-    (0, class_validator_1.IsNumber)(),
-    (0, class_validator_1.IsNotEmpty)(),
-    __metadata("design:type", Number)
-], ContactDto.prototype, "reservationId", void 0);
 __decorate([
     (0, class_validator_1.IsString)(),
     (0, class_validator_1.IsNotEmpty)(),

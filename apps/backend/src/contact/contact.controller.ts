@@ -8,7 +8,6 @@ import { currentUser } from 'src/users/decorators/current-user.decorator';
 export class ContactController {
     constructor(private contactService : ContactService) {}
 
-
     @UseGuards(AuthGuard)
     @Post()
     async sendEmailToUs(@currentUser()user: any, @Body() body: ContactDto) {

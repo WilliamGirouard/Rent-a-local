@@ -17,11 +17,14 @@ const common_1 = require("@nestjs/common");
 const typeorm_1 = require("@nestjs/typeorm");
 const typeorm_2 = require("typeorm");
 const locals_entity_1 = require("./locals.entity");
+const reservations_entity_1 = require("../reservations/reservations.entity");
 const locals_builder_1 = require("./locals.builder");
 let LocalsService = class LocalsService {
     localsRepository;
-    constructor(localsRepository) {
+    reservationsRepository;
+    constructor(localsRepository, reservationsRepository) {
         this.localsRepository = localsRepository;
+        this.reservationsRepository = reservationsRepository;
     }
     async findAll() {
         return this.localsRepository.find();
@@ -32,6 +35,13 @@ let LocalsService = class LocalsService {
             throw new common_1.NotFoundException(`Local with ID ${id} not found`);
         }
         return local;
+    }
+    async findReservationsForLocal(localId) {
+        return this.reservationsRepository.find({
+            where: { local: { id: localId } },
+            relations: ['local'],
+            select: ['startDate', 'endDate'],
+        });
     }
     async create(dto) {
         const local = new locals_builder_1.LocalBuilder()
@@ -64,6 +74,8 @@ exports.LocalsService = LocalsService;
 exports.LocalsService = LocalsService = __decorate([
     (0, common_1.Injectable)(),
     __param(0, (0, typeorm_1.InjectRepository)(locals_entity_1.Local)),
-    __metadata("design:paramtypes", [typeorm_2.Repository])
+    __param(1, (0, typeorm_1.InjectRepository)(reservations_entity_1.Reservation)),
+    __metadata("design:paramtypes", [typeorm_2.Repository,
+        typeorm_2.Repository])
 ], LocalsService);
 //# sourceMappingURL=locals.service.js.map

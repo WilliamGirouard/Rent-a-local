@@ -11,8 +11,14 @@ export declare class ReservationsService {
     create(dto: CreateReservationDto): Promise<Reservation>;
     findAll(): Promise<Reservation[]>;
     findOne(id: number): Promise<Reservation>;
+    findOneSecure(id: number, user: any): Promise<Reservation>;
     findAllForUser(userId: number): Promise<Reservation[]>;
     UserActiveReservationValidation(userId: number, reservationId: number): Promise<Reservation>;
     remove(id: number): Promise<Reservation>;
     update(id: number, attrs: Partial<Reservation>): Promise<Reservation>;
+    findAllForLocal(localId: number): Promise<{
+        startDate: Date;
+        endDate: Date;
+    }[]>;
+    private checkOverlap;
 }

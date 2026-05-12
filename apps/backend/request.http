@@ -15,8 +15,8 @@ POST http://localhost:3000/v1/auth/login
 Content-Type: application/json 
 
 {
-    "email":"ohHiSS@gmail.com",
-    "password":"WelcomeToRentALFE5553543////ocal"
+    "email":"2383528@cegepmv.ca",
+    "password":"MoiAussiJeVeuxJouer!123"
 }
 
 ### Get user profile test
@@ -48,9 +48,9 @@ POST http://localhost:3000/v1/reservations
 Content-Type: application/json
 
 {
-    "startDate": "2026-12-24",
-    "endDate": "2026-12-25",
-    "userId": 1,
+    "startDate": "2026-08-04",
+    "endDate": "2026-08-06",
+    "userId": 4,
     "localId": 2
 }
 
@@ -59,7 +59,8 @@ PATCH http://localhost:3000/v1/reservations/3
 Content-Type: application/json
 
 {
-    "endDate": "2026-03-31"
+    "startDate": "2026-05-01",
+    "endDate": "2026-06-01"
 }
 
 ### Delete a reservation
@@ -74,7 +75,7 @@ Content-Type: application/json
     "name": "Studio Ghibli",
     "address": "5545 Rue Saint-Michel, Montreal",
     "description": "Beautiful house in downtown Montreal",
-    "pricePerDay": 125.89,
+    "pricePerDay": 125,
     "lat": 46.6,
     "lng": -76.7
 }
@@ -99,4 +100,4 @@ DELETE http://localhost:3000/v1/locals/4
 
 #### PAYMENTS
 ### Pay reservation
-POST http://localhost:3000/v1/payments/2
+POST http://localhost:3000/v1/payments/7

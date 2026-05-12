@@ -1,0 +1,17 @@
+node_modules
+npm-debug.log
+dist
+.git
+.gitignore
+README.md
+.env
+.env.local
+test
+.vscode
+.prettier*
+eslint.config.mjs
+tsconfig.json
+tsconfig.build.json
+db.sqlite
+request.http
+.DS_Store

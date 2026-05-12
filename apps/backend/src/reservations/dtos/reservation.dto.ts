@@ -16,30 +16,29 @@ class LocalDto {
 }
 
 export class ReservationDto {
+  @Expose()
+  id: number;
 
-    @Expose()
-    id: number;
+  @Expose()
+  startDate: Date;
 
-    @Expose()
-    startDate: Date;
+  @Expose()
+  endDate: Date;
 
-    @Expose()
-    endDate: Date;
+  @Expose()
+  paid: boolean;
 
-    @Expose()
-    paid: boolean;
+  @Expose()
+  totalPrice: number;
 
-    @Expose()
-    userId: number;
+  @Expose()
+  @Type(() => UserDto)
+  user: UserDto;
 
-    @Expose()
-    localId: number;
+  @Expose()
+  localId: number;
 
-    @Expose()
-    @Type(() => LocalDto)
-    local: LocalDto;
-
-    @Expose()
-    @Type(() => UserDto)
-    user: UserDto;
+  @Expose()
+  @Type(() => LocalDto)
+  local: LocalDto;
 }

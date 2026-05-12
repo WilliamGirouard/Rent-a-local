@@ -12,12 +12,13 @@ const typeorm_1 = require("@nestjs/typeorm");
 const locals_entity_1 = require("./locals.entity");
 const locals_service_1 = require("./locals.service");
 const locals_controller_1 = require("./locals.controller");
+const reservations_entity_1 = require("../reservations/reservations.entity");
 let LocalsModule = class LocalsModule {
 };
 exports.LocalsModule = LocalsModule;
 exports.LocalsModule = LocalsModule = __decorate([
     (0, common_1.Module)({
-        imports: [typeorm_1.TypeOrmModule.forFeature([locals_entity_1.Local])],
+        imports: [typeorm_1.TypeOrmModule.forFeature([locals_entity_1.Local, reservations_entity_1.Reservation])],
         controllers: [locals_controller_1.LocalsController],
         providers: [locals_service_1.LocalsService],
         exports: [locals_service_1.LocalsService]

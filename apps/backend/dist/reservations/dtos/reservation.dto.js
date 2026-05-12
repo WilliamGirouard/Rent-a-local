@@ -39,8 +39,8 @@ class ReservationDto {
     startDate;
     endDate;
     paid;
-    userId;
-    localId;
+    totalPrice;
+    user;
     local;
     user;
 }
@@ -64,15 +64,16 @@ __decorate([
 __decorate([
     (0, class_transformer_1.Expose)(),
     __metadata("design:type", Number)
-], ReservationDto.prototype, "userId", void 0);
+], ReservationDto.prototype, "totalPrice", void 0);
 __decorate([
     (0, class_transformer_1.Expose)(),
-    __metadata("design:type", Number)
-], ReservationDto.prototype, "localId", void 0);
+    (0, class_transformer_1.Type)(() => user_dto_1.UserDto),
+    __metadata("design:type", user_dto_1.UserDto)
+], ReservationDto.prototype, "user", void 0);
 __decorate([
     (0, class_transformer_1.Expose)(),
-    (0, class_transformer_1.Type)(() => LocalDto),
-    __metadata("design:type", LocalDto)
+    (0, class_transformer_1.Type)(() => local_dto_1.LocalDto),
+    __metadata("design:type", local_dto_1.LocalDto)
 ], ReservationDto.prototype, "local", void 0);
 __decorate([
     (0, class_transformer_1.Expose)(),

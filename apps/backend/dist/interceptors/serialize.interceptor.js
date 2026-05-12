@@ -16,7 +16,8 @@ class SerializeInterceptor {
     intercept(context, handler) {
         return handler.handle().pipe((0, operators_1.map)((data) => {
             return (0, class_transformer_1.plainToClass)(this.dto, data, {
-                excludeExtraneousValues: true
+                excludeExtraneousValues: true,
+                enableImplicitConversion: true,
             });
         }));
     }

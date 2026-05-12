@@ -1,15 +1,28 @@
-import { Controller, Post, Param } from '@nestjs/common';
+import {
+  Controller,
+  Post,
+  Param,
+  UseGuards,
+} from '@nestjs/common';
 import { PaymentService } from './payment.service';
-import { Serialize } from 'src/interceptors/serialize.interceptor';
-import { ReservationDto } from 'src/reservations/dtos/reservation.dto';
+import { currentUser } from 'src/users/decorators/current-user.decorator'; 
+import { AuthGuard } from 'src/auth/guards/auth.guard';
 
 @Controller('payments')
 export class PaymentController {
-  constructor(private paymentService: PaymentService) {}
+  constructor(
+    private paymentService: PaymentService,
+  ) {}
 
-  @Serialize(ReservationDto)
   @Post('/:reservationId')
-  async pay(@Param('reservationId') reservationId: number) {
-    return await this.paymentService.payReservation(reservationId);
+  @UseGuards(AuthGuard)
+  async pay(
+    @Param('reservationId') reservationId: string,
+    @currentUser() user: any,
+  ) {
+    return this.paymentService.payReservation(
+      Number(reservationId),
+      user.sub,
+    );
   }
 }

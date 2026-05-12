@@ -1,5 +1,10 @@
-import { LocalDto } from "src/local/dtos/local.dto";
-import { UserDto } from "src/users/dtos/user.dto";
+import { UserDto } from "../../users/dtos/user.dto";
+declare class LocalDto {
+    id: number;
+    name: string;
+    address: string;
+    pricePerDay: number;
+}
 export declare class ReservationDto {
     id: number;
     startDate: Date;
@@ -8,4 +13,5 @@ export declare class ReservationDto {
     totalPrice: number;
     user: UserDto;
     local: LocalDto;
+    user: UserDto;
 }

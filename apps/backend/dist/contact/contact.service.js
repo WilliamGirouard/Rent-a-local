@@ -12,31 +12,23 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.ContactService = void 0;
 const mailer_1 = require("@nestjs-modules/mailer");
 const common_1 = require("@nestjs/common");
-const reservations_service_1 = require("../reservations/reservations.service");
 let ContactService = class ContactService {
     mailService;
-    reservationService;
-    constructor(mailService, reservationService) {
+    constructor(mailService) {
         this.mailService = mailService;
-        this.reservationService = reservationService;
     }
     async sendEmailToUs(dto, userId) {
-        const reservation = await this.reservationService.UserActiveReservationValidation(userId, dto.reservationId);
-        if (!reservation) {
-            throw new common_1.NotFoundException(`La reservation #${dto.reservationId} n'a pas été trouvé.`);
-        }
         try {
             await this.mailService.sendMail({
                 to: process.env.GMAIL_MAIL,
-                subject: `"Request - Reservation Changes #${dto.reservationId}"`,
+                subject: `"Question from User : #${userId}"`,
                 text: `
                 Name: ${dto.name}
                 Email: ${dto.email}
-                Reservation Id : ${dto.reservationId}
                 Message: ${dto.message}
-            `
+            `,
             });
-            return { message: "Email envoyé avec succès" };
+            return { message: 'Email envoyé avec succès' };
         }
         catch (e) {
             throw new common_1.InternalServerErrorException("Erreur lors de l'envoi du courriel, veuillez réessayer plus tard.");
@@ -46,7 +38,6 @@ let ContactService = class ContactService {
 exports.ContactService = ContactService;
 exports.ContactService = ContactService = __decorate([
     (0, common_1.Injectable)(),
-    __metadata("design:paramtypes", [mailer_1.MailerService,
-        reservations_service_1.ReservationsService])
+    __metadata("design:paramtypes", [mailer_1.MailerService])
 ], ContactService);
 //# sourceMappingURL=contact.service.js.map

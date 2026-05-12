@@ -1,34 +1,27 @@
 import { MailerService } from '@nestjs-modules/mailer';
-import { Injectable, InternalServerErrorException, NotFoundException, UnauthorizedException } from '@nestjs/common';
+import { Injectable, InternalServerErrorException } from '@nestjs/common';
 import { ContactDto } from './dtos/contact.dto';
-import { ReservationsService } from 'src/reservations/reservations.service';
-import { NotFoundError } from 'rxjs';
 
 @Injectable()
 export class ContactService {
-    constructor(private mailService: MailerService,
-        private reservationService : ReservationsService
-    ) {}
+  constructor(private mailService: MailerService) {}
 
-    async sendEmailToUs(dto: ContactDto, userId : number) {
-        const reservation = await this.reservationService.UserActiveReservationValidation(userId, dto.reservationId );
-        if (!reservation) {
-            throw new NotFoundException(`La reservation #${dto.reservationId} n'a pas été trouvé.`);
-        }
-        try {
-            await this.mailService.sendMail({
-            to: process.env.GMAIL_MAIL,
-            subject: `"Request - Reservation Changes #${dto.reservationId}"`,
-            text: `
+  async sendEmailToUs(dto: ContactDto, userId: number) {
+    try {
+      await this.mailService.sendMail({
+        to: process.env.GMAIL_MAIL,
+        subject: `"Question from User : #${userId}"`,
+        text: `
                 Name: ${dto.name}
                 Email: ${dto.email}
-                Reservation Id : ${dto.reservationId}
                 Message: ${dto.message}
-            `
-        })
-            return { message: "Email envoyé avec succès"}
-        } catch (e) {
-            throw new InternalServerErrorException("Erreur lors de l'envoi du courriel, veuillez réessayer plus tard.")
-        }
+            `,
+      });
+      return { message: 'Email envoyé avec succès' };
+    } catch (e) {
+      throw new InternalServerErrorException(
+        "Erreur lors de l'envoi du courriel, veuillez réessayer plus tard.",
+      );
     }
+  }
 }

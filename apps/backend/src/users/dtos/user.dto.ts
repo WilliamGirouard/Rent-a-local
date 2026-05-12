@@ -17,6 +17,6 @@ export class UserDto {
     lastName: string;
 
     @Expose()
-    role: Role;
+    role : Role;
 
 }

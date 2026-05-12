@@ -53,6 +53,20 @@ let ReservationsService = class ReservationsService {
     async findAll() {
         return await this.repo.find({
             relations: ['user', 'local'],
+            select: {
+                user: {
+                    id: true,
+                    firstName: true,
+                    lastName: true,
+                    email: true,
+                },
+                local: {
+                    id: true,
+                    name: true,
+                    address: true,
+                    pricePerDay: true,
+                }
+            }
         });
     }
     async findOne(id) {

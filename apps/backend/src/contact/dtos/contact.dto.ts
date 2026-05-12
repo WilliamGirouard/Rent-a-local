@@ -10,10 +10,6 @@ export class ContactDto {
     @IsNotEmpty()
     name: string
 
-    @IsNumber()
-    @IsNotEmpty()
-    reservationId: number;
-
     @IsString()
     @IsNotEmpty()
     message: string;

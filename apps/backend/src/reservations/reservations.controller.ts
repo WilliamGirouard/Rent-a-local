@@ -1,13 +1,4 @@
-import {
-  Body,
-  Controller,
-  Delete,
-  Get,
-  Param,
-  Patch,
-  Post,
-  UseGuards,
-} from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, ParseIntPipe, Patch, Post, UseGuards } from '@nestjs/common';
 import { Serialize } from 'src/interceptors/serialize.interceptor';
 import { ReservationsService } from './reservations.service';
 import { CreateReservationDto } from 'src/reservations/dtos/create-reservation.dto';
@@ -33,10 +24,14 @@ export class ReservationsController {
   async findMyReservations(@currentUser() user: any) {
     return await this.reservationsService.findAllForUser(user.sub);
   }
-  @Serialize(ReservationDto)
-  @Get('/:id')
-  async findOne(@Param('id') id: number) {
-    return await this.reservationsService.findOne(id);
+
+  @UseGuards(AuthGuard)
+  @Get(':id')
+  async findOne(
+      @Param('id', ParseIntPipe) id: number,
+      @currentUser() user: any,
+  ) {
+    return this.reservationsService.findOneSecure(id, user);
   }
 
   @Serialize(ReservationDto)

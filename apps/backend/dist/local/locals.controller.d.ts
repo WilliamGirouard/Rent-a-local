@@ -7,6 +7,10 @@ export declare class LocalsController {
     create(createLocalDto: CreateLocalDto): Promise<import("./locals.entity").Local>;
     findAll(): Promise<import("./locals.entity").Local[]>;
     findOne(id: string): Promise<import("./locals.entity").Local>;
+    getReservations(id: string): Promise<{
+        startDate: Date;
+        endDate: Date;
+    }[]>;
     update(id: string, updateLocalDto: UpdateLocalDto): Promise<import("./locals.entity").Local>;
     remove(id: string): Promise<import("./locals.entity").Local>;
 }

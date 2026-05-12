@@ -1,5 +1,5 @@
 import { Expose } from "class-transformer";
-import { User } from "src/users/user.entity";
+import { User } from "../users/user.entity";
 import { Local } from "src/local/locals.entity";
 import { AfterInsert, BeforeRemove, Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 

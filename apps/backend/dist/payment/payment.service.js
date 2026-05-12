@@ -12,29 +12,57 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.PaymentService = void 0;
 const common_1 = require("@nestjs/common");
 const reservations_service_1 = require("../reservations/reservations.service");
+const users_service_1 = require("../users/users.service");
 let PaymentService = class PaymentService {
     reservationsService;
-    constructor(reservationsService) {
+    usersService;
+    constructor(reservationsService, usersService) {
         this.reservationsService = reservationsService;
+        this.usersService = usersService;
     }
-    async payReservation(reservationId) {
+    async payReservation(reservationId, currentUserId) {
         const reservation = await this.reservationsService.findOne(reservationId);
+        if (!reservation) {
+            throw new common_1.NotFoundException('Reservation not found');
+        }
+        if (reservation.user.id !== currentUserId) {
+            throw new common_1.BadRequestException('You can only pay your own reservations');
+        }
         if (reservation.paid) {
-            throw new common_1.BadRequestException("Reservation already paid");
+            throw new common_1.BadRequestException('This reservation has already been paid');
         }
-        const fakePaymentSuccess = true;
-        if (!fakePaymentSuccess) {
-            throw new common_1.BadRequestException("Payment failed");
+        const start = new Date(reservation.startDate);
+        const end = new Date(reservation.endDate);
+        const nights = Math.max(1, Math.ceil((end.getTime() - start.getTime()) /
+            (1000 * 60 * 60 * 24)));
+        const amount = nights * reservation.local.pricePerDay;
+        const paymentApproved = this.simulatePayment();
+        if (!paymentApproved) {
+            throw new common_1.BadRequestException('Payment was declined by the issuer');
         }
-        reservation.paid = true;
-        return await this.reservationsService.update(reservation.id, {
+        await this.reservationsService.update(reservation.id, {
             paid: true,
         });
+        return {
+            reservationId: reservation.id,
+            transactionId: this.generateTransactionId(),
+            amount,
+            currency: 'CAD',
+            paidAt: new Date(),
+            status: 'approved',
+        };
+    }
+    simulatePayment() {
+        return Math.random() < 0.85;
+    }
+    generateTransactionId() {
+        return `PAY-${Math.random().toString(12).toUpperCase()}-${Date.now()}`;
     }
 };
 exports.PaymentService = PaymentService;
 exports.PaymentService = PaymentService = __decorate([
     (0, common_1.Injectable)(),
-    __metadata("design:paramtypes", [reservations_service_1.ReservationsService])
+    __metadata("design:paramtypes", [reservations_service_1.ReservationsService,
+        users_service_1.UsersService])
 ], PaymentService);
 //# sourceMappingURL=payment.service.js.map

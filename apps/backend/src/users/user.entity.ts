@@ -1,6 +1,6 @@
 import {Entity, Column, PrimaryGeneratedColumn, AfterInsert, BeforeRemove, OneToMany} from "typeorm";
 import { Role } from "./roles/roles.enum";
-import { Reservation } from "src/reservations/reservations.entity";
+import { Reservation } from "../reservations/reservations.entity";
 
 
 @Entity()

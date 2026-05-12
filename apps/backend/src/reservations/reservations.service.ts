@@ -218,4 +218,14 @@ export class ReservationsService {
       );
     }
   }
+
+  async setPaymentStatus(id: number, paid: boolean) {
+  const reservation = await this.repo.findOne({ where: { id } });
+
+  if (!reservation) throw new NotFoundException();
+
+  reservation.paid = paid;
+
+  return this.repo.save(reservation);
+}
 }

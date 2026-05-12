@@ -7,6 +7,7 @@ import { ReservationDto } from 'src/reservations/dtos/reservation.dto';
 import { currentUser } from 'src/users/decorators/current-user.decorator';
 import { AuthGuard } from 'src/auth/guards/auth.guard';
 import { AdminGuard } from 'src/auth/guards/admin.guard';
+import { UpdateReservationPaymentDto } from './dtos/updat-reservation-payment.dto';
 
 @Controller('reservations')
 export class ReservationsController {
@@ -52,4 +53,10 @@ export class ReservationsController {
   async update(@Param('id') id: number, @Body() body: UpdateReservationDto) {
     return await this.reservationsService.update(id, body);
   }
+
+  @UseGuards(AuthGuard)
+  @Patch(':id/payment-status')
+  async setPaymentStatus(@Param('id') id: string, @Body() body: UpdateReservationPaymentDto) {
+  return this.reservationsService.setPaymentStatus(+id, body.paid);
+}
 }

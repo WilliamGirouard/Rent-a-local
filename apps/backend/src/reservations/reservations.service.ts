@@ -65,7 +65,15 @@ export class ReservationsService {
 
     return reservation;
   }
-
+  //specifique pour le local, excluant la réservation en cours de modification pour etre appele par le change request sercice
+  async findByLocalId(localId: number, excludeReservationId: number): Promise<Reservation[]> {
+    return await this.repo.find({
+        where: {
+            local: { id: localId },
+            id: Not(excludeReservationId),
+        }
+    });
+}
   async findAllForUser(userId : number): Promise<Reservation[]> {
     return this.repo.find({
       where: {

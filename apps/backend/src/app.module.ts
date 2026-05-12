@@ -15,7 +15,8 @@ import { LocalsModule } from './local/locals.module';
 import { PaymentModule } from './payment/payment.module';
 import { ContactModule } from './contact/contact.module';
 import { MailerModule } from "@nestjs-modules/mailer"
-
+import { ChangeRequestsModule } from './change-requests/change-requests.module';
+import { ChangeRequest } from './change-requests/change-request.entity';
 
 @Module({
   imports: [
@@ -29,7 +30,7 @@ import { MailerModule } from "@nestjs-modules/mailer"
         username: configService.get('DB_USERNAME'),
         password: configService.get('DB_PASSWORD'),
         database: configService.get('DB_DATABASE'),
-        entities: [User, Reservation, Local],
+        entities: [User, Reservation, Local, ChangeRequest],
         synchronize: true,
       }),
     }),
@@ -63,6 +64,8 @@ import { MailerModule } from "@nestjs-modules/mailer"
     LocalsModule,
     PaymentModule,
     ContactModule,
+    ChangeRequestsModule,
+    
   ],
   controllers: [AppController],
   providers: [AppService],

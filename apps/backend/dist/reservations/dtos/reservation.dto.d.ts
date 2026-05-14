@@ -1,4 +1,4 @@
-import { UserDto } from "../../users/dtos/user.dto";
+import { UserDto } from "src/users/dtos/user.dto";
 declare class LocalDto {
     id: number;
     name: string;
@@ -12,6 +12,7 @@ export declare class ReservationDto {
     paid: boolean;
     totalPrice: number;
     user: UserDto;
+    localId: number;
     local: LocalDto;
-    user: UserDto;
 }
+export {};

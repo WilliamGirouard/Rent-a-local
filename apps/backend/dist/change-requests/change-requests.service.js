@@ -81,7 +81,7 @@ let ChangeRequestsService = class ChangeRequestsService {
             startDate: changeRequest.newStartDate,
             endDate: changeRequest.newEndDate,
         });
-        changeRequest.status = status_enum_1.ChangeRequestStatus.APPROVED;
+        this.repo.delete(changeRequest.id);
         return await this.repo.save(changeRequest);
     }
     async reject(id) {
@@ -93,6 +93,7 @@ let ChangeRequestsService = class ChangeRequestsService {
             throw new common_1.BadRequestException('Cette demande a déjà été traitée.');
         }
         changeRequest.status = status_enum_1.ChangeRequestStatus.REJECTED;
+        this.repo.delete(changeRequest.id);
         return await this.repo.save(changeRequest);
     }
 };

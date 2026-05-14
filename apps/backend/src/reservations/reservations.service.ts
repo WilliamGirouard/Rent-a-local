@@ -6,6 +6,7 @@ import { UsersService } from 'src/users/users.service';
 import { LocalsService } from 'src/local/locals.service';
 import { CreateReservationDto } from 'src/reservations/dtos/create-reservation.dto';
 import { ReservationFactory } from './reservation.factory';
+import { Role } from 'src/users/roles/roles.enum';
 
 @Injectable()
 export class ReservationsService {
@@ -140,14 +141,18 @@ export class ReservationsService {
     }
     return reservation;
   }
-  async remove(id: number): Promise<Reservation> {
+  async remove(id: number) {
     const reservation = await this.findOne(id);
     if (reservation.paid) {
       throw new BadRequestException(
         'Impossible de supprimer une réservation déjà payée.',
       );
     }
-    return await this.repo.remove(reservation);
+    try {
+      await this.repo.remove(reservation);
+    } catch (e : any) {
+      throw new ForbiddenException("Impossible de supprimer une réservation ayant une demande de changement.");
+    }
   }
 
   async update(id: number, attrs: Partial<Reservation>): Promise<Reservation> {

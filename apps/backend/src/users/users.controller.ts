@@ -1,9 +1,11 @@
-import { Controller, Post,Body,Get, Param, Delete, Patch, UseInterceptors, ClassSerializerInterceptor, SerializeOptions, Request } from '@nestjs/common';
+import { Controller, Post,Body,Get, Param, Delete, Patch, UseInterceptors, ClassSerializerInterceptor, SerializeOptions, Request, UseGuards } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { UpdateUserDto } from 'src/users/dtos/update-user.dto';
 import { Serialize } from 'src/interceptors/serialize.interceptor';
 import { UserDto } from 'src/users/dtos/user.dto';
 import { User } from './user.entity';
+import { AdminGuard } from 'src/auth/guards/admin.guard';
+import { AuthGuard } from 'src/auth/guards/auth.guard';
 
 @Controller('users')
 export class UsersController {
@@ -32,6 +34,13 @@ export class UsersController {
     @Patch("/:id")
     async updateUser(@Param("id") id: number, @Body() body : UpdateUserDto) {
         return await this.usersService.updateUser(id, body)
+    }
+
+    @Serialize(UserDto)
+    @UseGuards(AuthGuard, AdminGuard)
+    @Patch("/:id/privileges")
+    async upgradeToAdmin(@Param("id") id : number) {
+        return await this.usersService.upgradeToAdmin(id);
     }
 
 }

@@ -41,8 +41,8 @@ class ReservationDto {
     paid;
     totalPrice;
     user;
+    localId;
     local;
-    user;
 }
 exports.ReservationDto = ReservationDto;
 __decorate([
@@ -72,12 +72,11 @@ __decorate([
 ], ReservationDto.prototype, "user", void 0);
 __decorate([
     (0, class_transformer_1.Expose)(),
-    (0, class_transformer_1.Type)(() => local_dto_1.LocalDto),
-    __metadata("design:type", local_dto_1.LocalDto)
-], ReservationDto.prototype, "local", void 0);
+    __metadata("design:type", Number)
+], ReservationDto.prototype, "localId", void 0);
 __decorate([
     (0, class_transformer_1.Expose)(),
-    (0, class_transformer_1.Type)(() => user_dto_1.UserDto),
-    __metadata("design:type", user_dto_1.UserDto)
-], ReservationDto.prototype, "user", void 0);
+    (0, class_transformer_1.Type)(() => LocalDto),
+    __metadata("design:type", LocalDto)
+], ReservationDto.prototype, "local", void 0);
 //# sourceMappingURL=reservation.dto.js.map

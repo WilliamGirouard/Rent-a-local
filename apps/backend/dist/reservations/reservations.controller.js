@@ -22,6 +22,7 @@ const reservation_dto_1 = require("./dtos/reservation.dto");
 const current_user_decorator_1 = require("../users/decorators/current-user.decorator");
 const auth_guard_1 = require("../auth/guards/auth.guard");
 const admin_guard_1 = require("../auth/guards/admin.guard");
+const update_reservation_payment_dto_1 = require("./dtos/update-reservation-payment.dto");
 let ReservationsController = class ReservationsController {
     reservationsService;
     constructor(reservationsService) {
@@ -44,6 +45,9 @@ let ReservationsController = class ReservationsController {
     }
     async update(id, body) {
         return await this.reservationsService.update(id, body);
+    }
+    async setPaymentStatus(id, body) {
+        return this.reservationsService.setPaymentStatus(+id, body.paid);
     }
 };
 exports.ReservationsController = ReservationsController;
@@ -98,6 +102,15 @@ __decorate([
     __metadata("design:paramtypes", [Number, update_reservation_dto_1.UpdateReservationDto]),
     __metadata("design:returntype", Promise)
 ], ReservationsController.prototype, "update", null);
+__decorate([
+    (0, common_1.UseGuards)(auth_guard_1.AuthGuard),
+    (0, common_1.Patch)(':id/payment-status'),
+    __param(0, (0, common_1.Param)('id')),
+    __param(1, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, update_reservation_payment_dto_1.UpdateReservationPaymentDto]),
+    __metadata("design:returntype", Promise)
+], ReservationsController.prototype, "setPaymentStatus", null);
 exports.ReservationsController = ReservationsController = __decorate([
     (0, common_1.Controller)('reservations'),
     __metadata("design:paramtypes", [reservations_service_1.ReservationsService])

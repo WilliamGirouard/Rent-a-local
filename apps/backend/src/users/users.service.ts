@@ -61,4 +61,10 @@ export class UsersService {
     Object.assign(foundUser, attrs);
     return this.usersRepository.save(foundUser);
   }
+
+  async upgradeToAdmin(id : number) : Promise<User> {
+    const user = await this.findOneUserById(id);
+    user.role = Role.Admin;
+    return this.usersRepository.save(user);
+  }
 }

@@ -94,6 +94,14 @@ let ReservationsService = class ReservationsService {
         }
         return reservation;
     }
+    async findByLocalId(localId, excludeReservationId) {
+        return await this.repo.find({
+            where: {
+                local: { id: localId },
+                id: (0, typeorm_2.Not)(excludeReservationId),
+            }
+        });
+    }
     async findAllForUser(userId) {
         return this.repo.find({
             where: {
@@ -126,7 +134,12 @@ let ReservationsService = class ReservationsService {
         if (reservation.paid) {
             throw new common_1.BadRequestException('Impossible de supprimer une réservation déjà payée.');
         }
-        return await this.repo.remove(reservation);
+        try {
+            await this.repo.remove(reservation);
+        }
+        catch (e) {
+            throw new common_1.ForbiddenException("Impossible de supprimer une réservation ayant une demande de changement.");
+        }
     }
     async update(id, attrs) {
         const reservation = await this.findOne(id);
@@ -173,6 +186,13 @@ let ReservationsService = class ReservationsService {
         if (overlapping) {
             throw new common_1.BadRequestException('Ce local est déjà réservé pour ces dates.');
         }
+    }
+    async setPaymentStatus(id, paid) {
+        const reservation = await this.repo.findOne({ where: { id } });
+        if (!reservation)
+            throw new common_1.NotFoundException();
+        reservation.paid = paid;
+        return this.repo.save(reservation);
     }
 };
 exports.ReservationsService = ReservationsService;

@@ -86,7 +86,7 @@ export class ChangeRequestsService {
             endDate: changeRequest.newEndDate,
         });
 
-        changeRequest.status = ChangeRequestStatus.APPROVED;
+        this.repo.delete(changeRequest.id);
         return await this.repo.save(changeRequest);
     }
 
@@ -102,6 +102,7 @@ export class ChangeRequestsService {
         }
 
         changeRequest.status = ChangeRequestStatus.REJECTED;
+        this.repo.delete(changeRequest.id);
         return await this.repo.save(changeRequest);
     }
 }

@@ -1,5 +1,5 @@
 import { Role } from "./roles/roles.enum";
-import { Reservation } from "src/reservations/reservations.entity";
+import { Reservation } from "../reservations/reservations.entity";
 export declare class User {
     id: number;
     email: string;

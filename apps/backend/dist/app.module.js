@@ -24,6 +24,8 @@ const locals_module_1 = require("./local/locals.module");
 const payment_module_1 = require("./payment/payment.module");
 const contact_module_1 = require("./contact/contact.module");
 const mailer_1 = require("@nestjs-modules/mailer");
+const change_requests_module_1 = require("./change-requests/change-requests.module");
+const change_request_entity_1 = require("./change-requests/change-request.entity");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
@@ -40,7 +42,7 @@ exports.AppModule = AppModule = __decorate([
                     username: configService.get('DB_USERNAME'),
                     password: configService.get('DB_PASSWORD'),
                     database: configService.get('DB_DATABASE'),
-                    entities: [user_entity_1.User, reservations_entity_1.Reservation, locals_entity_1.Local],
+                    entities: [user_entity_1.User, reservations_entity_1.Reservation, locals_entity_1.Local, change_request_entity_1.ChangeRequest],
                     synchronize: true,
                 }),
             }),
@@ -71,6 +73,7 @@ exports.AppModule = AppModule = __decorate([
             locals_module_1.LocalsModule,
             payment_module_1.PaymentModule,
             contact_module_1.ContactModule,
+            change_requests_module_1.ChangeRequestsModule,
         ],
         controllers: [app_controller_1.AppController],
         providers: [app_service_1.AppService],

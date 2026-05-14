@@ -18,6 +18,8 @@ const users_service_1 = require("./users.service");
 const update_user_dto_1 = require("./dtos/update-user.dto");
 const serialize_interceptor_1 = require("../interceptors/serialize.interceptor");
 const user_dto_1 = require("./dtos/user.dto");
+const admin_guard_1 = require("../auth/guards/admin.guard");
+const auth_guard_1 = require("../auth/guards/auth.guard");
 let UsersController = class UsersController {
     usersService;
     constructor(usersService) {
@@ -35,6 +37,9 @@ let UsersController = class UsersController {
     }
     async updateUser(id, body) {
         return await this.usersService.updateUser(id, body);
+    }
+    async upgradeToAdmin(id) {
+        return await this.usersService.upgradeToAdmin(id);
     }
 };
 exports.UsersController = UsersController;
@@ -69,6 +74,15 @@ __decorate([
     __metadata("design:paramtypes", [Number, update_user_dto_1.UpdateUserDto]),
     __metadata("design:returntype", Promise)
 ], UsersController.prototype, "updateUser", null);
+__decorate([
+    (0, serialize_interceptor_1.Serialize)(user_dto_1.UserDto),
+    (0, common_1.UseGuards)(auth_guard_1.AuthGuard, admin_guard_1.AdminGuard),
+    (0, common_1.Patch)("/:id/privileges"),
+    __param(0, (0, common_1.Param)("id")),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Number]),
+    __metadata("design:returntype", Promise)
+], UsersController.prototype, "upgradeToAdmin", null);
 exports.UsersController = UsersController = __decorate([
     (0, common_1.Controller)('users'),
     __metadata("design:paramtypes", [users_service_1.UsersService])

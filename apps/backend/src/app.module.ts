@@ -16,6 +16,7 @@ import { ContactModule } from './contact/contact.module';
 import { MailerModule } from "@nestjs-modules/mailer"
 import { ChangeRequestsModule } from './change-requests/change-requests.module';
 import { ChangeRequest } from './change-requests/change-request.entity';
+import { CloudinaryModule } from './cloudinary/cloudinary.module';
 
 @Module({
   imports: [
@@ -63,6 +64,7 @@ import { ChangeRequest } from './change-requests/change-request.entity';
     PaymentModule,
     ContactModule,
     ChangeRequestsModule,
+    CloudinaryModule,
     
   ],
   controllers: [AppController],

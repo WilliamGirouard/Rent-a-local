@@ -1,10 +1,12 @@
 import { LocalsService } from './locals.service';
 import { CreateLocalDto } from 'src/local/dtos/create-local.dto';
 import { UpdateLocalDto } from 'src/local/dtos/update-local.dto';
+import { CloudinaryService } from 'src/cloudinary/cloudinary.service';
 export declare class LocalsController {
     private readonly localsService;
-    constructor(localsService: LocalsService);
-    create(createLocalDto: CreateLocalDto): Promise<import("./locals.entity").Local>;
+    private readonly cloudinaryService;
+    constructor(localsService: LocalsService, cloudinaryService: CloudinaryService);
+    create(createLocalDto: CreateLocalDto, files: Express.Multer.File[]): Promise<import("./locals.entity").Local>;
     findAll(): Promise<import("./locals.entity").Local[]>;
     findOne(id: string): Promise<import("./locals.entity").Local>;
     getReservations(id: string): Promise<{

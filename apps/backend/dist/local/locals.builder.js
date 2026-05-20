@@ -31,6 +31,10 @@ class LocalBuilder {
         this.local.lng = lng;
         return this;
     }
+    setImages(images) {
+        this.local.images = images;
+        return this;
+    }
     build() {
         return this.local;
     }

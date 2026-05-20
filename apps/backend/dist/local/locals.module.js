@@ -13,12 +13,13 @@ const locals_entity_1 = require("./locals.entity");
 const locals_service_1 = require("./locals.service");
 const locals_controller_1 = require("./locals.controller");
 const reservations_entity_1 = require("../reservations/reservations.entity");
+const cloudinary_module_1 = require("../cloudinary/cloudinary.module");
 let LocalsModule = class LocalsModule {
 };
 exports.LocalsModule = LocalsModule;
 exports.LocalsModule = LocalsModule = __decorate([
     (0, common_1.Module)({
-        imports: [typeorm_1.TypeOrmModule.forFeature([locals_entity_1.Local, reservations_entity_1.Reservation])],
+        imports: [typeorm_1.TypeOrmModule.forFeature([locals_entity_1.Local, reservations_entity_1.Reservation]), cloudinary_module_1.CloudinaryModule],
         controllers: [locals_controller_1.LocalsController],
         providers: [locals_service_1.LocalsService],
         exports: [locals_service_1.LocalsService]

@@ -21,6 +21,7 @@ let Local = class Local {
     lat;
     lng;
     isReserved;
+    images;
     reservations;
     logInsert() {
         console.log(`Local inserted with ID: ${this.id}`);
@@ -62,6 +63,10 @@ __decorate([
     (0, typeorm_1.Column)({ default: false }),
     __metadata("design:type", Boolean)
 ], Local.prototype, "isReserved", void 0);
+__decorate([
+    (0, typeorm_1.Column)("text", { array: true, default: [] }),
+    __metadata("design:type", Array)
+], Local.prototype, "images", void 0);
 __decorate([
     (0, typeorm_1.OneToMany)(() => reservations_entity_1.Reservation, (reservation) => reservation.local),
     __metadata("design:type", Array)

@@ -27,6 +27,9 @@ export class Local {
     @Column({ default: false }) // ajout de la colonne isReserved pour gerer les exceptions (dans service)
     isReserved: boolean;
 
+    @Column("text", {array : true, default: []})
+    images: string[];
+
     // SEULEMENT cette relation - PAS de ManyToOne vers User
     @OneToMany(() => Reservation, (reservation) => reservation.local)
     reservations: Reservation[];

@@ -17,57 +17,66 @@ const common_1 = require("@nestjs/common");
 const locals_service_1 = require("./locals.service");
 const create_local_dto_1 = require("./dtos/create-local.dto");
 const update_local_dto_1 = require("./dtos/update-local.dto");
+const platform_express_1 = require("@nestjs/platform-express");
+const cloudinary_service_1 = require("../cloudinary/cloudinary.service");
 let LocalsController = class LocalsController {
     localsService;
-    constructor(localsService) {
+    cloudinaryService;
+    constructor(localsService, cloudinaryService) {
         this.localsService = localsService;
+        this.cloudinaryService = cloudinaryService;
     }
-    create(createLocalDto) {
-        return this.localsService.create(createLocalDto);
+    async create(createLocalDto, files) {
+        const imageURLS = await this.cloudinaryService.uploadImages(files);
+        return this.localsService.create(createLocalDto, imageURLS);
     }
-    findAll() {
-        return this.localsService.findAll();
+    async findAll() {
+        return await this.localsService.findAll();
     }
-    findOne(id) {
-        return this.localsService.findOne(+id);
+    async findOne(id) {
+        return await this.localsService.findOne(+id);
     }
-    getReservations(id) {
-        return this.localsService.findReservationsForLocal(+id);
+    async getReservations(id) {
+        return await this.localsService.findReservationsForLocal(+id);
     }
-    update(id, updateLocalDto) {
-        return this.localsService.update(+id, updateLocalDto);
+    async update(id, updateLocalDto) {
+        return await this.localsService.update(+id, updateLocalDto);
     }
-    remove(id) {
-        return this.localsService.remove(+id);
+    async remove(id) {
+        return await this.localsService.remove(+id);
     }
 };
 exports.LocalsController = LocalsController;
 __decorate([
     (0, common_1.Post)(),
+    (0, common_1.UseInterceptors)((0, platform_express_1.FilesInterceptor)('images', 5, {
+        limits: { fileSize: 5 * 1024 * 1024 }
+    })),
     __param(0, (0, common_1.Body)()),
+    __param(1, (0, common_1.UploadedFiles)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [create_local_dto_1.CreateLocalDto]),
-    __metadata("design:returntype", void 0)
+    __metadata("design:paramtypes", [create_local_dto_1.CreateLocalDto, Array]),
+    __metadata("design:returntype", Promise)
 ], LocalsController.prototype, "create", null);
 __decorate([
     (0, common_1.Get)(),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
-    __metadata("design:returntype", void 0)
+    __metadata("design:returntype", Promise)
 ], LocalsController.prototype, "findAll", null);
 __decorate([
     (0, common_1.Get)(':id'),
     __param(0, (0, common_1.Param)('id')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
-    __metadata("design:returntype", void 0)
+    __metadata("design:returntype", Promise)
 ], LocalsController.prototype, "findOne", null);
 __decorate([
     (0, common_1.Get)(':id/reservations'),
     __param(0, (0, common_1.Param)('id')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
-    __metadata("design:returntype", void 0)
+    __metadata("design:returntype", Promise)
 ], LocalsController.prototype, "getReservations", null);
 __decorate([
     (0, common_1.Patch)(':id'),
@@ -75,17 +84,18 @@ __decorate([
     __param(1, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String, update_local_dto_1.UpdateLocalDto]),
-    __metadata("design:returntype", void 0)
+    __metadata("design:returntype", Promise)
 ], LocalsController.prototype, "update", null);
 __decorate([
     (0, common_1.Delete)(':id'),
     __param(0, (0, common_1.Param)('id')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
-    __metadata("design:returntype", void 0)
+    __metadata("design:returntype", Promise)
 ], LocalsController.prototype, "remove", null);
 exports.LocalsController = LocalsController = __decorate([
     (0, common_1.Controller)('locals'),
-    __metadata("design:paramtypes", [locals_service_1.LocalsService])
+    __metadata("design:paramtypes", [locals_service_1.LocalsService,
+        cloudinary_service_1.CloudinaryService])
 ], LocalsController);
 //# sourceMappingURL=locals.controller.js.map

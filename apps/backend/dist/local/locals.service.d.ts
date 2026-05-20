@@ -13,7 +13,7 @@ export declare class LocalsService {
         startDate: Date;
         endDate: Date;
     }[]>;
-    create(dto: CreateLocalDto): Promise<Local>;
+    create(dto: CreateLocalDto, imageURLS: string[]): Promise<Local>;
     update(id: number, dto: UpdateLocalDto): Promise<Local>;
     remove(id: number): Promise<Local>;
 }

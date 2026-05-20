@@ -6,12 +6,16 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ReportsModule = void 0;
+exports.CloudinaryModule = void 0;
 const common_1 = require("@nestjs/common");
-let ReportsModule = class ReportsModule {
+const cloudinary_service_1 = require("./cloudinary.service");
+let CloudinaryModule = class CloudinaryModule {
 };
-exports.ReportsModule = ReportsModule;
-exports.ReportsModule = ReportsModule = __decorate([
-    (0, common_1.Module)({})
-], ReportsModule);
-//# sourceMappingURL=reports.module.js.map
+exports.CloudinaryModule = CloudinaryModule;
+exports.CloudinaryModule = CloudinaryModule = __decorate([
+    (0, common_1.Module)({
+        providers: [cloudinary_service_1.CloudinaryService],
+        exports: [cloudinary_service_1.CloudinaryService]
+    })
+], CloudinaryModule);
+//# sourceMappingURL=cloudinary.module.js.map

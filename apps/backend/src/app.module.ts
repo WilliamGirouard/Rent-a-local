@@ -1,7 +1,6 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { ReportsModule } from './reports/reports.module';
 import { UsersModule } from './users/users.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from './users/user.entity';
@@ -17,6 +16,7 @@ import { ContactModule } from './contact/contact.module';
 import { MailerModule } from "@nestjs-modules/mailer"
 import { ChangeRequestsModule } from './change-requests/change-requests.module';
 import { ChangeRequest } from './change-requests/change-request.entity';
+import { CloudinaryModule } from './cloudinary/cloudinary.module';
 
 @Module({
   imports: [
@@ -57,7 +57,6 @@ import { ChangeRequest } from './change-requests/change-request.entity';
     }),
 
     UsersModule,
-    ReportsModule,
     HashingModule,
     AuthModule,
     ReservationsModule,
@@ -65,6 +64,7 @@ import { ChangeRequest } from './change-requests/change-request.entity';
     PaymentModule,
     ContactModule,
     ChangeRequestsModule,
+    CloudinaryModule,
     
   ],
   controllers: [AppController],

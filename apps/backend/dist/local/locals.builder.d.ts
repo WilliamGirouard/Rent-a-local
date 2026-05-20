@@ -8,5 +8,6 @@ export declare class LocalBuilder {
     setPricePerDay(pricePerDay: number): LocalBuilder;
     setLat(lat: number): LocalBuilder;
     setLng(lng: number): LocalBuilder;
+    setImages(images: string[]): LocalBuilder;
     build(): Local;
 }

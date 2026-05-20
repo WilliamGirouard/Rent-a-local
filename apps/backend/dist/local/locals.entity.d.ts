@@ -8,6 +8,7 @@ export declare class Local {
     lat: number;
     lng: number;
     isReserved: boolean;
+    images: string[];
     reservations: Reservation[];
     logInsert(): void;
     logRemove(): void;

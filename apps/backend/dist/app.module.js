@@ -10,7 +10,6 @@ exports.AppModule = void 0;
 const common_1 = require("@nestjs/common");
 const app_controller_1 = require("./app.controller");
 const app_service_1 = require("./app.service");
-const reports_module_1 = require("./reports/reports.module");
 const users_module_1 = require("./users/users.module");
 const typeorm_1 = require("@nestjs/typeorm");
 const user_entity_1 = require("./users/user.entity");
@@ -26,6 +25,7 @@ const contact_module_1 = require("./contact/contact.module");
 const mailer_1 = require("@nestjs-modules/mailer");
 const change_requests_module_1 = require("./change-requests/change-requests.module");
 const change_request_entity_1 = require("./change-requests/change-request.entity");
+const cloudinary_module_1 = require("./cloudinary/cloudinary.module");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
@@ -66,7 +66,6 @@ exports.AppModule = AppModule = __decorate([
                 isGlobal: true,
             }),
             users_module_1.UsersModule,
-            reports_module_1.ReportsModule,
             hashing_module_1.HashingModule,
             auth_module_1.AuthModule,
             reservations_module_1.ReservationsModule,
@@ -74,6 +73,7 @@ exports.AppModule = AppModule = __decorate([
             payment_module_1.PaymentModule,
             contact_module_1.ContactModule,
             change_requests_module_1.ChangeRequestsModule,
+            cloudinary_module_1.CloudinaryModule,
         ],
         controllers: [app_controller_1.AppController],
         providers: [app_service_1.AppService],

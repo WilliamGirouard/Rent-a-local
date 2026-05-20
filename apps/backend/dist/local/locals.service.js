@@ -43,7 +43,7 @@ let LocalsService = class LocalsService {
             select: ['startDate', 'endDate'],
         });
     }
-    async create(dto) {
+    async create(dto, imageURLS) {
         const local = new locals_builder_1.LocalBuilder()
             .setName(dto.name)
             .setAddress(dto.address)
@@ -51,6 +51,7 @@ let LocalsService = class LocalsService {
             .setPricePerDay(dto.pricePerDay)
             .setLat(dto.lat)
             .setLng(dto.lng)
+            .setImages(imageURLS)
             .build();
         return await this.localsRepository.save(local);
     }

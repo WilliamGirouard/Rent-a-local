@@ -36,7 +36,7 @@ export class LocalsService {
     });
   }
 
-  async create(dto: CreateLocalDto): Promise<Local> {
+  async create(dto: CreateLocalDto, imageURLS: string[]): Promise<Local> {
     const local = new LocalBuilder()
       .setName(dto.name)
       .setAddress(dto.address)
@@ -44,6 +44,7 @@ export class LocalsService {
       .setPricePerDay(dto.pricePerDay)
       .setLat(dto.lat)
       .setLng(dto.lng)
+      .setImages(imageURLS)
       .build();
 
     return await this.localsRepository.save(local);

@@ -37,6 +37,11 @@ export class LocalBuilder {
     }
     // setOwner est ENLEVÉ - pas de lien direct User → Local
 
+    setImages(images:string[]) : LocalBuilder {
+        this.local.images = images;
+        return this;
+    }
+    
     build(): Local {
         return this.local;
     }

@@ -2,6 +2,11 @@
 
 Web application that lets you rent premises for your private meetings.
 
+# Rent-a-local Deployment
+
+CHECK IT ON https://rent-a-local-frontend-production.up.railway.app/ BEFORE ITS TOO LATE
+Regarder Rent-a-Local_docker pour la totale, different commit history = impossible de PR dans master
+
 ## Commands for backend
 
     1- cd apps/backend/

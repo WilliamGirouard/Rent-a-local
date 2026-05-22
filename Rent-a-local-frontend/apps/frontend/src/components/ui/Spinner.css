@@ -1,0 +1,31 @@
+/* Spinner.css */
+.status-view {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background-color: #1a1a1a;
+  gap: 16px;
+}
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid #2a2a2a;
+  border-top-color: #F40000;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+}
+
+.status-view h2 {
+  color: #555555;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}

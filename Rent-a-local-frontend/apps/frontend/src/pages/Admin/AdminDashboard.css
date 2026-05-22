@@ -1,0 +1,207 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.admin-page {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 100px 30px 80px;
+  display: flex;
+  flex-direction: column;
+  gap: 48px;
+}
+
+.admin-header {
+  padding-bottom: 24px;
+  border-bottom: 1px solid #2a2a2a;
+}
+
+.admin-header h1 {
+  font-size: 36px;
+  font-weight: 800;
+  color: #ffffff;
+  letter-spacing: -1px;
+}
+
+.admin-subtitle {
+  font-size: 14px;
+  color: #888888;
+  margin-top: 6px;
+}
+
+.admin-actions-bar {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.admin-btn-red {
+  display: inline-flex;
+  align-items: center;
+  padding: 12px 24px;
+  background-color: #F40000;
+  color: #ffffff;
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.15s;
+}
+
+.admin-btn-red:hover {
+  background-color: #F44E3F;
+}
+
+.admin-btn-outline {
+  display: inline-flex;
+  align-items: center;
+  padding: 12px 24px;
+  background-color: transparent;
+  color: #ffffff;
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  border: 1px solid #2a2a2a;
+  cursor: pointer;
+  transition: border-color 0.15s, color 0.15s;
+}
+
+.admin-btn-outline:hover {
+  border-color: #ffffff;
+}
+
+.admin-section {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.admin-section-title {
+  font-size: 11px;
+  font-weight: 700;
+  color: #555555;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+}
+
+.admin-empty {
+  font-size: 14px;
+  color: #555555;
+  padding: 32px 0;
+}
+
+.admin-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.admin-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  padding: 24px;
+  background-color: #111111;
+  border: 1px solid #2a2a2a;
+  flex-wrap: wrap;
+}
+
+.admin-card-info {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.admin-card-info h3 {
+  font-size: 15px;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.admin-card-address {
+  font-size: 13px;
+  color: #888888;
+}
+
+.admin-card-meta {
+  font-size: 13px;
+  color: #555555;
+}
+
+.admin-card-dates {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 6px;
+  font-size: 13px;
+  color: #aaaaaa;
+  flex-wrap: wrap;
+}
+
+.admin-arrow {
+  color: #F40000;
+  font-weight: 700;
+}
+
+.admin-new-dates {
+  color: #F40000;
+  font-weight: 600;
+}
+
+.admin-card-actions {
+  display: flex;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+.admin-btn-approve {
+  padding: 10px 20px;
+  background-color: #ffffff;
+  color: #111111;
+  border: none;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 0.15s;
+}
+
+.admin-btn-approve:hover {
+  background-color: #dddddd;
+}
+
+.admin-btn-approve:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.admin-btn-reject {
+  padding: 10px 20px;
+  background-color: transparent;
+  color: #F40000;
+  border: 1px solid #F40000;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 0.15s, color 0.15s;
+}
+
+.admin-btn-reject:hover {
+  background-color: #F40000;
+  color: #ffffff;
+}
+
+.admin-btn-reject:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.admin-btn-red:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}

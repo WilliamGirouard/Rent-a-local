@@ -1,0 +1,436 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.reservation-details-page {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 100px 20px 80px;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+/* ── Header ── */
+.rd-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 20px;
+  flex-wrap: wrap;
+  padding-bottom: 24px;
+  border-bottom: 1px solid #2a2a2a;
+}
+
+.rd-eyebrow {
+  font-size: 11px;
+  font-weight: 700;
+  color: #555555;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+.rd-header-text h1 {
+  font-size: 32px;
+  font-weight: 800;
+  color: #ffffff;
+  letter-spacing: -0.5px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.rd-id-badge {
+  font-size: 15px;
+  font-weight: 500;
+  color: #555555;
+}
+
+.rd-id-inline {
+  font-size: 13px;
+  font-weight: 500;
+  color: #555555;
+  margin-left: 6px;
+}
+
+.rd-address {
+  font-size: 14px;
+  color: #888888;
+  margin-top: 6px;
+}
+
+/* ── Status badge ── */
+.rd-status {
+  padding: 6px 14px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  flex-shrink: 0;
+}
+
+.rd-status.paid {
+  background-color: #ffffff;
+  color: #090809;
+}
+
+.rd-status.pending {
+  background-color: #F4998D;
+  color: #090809;
+}
+
+/* ── Grid ── */
+.rd-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+@media (max-width: 640px) {
+  .rd-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ── Card ── */
+.rd-card {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 28px;
+  background: #111111;
+  border: 1px solid #2a2a2a;
+}
+
+.rd-card-title {
+  font-size: 11px;
+  font-weight: 700;
+  color: #555555;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+}
+
+/* ── Rows ── */
+.rd-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 16px;
+  padding: 12px 0;
+  border-bottom: 1px solid #2a2a2a;
+}
+
+.rd-row:last-child {
+  border-bottom: none;
+}
+
+.rd-label {
+  font-size: 13px;
+  font-weight: 600;
+  color: #888888;
+  flex-shrink: 0;
+}
+
+.rd-value {
+  font-size: 14px;
+  color: #ffffff;
+  text-align: right;
+}
+
+.rd-divider {
+  height: 1px;
+  background: #2a2a2a;
+  margin: 4px 0;
+}
+
+.rd-total {
+  background: transparent;
+  border: none;
+  border-top: 1px solid #2a2a2a;
+  padding-top: 16px;
+  margin-top: 4px;
+}
+
+.rd-price {
+  font-size: 20px;
+  font-weight: 800;
+  color: #F40000;
+}
+
+/* ── Actions ── */
+.rd-actions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.rd-btn {
+  padding: 14px 28px;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  border: none;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  letter-spacing: 0.3px;
+  transition: background-color 0.15s;
+}
+
+.rd-btn-paid {
+  background: #F40000;
+  color: #ffffff;
+}
+
+.rd-btn-paid:hover {
+  background: #F44E3F;
+}
+
+.rd-btn-unpaid {
+  background: transparent;
+  color: #aaaaaa;
+  border: 1px solid #2a2a2a;
+}
+
+.rd-btn-unpaid:hover {
+  border-color: #ffffff;
+  color: #ffffff;
+}
+
+.rd-btn-edit {
+  background: #F40000;
+  color: #ffffff;
+}
+
+.rd-btn-edit:hover {
+  background: #F44E3F;
+}
+
+.rd-btn-change {
+  background: #F40000;
+  color: #ffffff;
+}
+
+.rd-btn-change:hover {
+  background: #F44E3F;
+}
+
+.rd-btn-cancel {
+  background: transparent;
+  color: #F40000;
+  border: 1px solid #F40000;
+}
+
+.rd-btn-cancel:hover {
+  background: #F40000;
+  color: #ffffff;
+}
+
+/* ── Back link ── */
+.back-link a {
+  color: #555555;
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  transition: color 0.15s;
+}
+
+.back-link a:hover {
+  color: #ffffff;
+}
+
+/* ── Modal overlay ── */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+  backdrop-filter: blur(4px);
+}
+
+.modal-box {
+  width: 100%;
+  max-width: 480px;
+  background: #111111;
+  border: 1px solid #2a2a2a;
+  padding: 32px;
+}
+
+.modal-heading {
+  margin-bottom: 24px;
+}
+
+.modal-heading h2 {
+  font-size: 22px;
+  font-weight: 800;
+  color: #ffffff;
+  letter-spacing: -0.3px;
+}
+
+.modal-heading p {
+  font-size: 14px;
+  color: #888888;
+  margin-top: 6px;
+}
+
+.modal-heading strong {
+  font-weight: 700;
+  color: #F40000;
+}
+
+/* ── Card form ── */
+.card-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.card-input {
+  width: 100%;
+  padding: 14px 16px;
+  border: 1px solid #2a2a2a;
+  background: #1a1a1a;
+  font-size: 14px;
+  color: #ffffff;
+  outline: none;
+  transition: border-color 0.15s;
+}
+
+.card-input:focus {
+  border-color: #F40000;
+}
+
+.card-input::placeholder {
+  color: #555555;
+}
+
+.card-row {
+  display: flex;
+  gap: 10px;
+}
+
+/* ── Modal actions ── */
+.modal-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 16px;
+}
+
+.modal-btn {
+  flex: 1;
+  padding: 14px;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  border: none;
+  letter-spacing: 0.3px;
+  transition: background-color 0.15s;
+}
+
+.cancel-btn {
+  background: transparent;
+  color: #aaaaaa;
+  border: 1px solid #2a2a2a;
+}
+
+.cancel-btn:hover {
+  border-color: #ffffff;
+  color: #ffffff;
+}
+
+.confirm-btn {
+  background: #F40000;
+  color: #ffffff;
+}
+
+.confirm-btn:hover {
+  background: #F44E3F;
+}
+
+.confirm-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.form-error {
+  font-size: 13px;
+  color: #F44E3F;
+  background: rgba(244, 0, 0, 0.08);
+  border: 1px solid #F40000;
+  padding: 10px 14px;
+}
+
+/* ── Receipt ── */
+.success-checkmark {
+  width: 48px;
+  height: 48px;
+  background: #F40000;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  font-weight: 700;
+  margin: 0 auto 16px;
+}
+
+.transaction-id {
+  font-size: 11px;
+  color: #555555;
+  font-family: monospace;
+  margin-top: 4px;
+}
+
+.receipt-summary {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin-bottom: 20px;
+}
+
+.receipt-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: 12px 0;
+  border-bottom: 1px solid #2a2a2a;
+  font-size: 14px;
+}
+
+.receipt-row span:first-child {
+  color: #888888;
+  font-weight: 600;
+  font-size: 13px;
+}
+
+.receipt-row span:last-child {
+  color: #ffffff;
+  text-align: right;
+}
+
+.receipt-total {
+  border-bottom: none;
+}
+
+.receipt-total span:last-child {
+  font-size: 18px;
+  font-weight: 800;
+  color: #F40000;
+}
+
+.delete-reservation-error {
+  background-color: transparent;
+  border: 1px solid #F40000;
+  border-left: 3px solid #F40000;
+  padding: 10px 14px;
+}

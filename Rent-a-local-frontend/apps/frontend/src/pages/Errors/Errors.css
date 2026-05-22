@@ -1,0 +1,107 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.error-page {
+  min-height: 100vh;
+  background-color: #1a1a1a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 110px 24px 40px;
+}
+
+.error-container {
+  width: 100%;
+  max-width: 580px;
+  background-color: #111111;
+  border: 1px solid #2a2a2a;
+  border-left: 3px solid #F40000;
+}
+
+.error-code {
+  font-size: clamp(5rem, 15vw, 9rem);
+  font-weight: 900;
+  letter-spacing: -0.05em;
+  color: #F40000;
+  line-height: 1;
+  padding: 38px 38px 0;
+  align-content: center;
+}
+
+.error-info {
+  padding: 24px 38px 38px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.error-title {
+  font-size: clamp(1.6rem, 3vw, 2.2rem);
+  font-weight: 900;
+  letter-spacing: -0.03em;
+  color: #ffffff;
+  line-height: 1.1;
+}
+
+.error-divider {
+  height: 1px;
+  background-color: #2a2a2a;
+}
+
+.error-message {
+  color: #aaaaaa;
+  line-height: 1.7;
+  font-size: 0.95rem;
+  padding: 16px 20px;
+  background-color: #1a1a1a;
+  border: 1px solid #2a2a2a;
+  border-left: 3px solid #2a2a2a;
+  font-family: monospace;
+  word-break: break-word;
+}
+
+.error-back-btn {
+  display: block;
+  width: 100%;
+  padding: 18px 24px;
+  background-color: #F40000;
+  color: #ffffff;
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  text-align: center;
+  transition: background-color 0.15s;
+  margin-top: 8px;
+}
+
+.error-back-btn:hover {
+  background-color: #cc0000;
+}
+
+.error-back-btn:active {
+  background-color: #aa0000;
+}
+
+@media (max-width: 768px) {
+  .error-page {
+    padding: 95px 16px 24px;
+    align-items: flex-start;
+  }
+
+  .error-code {
+    font-size: 5rem;
+    padding: 26px 26px 0;
+  }
+
+  .error-info {
+    padding: 18px 26px 26px;
+  }
+
+  .error-title {
+    font-size: 1.6rem;
+  }
+}

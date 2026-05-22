@@ -1,0 +1,145 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.contact-grid {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: #1a1a1a;
+  padding-top: 64px;
+}
+
+.contact-form {
+  background-color: #111111;
+  border: 1px solid #2a2a2a;
+  padding: 40px;
+  width: 100%;
+  max-width: 520px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  margin: auto;
+  margin-top: 48px;
+  margin-bottom: 48px;
+}
+
+.contact-form .formsTitle {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.contact-form .title {
+  font-size: 24px;
+  font-weight: 900;
+  color: #ffffff;
+  letter-spacing: -0.5px;
+}
+
+.contact-form .subtitle {
+  font-size: 16px;
+  font-weight: 700;
+  color: #F40000;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  font-size: 11px;
+  margin-top: 2px;
+}
+
+.contact-form .description {
+  font-size: 13px;
+  font-weight: 400;
+  color: #888888;
+  margin-top: 8px;
+  line-height: 1.5;
+}
+
+.contact-form .inputs {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.contact-form input {
+  width: 100%;
+  padding: 10px 14px;
+  border: 1px solid #2a2a2a;
+  border-left: 3px solid #2a2a2a;
+  font-size: 14px;
+  color: #ffffff;
+  background-color: #1a1a1a;
+  outline: none;
+  transition: border-color 0.15s;
+}
+
+.contact-form input::placeholder {
+  color: #555555;
+}
+
+.contact-form input:focus {
+  border-color: #F40000;
+  border-left-color: #F40000;
+  background-color: #1a1a1a;
+}
+
+.contact-form textarea {
+  width: 100%;
+  padding: 10px 14px;
+  border: 1px solid #2a2a2a;
+  border-left: 3px solid #2a2a2a;
+  font-size: 14px;
+  color: #ffffff;
+  background-color: #1a1a1a;
+  outline: none;
+  transition: border-color 0.15s;
+  height: 120px;
+  resize: vertical;
+  font-family: inherit;
+}
+
+.contact-form textarea::placeholder {
+  color: #555555;
+}
+
+.contact-form textarea:focus {
+  border-color: #F40000;
+  border-left-color: #F40000;
+  background-color: #1a1a1a;
+}
+
+.contact-form .contactButton button {
+  width: 100%;
+  padding: 12px;
+  background-color: #F40000;
+  color: #ffffff;
+  border: none;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  cursor: pointer;
+  transition: background-color 0.15s;
+}
+
+.contact-form .contactButton button:hover {
+  background-color: #cc0000;
+}
+
+.contact-form .contactButton button:active {
+  background-color: #aa0000;
+}
+
+.contact-form .errorMessage {
+  background-color: transparent;
+  border: 1px solid #F40000;
+  border-left: 3px solid #F40000;
+  padding: 10px 14px;
+}
+
+.contact-form .errorMessage h3 {
+  color: #F40000;
+  font-size: 13px;
+  font-weight: 500;
+}

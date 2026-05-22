@@ -1,0 +1,262 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.page {
+  min-height: 100vh;
+  padding: 110px 24px 40px;
+  background-color: #1a1a1a;
+}
+
+.container {
+  max-width: 1450px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 460px 1fr;
+  gap: 32px;
+  align-items: stretch;
+}
+
+.infoPanel {
+  background-color: #111111;
+  border: 1px solid #2a2a2a;
+  padding: 38px;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+.title {
+  font-size: clamp(2.2rem, 4vw, 3.1rem);
+  line-height: 1.05;
+  font-weight: 900;
+  letter-spacing: -0.03em;
+  color: #ffffff;
+}
+
+.address {
+  color: #888888;
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+.surface {
+  color: #aaaaaa;
+  line-height: 1.7;
+  font-size: 1rem;
+  padding: 18px 20px;
+  background-color: #1a1a1a;
+  border: 1px solid #2a2a2a;
+  border-left: 3px solid #2a2a2a;
+}
+
+.price {
+  font-size: 2.7rem;
+  font-weight: 900;
+  letter-spacing: -0.03em;
+  color: #F40000;
+}
+
+.heures {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-top: 8px;
+}
+
+.heuresLabel {
+  font-size: 0.82rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: #555555;
+}
+
+.heuresSelect {
+  width: 100%;
+  padding: 15px 18px;
+  border: 1px solid #2a2a2a;
+  border-left: 3px solid #2a2a2a;
+  background-color: #1a1a1a;
+  color: #ffffff;
+  font-size: 1rem;
+  transition: border-color 0.15s;
+  outline: none;
+  color-scheme: dark;
+}
+
+.heuresSelect:focus {
+  border-color: #F40000;
+  border-left-color: #F40000;
+}
+
+.priceEstimate {
+  margin-top: 8px;
+  padding: 18px 20px;
+  background-color: #1a1a1a;
+  border: 1px solid #2a2a2a;
+  border-left: 3px solid #F40000;
+  color: #ffffff;
+  font-size: 1.05rem;
+  font-weight: 600;
+  text-align: center;
+}
+
+.priceEstimate strong {
+  color: #F40000;
+}
+
+.overlapError {
+  padding: 14px 18px;
+  background-color: transparent;
+  color: #F40000;
+  border: 1px solid #F40000;
+  border-left: 3px solid #F40000;
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+.miniMap {
+  margin-top: 12px;
+  height: 260px;
+  min-height: 260px;
+  overflow: hidden;
+  border: 1px solid #2a2a2a;
+  position: relative;
+}
+
+.miniMap > div,
+.miniMap .leaflet-container {
+  width: 100%;
+  height: 100% !important;
+  min-height: 260px;
+}
+
+.reserveButton {
+  margin-top: 24px;
+  width: 100%;
+  padding: 18px 24px;
+  border: none;
+  background-color: #F40000;
+  color: white;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  cursor: pointer;
+  transition: background-color 0.15s;
+}
+
+.reserveButton:hover:not(:disabled) {
+  background-color: #cc0000;
+}
+
+.reserveButton:active:not(:disabled) {
+  background-color: #aa0000;
+}
+
+.reserveButton:disabled {
+  cursor: not-allowed;
+  opacity: 0.4;
+}
+
+.carousel {
+   min-height: 500px;
+  background-color: #111111;
+  border: 1px solid #2a2a2a;
+  overflow: hidden;
+  position: relative;
+}
+
+.carouselImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+.carouselEmpty {
+  min-height: 500px;
+  background-color: #111111;
+  border: 1px solid #2a2a2a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #444444;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+.carouselBack,
+.carouselNext {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0, 0, 0, 0.6);
+  color: #ffffff;
+  border: none;
+  font-size: 2rem;
+  padding: 8px 16px;
+  cursor: pointer;
+  z-index: 10;
+  transition: background-color 0.15s;
+  line-height: 1;
+}
+
+.carouselBack {
+  left: 12px;
+}
+
+.carouselNext {
+  right: 12px;
+}
+
+.carouselBack:hover,
+.carouselNext:hover {
+  background-color: #F40000;
+}
+
+@media (max-width: 1150px) {
+  .container {
+    grid-template-columns: 1fr;
+  }
+
+  .carousel {
+    min-height: 500px;
+    order: -1;
+  }
+}
+
+@media (max-width: 768px) {
+  .page {
+    padding: 95px 16px 24px;
+  }
+
+  .infoPanel {
+    padding: 26px;
+  }
+
+  .title {
+    font-size: 2rem;
+  }
+
+  .price {
+    font-size: 2.2rem;
+  }
+
+  .miniMap {
+    height: 220px;
+  }
+
+  .carousel {
+    min-height: 350px;
+  }
+
+  .carouselEmpty {
+    min-height: 350px;
+  }
+}

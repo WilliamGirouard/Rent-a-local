@@ -1,0 +1,202 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* ── Page layout ─────────────────────────────────────────── */
+
+.edit-reservation-page {
+  display: grid;
+  place-items: center;
+  min-height: 100vh;
+  background-color: #1a1a1a;
+  padding: 80px 16px 48px;
+}
+
+/* ── Header ──────────────────────────────────────────────── */
+
+.edit-header {
+  width: 100%;
+  max-width: 520px;
+  margin-bottom: 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.edit-eyebrow {
+  font-size: 11px;
+  font-weight: 700;
+  color: #F40000;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+.edit-header h1 {
+  font-size: 28px;
+  font-weight: 900;
+  color: #ffffff;
+  letter-spacing: -0.5px;
+}
+
+.edit-address {
+  font-size: 13px;
+  color: #555555;
+  font-weight: 400;
+}
+
+/* ── Card ────────────────────────────────────────────────── */
+
+.edit-card {
+  width: 100%;
+  max-width: 520px;
+  background-color: #111111;
+  border: 1px solid #2a2a2a;
+  padding: 36px 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+.edit-card-title {
+  font-size: 13px;
+  font-weight: 700;
+  color: #555555;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  padding-bottom: 16px;
+  border-bottom: 1px solid #2a2a2a;
+}
+
+/* ── Form ────────────────────────────────────────────────── */
+
+.edit-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.edit-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.edit-field label {
+  font-size: 11px;
+  font-weight: 700;
+  color: #888888;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.edit-field input {
+  width: 100%;
+  padding: 10px 14px;
+  border: 1px solid #2a2a2a;
+  border-left: 3px solid #2a2a2a;
+  font-size: 14px;
+  color: #ffffff;
+  background-color: #1a1a1a;
+  outline: none;
+  transition: border-color 0.15s;
+  font-family: inherit;
+}
+
+.edit-field input::placeholder {
+  color: #444444;
+}
+
+.edit-field input:focus {
+  border-color: #F40000;
+  border-left-color: #F40000;
+}
+
+/* ── Error ───────────────────────────────────────────────── */
+
+.form-error {
+  background-color: transparent;
+  border: 1px solid #F40000;
+  border-left: 3px solid #F40000;
+  padding: 10px 14px;
+  color: #F40000;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+/* ── Actions ─────────────────────────────────────────────── */
+
+.edit-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+.edit-btn-cancel {
+  flex: 1;
+  padding: 12px;
+  background-color: transparent;
+  color: #888888;
+  border: 1px solid #2a2a2a;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  transition: border-color 0.15s, color 0.15s;
+}
+
+.edit-btn-cancel:hover {
+  border-color: #555555;
+  color: #ffffff;
+}
+
+.edit-btn-submit {
+  flex: 2;
+  padding: 12px;
+  background-color: #F40000;
+  color: #ffffff;
+  border: none;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  cursor: pointer;
+  transition: background-color 0.15s;
+}
+
+.edit-btn-submit:hover {
+  background-color: #cc0000;
+}
+
+.edit-btn-submit:active {
+  background-color: #aa0000;
+}
+
+.edit-btn-submit:disabled {
+  background-color: #550000;
+  color: #888888;
+  cursor: not-allowed;
+}
+.edit-field input[type="file"] { display: none; }
+
+.file-upload-info {
+  font-size: 11px;
+  color: #444444;
+  letter-spacing: 0.3px;
+}
+
+.file-upload-box {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  border: 1px solid #2a2a2a;
+  border-left: 3px solid #2a2a2a;
+  background-color: #1a1a1a;
+  color: #444444;
+  font-size: 14px;
+  cursor: pointer;
+  transition: border-color 0.15s, color 0.15s;
+}
